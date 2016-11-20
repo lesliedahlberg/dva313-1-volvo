@@ -14,16 +14,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
-
   <!-- Navbar goes here -->
 
     <!-- Page Layout here -->
     <div class="row">
+      <div clas="col s12 m4 l3 logo"></div>
       <div class="col s12 m4 l3 sidebar"> <!-- Note that "m4 l3" was added -->
+        <div class="logo">
+          <img src="images/logo.png" class="logo-img" alt="" title="Volvo Eco Driving - Highscores"/>
+        </div>
         <div class="sidebar_inner">
-          <div class="logo">
-            <img src="images/logo.png" class="logo-img" alt="" title="Volvo Eco Driving - Highscores"/>
-          </div>
+
           <div>
             <h4>Highscores</h4>
             <p>Lorem ipsum dolor sit amet, labore similique pri ne, ne nonumes placerat mnesarchum sit. Mei ut porro choro. </p>
@@ -46,9 +47,9 @@
 
       <div class="col s12 m8 l9 content"> <!-- Note that "m8 l9" was added -->
         <div class="content_inner">
-          <h4>Content</h4>
 
-          <div class="score-box">
+
+          <div class="score-box-expanded score-box">
             <div class="row">
               <div class="col s6">
                 <h4>1. Alias: 2327</h4>
@@ -81,17 +82,17 @@
                                 fill: false,
                                 lineTension: 0.1,
                                 backgroundColor: "rgba(75,192,192,0.4)",
-                                borderColor: "rgba(75,192,192,1)",
+                                borderColor: "#03A9F4",
                                 borderCapStyle: 'butt',
                                 borderDash: [],
                                 borderDashOffset: 0.0,
                                 borderJoinStyle: 'miter',
-                                pointBorderColor: "rgba(75,192,192,1)",
+                                pointBorderColor: "#03A9F4",
                                 pointBackgroundColor: "#fff",
                                 pointBorderWidth: 1,
                                 pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBackgroundColor: "#03A9F4",
+                                pointHoverBorderColor: "#03A9F4",
                                 pointHoverBorderWidth: 2,
                                 pointRadius: 1,
                                 pointHitRadius: 10,
@@ -129,7 +130,6 @@
       </div>
 
     </div>
-
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

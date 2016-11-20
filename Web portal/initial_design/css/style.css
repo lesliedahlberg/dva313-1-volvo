@@ -6,36 +6,81 @@
  * Made By MaterializeCSS.com
  */
 
+
+ body {
+   background: #37474F;
+ }
+
 .sidebar {
-  background: #eeeeee;
+  background: #607D8B;
+color:#F5F5F5;
+
 }
 .sidebar_inner {
-  padding: 1em;
+min-height: 100vh;
+}
+
+.sidebar h4 {
+  color: #F5F5F5;
+}
+
+.sidebar p {
+  color:#E0E0E0;
+}
+
+.sidebar label {
+  color: #E0E0E0;
 }
 
 .content {
-  background: #dddddd;
+
+
 }
 
 .content_inner {
+  padding-top: 1em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
 
+.logo {
 }
 
 .logo-img {
   width:100%;
 }
 
+
+
 .score-box {
-  background: grey;
+  background: #E1F5FE;
   padding: 1em;
-  margin: 1em;
+  margin-bottom: 1em;
+}
+
+.score-box h4 {
+  color: #F5F5F5;
+  background: #03A9F4;
+  padding: 0.5em;
+}
+
+
+.score-box-expanded {
+}
+
+.btn {
+  background: #03A9F4;
+}
+
+.btn:hover {
+  background: #0277BD;
 }
 
 .hexagon {
   position: relative;
   width: 128px;
   height: 73.90px;
-  background-color: #64C7CC;
+  background-color: #0277BD;
   margin: 36.95px 0;
 }
 
@@ -50,13 +95,13 @@
 
 .hexagon:before {
   bottom: 100%;
-  border-bottom: 36.95px solid #64C7CC;
+  border-bottom: 36.95px solid #0277BD;
 }
 
 .hexagon:after {
   top: 100%;
   width: 0;
-  border-top: 36.95px solid #64C7CC;
+  border-top: 36.95px solid #0277BD;
 }
 
 nav ul a,
