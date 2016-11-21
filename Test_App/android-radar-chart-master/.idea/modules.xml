@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android-radar-chart-master.iml" filepath="$PROJECT_DIR$/android-radar-chart-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/radar-chart/radar-chart.iml" filepath="$PROJECT_DIR$/radar-chart/radar-chart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" />
+    </modules>
+  </component>
+</project>
