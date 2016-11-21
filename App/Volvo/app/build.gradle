@@ -10,13 +10,14 @@ android {
         }
     }
 
-    compileSdkVersion 'Cpac Systems AB:Cpac APIs:15'
+    //compileSdkVersion 'Cpac Systems AB:Cpac APIs:15'
+    compileSdkVersion 15
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "softproduct.volvo.com.eco_drive"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 15
         versionCode 1
         versionName "1.0"
     }
@@ -36,4 +37,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //compile 'com.adnroid.support:appcompat-v7:24.2.0'
+    //compile 'com.android.support:appcompat-v7:15'
 }
