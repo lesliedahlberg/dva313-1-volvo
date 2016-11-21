@@ -32,7 +32,7 @@ var myRadarChart = new Chart(ctx, {
 // LINE CHART 
 
 Chart.defaults.global.legend.display=true;
-                         Chart.defaults.global.legend.onClick="";
+                         Chart.defaults.global.legend.onClick="";                    
                           var ctx = document.getElementById("myChart");
                           var myLineChart = new Chart(ctx, {
                               type: 'line',
@@ -60,7 +60,7 @@ Chart.defaults.global.legend.display=true;
                                     pointHitRadius: 10,
                                     data: [65, 59, 80, 81, 56, 55, 40],
                                     spanGaps: false,
-
+                              
                                   }
                                 ]
                               }

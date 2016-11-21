@@ -53,7 +53,7 @@ min-height: 100vh;
 
 .logo-img {
   width:100%;
-  margin-top:17px;
+  margin-top:18px;
 }
 
 
@@ -160,10 +160,13 @@ footer.page-footer {
   margin: 0;
 }
 
+.radar-chart-container{
+margin-top: -50px;
+}
 
 .radar-chart {
-width: 400 !important;
-height: 200 !important;
+width: 1600 !important;
+height: 800 !important;
 
 }
 
