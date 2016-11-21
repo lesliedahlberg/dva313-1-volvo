@@ -6,6 +6,9 @@
  * Made By MaterializeCSS.com
  */
 
+.collapsible-body{
+  background:#E1F5FE;
+}
 
  body {
    background: #37474F;
@@ -37,6 +40,8 @@ min-height: 100vh;
 
 }
 
+
+
 .content_inner {
   padding-top: 1em;
   padding-left: 0.3em;
@@ -48,6 +53,7 @@ min-height: 100vh;
 
 .logo-img {
   width:100%;
+  margin-top:17px;
 }
 
 
@@ -153,3 +159,19 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+
+.radar-chart {
+width: 400 !important;
+height: 200 !important;
+
+}
+
+  .score{
+    font-weight: 600;
+  }
+
+    .collapsible-body-settings{
+background: #37474F !important;
+ padding:8px;
+    }
