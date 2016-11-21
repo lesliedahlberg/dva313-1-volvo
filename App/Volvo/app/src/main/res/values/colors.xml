@@ -2,6 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff9800</color>
     <color name="text">#FAFAFA</color>
+    <color name="scoreTitleBackground">#263238</color>
+    <color name="scoreExpandedTitleBackground">#455A64</color>
+    <color name="expandedBackground">#37474F</color>
+
 </resources>

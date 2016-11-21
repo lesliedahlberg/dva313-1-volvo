@@ -36,6 +36,7 @@ import java.util.List;
 public class ScoreCursorAdapter extends CursorAdapter {
 
     int expandedId;
+    int initExpandedId = -1;
 
     public ScoreCursorAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, 0);
@@ -50,15 +51,23 @@ public class ScoreCursorAdapter extends CursorAdapter {
 
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         //id
         final int currentId = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_ID));
+
+        //Set first item to expanded
+        if(initExpandedId == -1){
+            initExpandedId = currentId;
+            expandedId = currentId;
+        }
 
         //Get references to view objects in list
         TextView dateTextView = (TextView) view.findViewById(R.id.dateTextView);
         final TextView aliasTextView = (TextView) view.findViewById(R.id.aliasTextView);
         TextView scoreTextView = (TextView) view.findViewById(R.id.scoreTextView);
         final LinearLayout expandedScoreView = (LinearLayout) view.findViewById(R.id.expandedScoreView);
+        final LinearLayout titleScoreLayout = (LinearLayout) view.findViewById(R.id.titleScoreLayout);
+
         //Get references to expanded objects in list
         TextView rpmTextView = (TextView) view.findViewById(R.id.rpmTextView);
         TextView accelerationTextView = (TextView) view.findViewById(R.id.accelerationTextView);
@@ -72,6 +81,7 @@ public class ScoreCursorAdapter extends CursorAdapter {
         String date = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_DATE));
         String alias = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_ALIAS));
         int score = cursor.getInt(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_SCORE));
+
         //Get cursor values for expanded items
         double rpm = cursor.getDouble(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_RPM));
         double acceleration = cursor.getDouble(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_ACCELERATION));
@@ -84,6 +94,7 @@ public class ScoreCursorAdapter extends CursorAdapter {
         dateTextView.setText(date);
         aliasTextView.setText(alias);
         scoreTextView.setText(Integer.toString(score));
+
         //Pass values to expanded view objects
         rpmTextView.setText("RPM: " + Double.toString(rpm));
         accelerationTextView.setText("Acceleration: " + Double.toString(acceleration) + "m/s/s");
@@ -91,57 +102,43 @@ public class ScoreCursorAdapter extends CursorAdapter {
         loadTextView.setText("Load: " + Double.toString(load) + "kg");
         consumptionTextView.setText("Consumption: " + Double.toString(consumption) + "l/100km");
         altitudeTextView.setText("Altitude: " + Double.toString(altitude) + "m");
+
         //Pass values to radar chart
-
-
-
         List<RadarEntry> entries = new ArrayList<RadarEntry>();
-        entries.add(new RadarEntry((float)rpm/100.0f, "HEELEL"));
+        entries.add(new RadarEntry((float)rpm/100.0f));
         entries.add(new RadarEntry((float)acceleration*2500.0f));
         entries.add(new RadarEntry((float)distance));
         entries.add(new RadarEntry((float)load/15.0f));
         entries.add(new RadarEntry((float)consumption*13.0f));
         entries.add(new RadarEntry((float)altitude/10.0f));
-
         RadarDataSet set = new RadarDataSet(entries, "Score");
+        set.setColor(Color.parseColor(context.getString(R.color.colorAccent)));
 
+        //Remove number values
         IValueFormatter valueFormatter = new IValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
                 return "";
             }
         };
-
         set.setValueFormatter(valueFormatter);
 
-        RadarData data = new RadarData(set);
-
+        //Set labels
         XAxis xAxis = radarChart.getXAxis();
-
-
-        // the labels that should be drawn on the XAxis
         final String[] quarters = new String[] { "RPM", "Acceleration", "Distance", "Load", "Consumption", "Altitude"};
-
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return quarters[(int) value%6];
             }
-
-
         };
-
-
-        //xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
         xAxis.setTextColor(Color.parseColor(context.getString(R.color.text)));
-
         xAxis.setDrawLabels(true);
 
+        //Remove number values
         YAxis yAxis = radarChart.getYAxis();;
         IAxisValueFormatter Yformatter = new IAxisValueFormatter() {
-
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return "";
@@ -149,20 +146,27 @@ public class ScoreCursorAdapter extends CursorAdapter {
         };
         yAxis.setValueFormatter(Yformatter);
 
+        //Remove description
+        Description desc = new Description();
+        desc.setText("");
+
+        //Remove legend
         Legend legend = radarChart.getLegend();
         legend.setEnabled(false);
 
+        //Create graph
+        RadarData data = new RadarData(set);
         radarChart.setData(data);
-        Description desc = new Description();
-        desc.setText("");
         radarChart.setDescription(desc);
         radarChart.invalidate();
 
         //Set Expanded View
         if(expandedId != currentId){
             expandedScoreView.setVisibility(View.GONE);
+            titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreTitleBackground)));
         }else{
             expandedScoreView.setVisibility(View.VISIBLE);
+            titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreExpandedTitleBackground)));
         }
 
         //Set expand on click
@@ -173,9 +177,11 @@ public class ScoreCursorAdapter extends CursorAdapter {
                 if(expandedId == id){
                     expandedId = -1;
                     expandedScoreView.setVisibility(View.GONE);
+                    titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreTitleBackground)));
                 }else{
                     expandedId = id;
                     expandedScoreView.setVisibility(View.VISIBLE);
+                    titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreExpandedTitleBackground)));
                 }
                 notifyDataSetChanged();
             }
