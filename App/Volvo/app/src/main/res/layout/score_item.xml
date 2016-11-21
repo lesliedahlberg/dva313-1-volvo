@@ -58,7 +58,12 @@
         <FrameLayout
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:background="#2196F3"></FrameLayout>
+            android:background="#2196F3">
+            <com.github.mikephil.charting.charts.RadarChart
+                android:id="@+id/radarChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"

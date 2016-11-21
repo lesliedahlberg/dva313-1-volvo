@@ -3,12 +3,27 @@ package softproduct.volvo.com.eco_drive;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.RadarData;
+import com.github.mikephil.charting.data.RadarDataSet;
+import com.github.mikephil.charting.data.RadarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lesliedahlberg on 2016-11-21.
@@ -47,6 +62,7 @@ public class ScoreCursorAdapter extends CursorAdapter {
         TextView loadTextView = (TextView) view.findViewById(R.id.loadTextView);
         TextView consumptionTextView = (TextView) view.findViewById(R.id.consumptionTextView);
         TextView altitudeTextView = (TextView) view.findViewById(R.id.altitudeTextView);
+        RadarChart radarChart = (RadarChart) view.findViewById(R.id.radarChart);
 
         //Get cursor values
         String date = cursor.getString(cursor.getColumnIndexOrThrow(ScoreDbHelper.KEY_LIST_DATE));
@@ -71,6 +87,48 @@ public class ScoreCursorAdapter extends CursorAdapter {
         loadTextView.setText("Load: " + Double.toString(load) + "kg");
         consumptionTextView.setText("Consumption: " + Double.toString(consumption) + "l/100km");
         altitudeTextView.setText("Altitude: " + Double.toString(altitude) + "m");
+        //Pass values to radar chart
+
+
+
+        List<RadarEntry> entries = new ArrayList<RadarEntry>();
+        entries.add(new RadarEntry((float)rpm/100.0f, "HEELEL"));
+        entries.add(new RadarEntry((float)acceleration*2500.0f));
+        entries.add(new RadarEntry((float)distance));
+        entries.add(new RadarEntry((float)load/15.0f));
+        entries.add(new RadarEntry((float)consumption*13.0f));
+        entries.add(new RadarEntry((float)altitude/10.0f));
+
+        RadarDataSet set = new RadarDataSet(entries, "Score");
+        RadarData data = new RadarData(set);
+
+        XAxis xAxis = radarChart.getXAxis();
+
+
+        // the labels that should be drawn on the XAxis
+        final String[] quarters = new String[] { "RPM", "Acceleration", "Distance", "Load", "Consumption", "Altitude"};
+
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return quarters[(int) value%6];
+            }
+
+
+        };
+
+
+        //xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+
+
+        xAxis.setDrawLabels(true);
+        //YAxis yAxis = radarChart.getYAxis();;
+        Legend legend = radarChart.getLegend();
+        legend.setEnabled(false);
+        radarChart.setData(data);
+        radarChart.invalidate();
 
         //Set Expanded View
         if(expandedId != currentId){
