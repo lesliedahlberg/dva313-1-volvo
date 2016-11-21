@@ -13,14 +13,18 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +104,16 @@ public class ScoreCursorAdapter extends CursorAdapter {
         entries.add(new RadarEntry((float)altitude/10.0f));
 
         RadarDataSet set = new RadarDataSet(entries, "Score");
+
+        IValueFormatter valueFormatter = new IValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return "";
+            }
+        };
+
+        set.setValueFormatter(valueFormatter);
+
         RadarData data = new RadarData(set);
 
         XAxis xAxis = radarChart.getXAxis();
@@ -121,13 +135,27 @@ public class ScoreCursorAdapter extends CursorAdapter {
 
         //xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
-
+        xAxis.setTextColor(Color.parseColor(context.getString(R.color.text)));
 
         xAxis.setDrawLabels(true);
-        //YAxis yAxis = radarChart.getYAxis();;
+
+        YAxis yAxis = radarChart.getYAxis();;
+        IAxisValueFormatter Yformatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return "";
+            }
+        };
+        yAxis.setValueFormatter(Yformatter);
+
         Legend legend = radarChart.getLegend();
         legend.setEnabled(false);
+
         radarChart.setData(data);
+        Description desc = new Description();
+        desc.setText("");
+        radarChart.setDescription(desc);
         radarChart.invalidate();
 
         //Set Expanded View
