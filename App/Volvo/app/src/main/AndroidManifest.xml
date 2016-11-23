@@ -29,9 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatsActivity"
-            android:label="Statistics"
-            ></activity>
+        <activity
+            android:name=".StatsActivity"
+            android:label="Statistics" />
+        <activity android:name=".AliasActivity"></activity>
     </application>
 
 </manifest>
