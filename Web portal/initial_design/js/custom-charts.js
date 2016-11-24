@@ -20,8 +20,8 @@ dataType : 'json',
   },
   success: function(data, textStatus, jqXHR) {
 json = data[0];
-setAlias();
-setScoreValue();
+//setAlias();
+//setScoreValue();
 setCompleteConsumption();
 
 
