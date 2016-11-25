@@ -12,5 +12,7 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
+        //hehehe
+        int i = 69;
     }
 }
