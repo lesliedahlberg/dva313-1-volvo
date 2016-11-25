@@ -33,6 +33,7 @@
             android:label="Statistics"
             ></activity>
         <activity android:name=".TimeActivity"></activity>
+        <activity android:name=".GameActivity"></activity>
 
     </application>
 

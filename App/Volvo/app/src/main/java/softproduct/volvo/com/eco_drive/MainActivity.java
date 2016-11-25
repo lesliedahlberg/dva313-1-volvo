@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     public void startTimeActivity(View view) {
         Intent intent = new Intent(this, TimeActivity.class);
         Bundle extras = new Bundle();
-        extras.putString("lo", alias);
+        extras.putString("alias", alias);
         intent.putExtras(extras);
         startActivity(intent);
     }

@@ -5,6 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".TimeActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:text="Select Time"
+        android:textSize="28pt"
+        android:id="@+id/timeHeader"/>
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,9 +45,8 @@
         android:layout_below="@id/timePicker"
         android:layout_alignRight="@id/timePicker"
         android:layout_centerHorizontal="true"
-
         android:text="Return"
         android:id="@+id/returnButton"/>
-
+/**/
 
 </RelativeLayout>
