@@ -95,9 +95,9 @@ var html = `
 		<!-- START // TABLE-->
 		<ul class="collection" style="margin-top:9px;">
 
-		<li class="collection-item">Fuel: <span class="fuel">0L</span></li>
-		<li class="collection-item">Distance: 100km</li>
-		<li class="collection-item">Load: 100kg</li>
+		<li class="collection-item">Fuel: <span class="fuel">{{totalFuel}}L</span></li>
+		<li class="collection-item">Distance: {{totalDistance}}km</li>
+		<li class="collection-item">Load: {{totalLoad}}kg</li>
 		</ul>
 		<!-- END // TABLE-->
 		</div>
@@ -125,7 +125,7 @@ var data = {
 		strokeColor : "rgba(255, 0, 0, 1)",
 		borderColor: "#03A9F4",
 		backgroundColor: "rgba(3,169,244, 0.5)",
-		data : getRadialChartData(),
+		data : getRadialChartData(item),
 	}]}
 
 	var ctx = document.getElementById("radar-chart-"+ item.index).getContext("2d");
@@ -146,8 +146,9 @@ function getRadialChartLabels(item){
 	return ["Speed","RPM","Fuel","Load","Altitude","Distance"];
 }
 function getRadialChartData(item){
+//	alert(item);
 
-	return [20,40,100,20,30,40,50];
+	return [item.averageSpeed,item.averageRpm, item.averageFuel, item.averageLoad, item.averageAltitude, item.averageDistance];
 }
 
 //THIS IS END OF RADIAL CHART
@@ -155,7 +156,7 @@ function getRadialChartData(item){
 function generateLineGraph(item){
 
 var data = {
-	labels: getLineGraphLabels(),
+	labels: getLineGraphLabels(item),
 	datasets: [
 	{
 		label: "Fuel",
@@ -176,7 +177,7 @@ var data = {
 		pointHoverBorderWidth: 2,
 		pointRadius: 1,
 		pointHitRadius: 10,
-		data: getLineGraphData(),
+		data: getLineGraphData(item),
 		spanGaps: false,
 
 	}
@@ -200,13 +201,24 @@ onClick: "",
 });
 
 }
-function getLineGraphLabels(){
+function getLineGraphLabels(data){
 
-return ["1 min","2 min","3 min","4 min","5 min","6 min"];
+return timeFactoringForChart(data.TIME);
 }
-function getLineGraphData(){
+function getLineGraphData(data){
 
-return ["4","5","7","2","2","9"];
+
+return data.FUEL.split(",");
+}
+
+function timeFactoringForChart(data){
+var data = data.split(",");
+var timeRefactored="";
+for (var i = 0; i < data.length; i++) {
+timeRefactored+=data[i]+"min" +((i!=data.length-1)?", ":"");
+}
+timeRefactored = JSON.parse(JSON.stringify(timeRefactored.split(",")));//toObject(timeRefactored);//;//=
+return timeRefactored;
 }
 
 
