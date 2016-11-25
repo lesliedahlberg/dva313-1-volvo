@@ -31,31 +31,31 @@ var HighscoreController = function(radialChartController, lineChartController){
 function onComplete(){
 	$('body').addClass('loaded');
 	$(".hhhd:first").addClass('active');
-	$('.collapsible').collapsible({
-		onOpen: function(el) { 
-			
-		}
-	});
+	$('.collapsible').collapsible();
+	//Scroll on click but only if it is inactive highscore
 	$(".collapsible-header").on("click", function(e){
 		 e.preventDefault();
-		var contentPanelId = jQuery(this).attr("id");
-		var classHeader = jQuery(this).attr("class");
-		classHeader=classHeader.split(" ");
-		
-		 if(classHeader.length<3){
-		setTimeout(function(){
-			
-			var completeS="#"+contentPanelId;
-// alert(contentPanelId);
-
-$('html, body').animate({scrollTop:$(completeS).position().top}, 'normal');
-			//window.location.hash=completeS;
-       // window.scrollTo(200, 100);
-    }, 300);
-	}
+		 var idClicked = jQuery(this).attr("id");
+		var classClicked = jQuery(this).attr("class");
+		scrollToClickedLiIfInactive(idClicked, classClicked);
 
 	});
 
+}
+
+function scrollToClickedLiIfInactive(idC, classC){
+
+		var classClicked=classC.split(" ");
+		
+		 if(classClicked.length<3){
+		setTimeout(function(){
+			
+			var completeS="#"+idC;
+
+$('html, body').animate({scrollTop:$(completeS).position().top}, 'normal');
+			
+    }, 300);
+	}
 }
 
 
