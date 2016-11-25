@@ -30,5 +30,9 @@ public class MainActivity extends Activity {
         intent.putExtras(extras);
         startActivity(intent);
     }
+    public void startGameActivity(View view) {
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
 
 }
