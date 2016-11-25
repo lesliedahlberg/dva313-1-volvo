@@ -2,82 +2,72 @@
 var HighscoreController = function(radialChartController, lineChartController){
 
 
-	var fail = function(){
+var fail = function(){
 
-		$('.modal').modal();
-		$('#error-modal').modal('open');
+	$('.modal').modal();
+	$('#error-modal').modal('open');
 
-	}
-	var done = function(data){
+}
+var done = function(data){
 
-		var generatedView = "";
+	var generatedView = "";
 
-		for (var i = 0; i < data.length; i++) {
-			data[i].index = i;
-			generatedView += generateView(data[i]);
-		};
+	for (var i = 0; i < data.length; i++) {
+		data[i].index = i;
+		generatedView += generateView(data[i]);
+	};
 
-		$('#results-table').html(generatedView);
+	$('#results-table').html(generatedView);
 
-		for (var i = 0; i < data.length; i++) {
-			radialChartController.init(data[i]);	
-			lineChartController.init(data[i]);
-		};
+	for (var i = 0; i < data.length; i++) {
+		radialChartController.init(data[i]);	
+		lineChartController.init(data[i]);
+	};
 
 
-	onComplete();	
+onComplete();	
 }
 
 function onComplete(){
-	$('body').addClass('loaded');
-	$(".hhhd:first").addClass('active');
-	$('.collapsible').collapsible();
-	//Scroll on click but only if it is inactive highscore
-	$(".collapsible-header").on("click", function(e){
-		 e.preventDefault();
-		 var idClicked = jQuery(this).attr("id");
-		var classClicked = jQuery(this).attr("class");
-		scrollToClickedLiIfInactive(idClicked, classClicked);
+$('body').addClass('loaded');
+$(".hhhd:first").addClass('active');
+$('.collapsible').collapsible();
+//Scroll on click but only if it is inactive highscore
+$(".collapsible-header").on("click", function(e){
+	 e.preventDefault();
+	 var idClicked = jQuery(this).attr("id");
+	var classClicked = jQuery(this).attr("class");
+	scrollToClickedLiIfInactive(idClicked, classClicked);
 
-	});
+});
 
 }
 
 function scrollToClickedLiIfInactive(idC, classC){
 
-		var classClicked=classC.split(" ");
+	var classClicked=classC.split(" ");
+	
+	 if(classClicked.length<3){
+	setTimeout(function(){
 		
-		 if(classClicked.length<3){
-		setTimeout(function(){
-			
-			var completeS="#"+idC;
+		var completeS="#"+idC;
 
 $('html, body').animate({scrollTop:$(completeS).position().top}, 'normal');
-			
-    }, 300);
-	}
+		
+}, 300);
+}
 }
 
-
-
-
-$.fn.focusWithoutScrolling = function(){
-var x = window.scrollX, y = window.scrollY;
-alert(x +" "+ y);
-this.focus();
-window.scrollTo(x, y);
-// return this; //chainability
-};
 
 
 function getData(){
 
 $.ajax({
-	type: "POST",
-	url: "http://autoelektronikame.ipage.com/volvo/php/query.php",
-	dataType : 'json',
-	error: fail,
-	success: done
+type: "POST",
+url: "http://autoelektronikame.ipage.com/volvo/php/query.php",
+dataType : 'json',
+error: fail,
+success: done
 });
 }
 
@@ -116,34 +106,34 @@ var html = `
 </div>
 <!-- END LEFT SIDE-->
 
-  <!-- BEGINING // CHART, BUTTONS, TABLE-->
-  <div class="col s6">
-  <!--LINE CHART-->
-  <canvas id="line-chart-{{index}}" width="200" height="150" style="margin-top:9px;"></canvas>
-  <!--END LINE CHART-->
-  <!--BUTTONS -->  
+<!-- BEGINING // CHART, BUTTONS, TABLE-->
+<div class="col s6">
+<!--LINE CHART-->
+<canvas id="line-chart-{{index}}" width="200" height="150" style="margin-top:9px;"></canvas>
+<!--END LINE CHART-->
+<!--BUTTONS -->  
 
-  <a class="waves-effect waves-light btn">Fuel</a>
-  <a class="waves-effect waves-light btn">Distance</a>
-  <a class="waves-effect waves-light btn">Load</a>
+<a class="waves-effect waves-light btn">Fuel</a>
+<a class="waves-effect waves-light btn">Distance</a>
+<a class="waves-effect waves-light btn">Load</a>
 
-  <!--END BUTTONS -->
+<!--END BUTTONS -->
 
-	<!-- START // TABLE-->
-	<ul class="collection" style="margin-top:9px;">
+<!-- START // TABLE-->
+<ul class="collection" style="margin-top:9px;">
 
-	<li class="collection-item">Fuel: {{totalFuel}} L</li>
-	<li class="collection-item">Distance: {{totalDistance}} km</li>
-	<li class="collection-item">Load: {{totalLoad}} kg</li>
-	</ul>
-	<!-- END // TABLE-->
-	</div>
-  <!-- END // CHART, BUTTONS, TABLE-->
-  </div>
-  </li>
-  `;
+<li class="collection-item">Fuel: {{totalFuel}} L</li>
+<li class="collection-item">Distance: {{totalDistance}} km</li>
+<li class="collection-item">Load: {{totalLoad}} kg</li>
+</ul>
+<!-- END // TABLE-->
+</div>
+<!-- END // CHART, BUTTONS, TABLE-->
+</div>
+</li>
+`;
 
-  return Mustache.render(html, item);; 
+return Mustache.render(html, item);; 
 }
 
 
