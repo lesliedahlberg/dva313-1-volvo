@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends Activity {
-
+    private String alias ="lava";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     /* Callback for button to start Highscore activity for testing */
@@ -21,6 +22,13 @@ public class MainActivity extends Activity {
 
     public void generateStatsDummyData(View view) {
         ScoreDbHelper.getInstance(this).createDummyData(20);
+    }
+    public void startTimeActivity(View view) {
+        Intent intent = new Intent(this, TimeActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString("lo", alias);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 }

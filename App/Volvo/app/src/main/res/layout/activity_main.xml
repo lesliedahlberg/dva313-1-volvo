@@ -28,4 +28,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:onClick="generateStatsDummyData" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Time Activity"
+        android:id="@+id/timeStartButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startTimeActivity" />
 </LinearLayout>

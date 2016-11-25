@@ -32,6 +32,8 @@
         <activity android:name=".StatsActivity"
             android:label="Statistics"
             ></activity>
+        <activity android:name=".TimeActivity"></activity>
+
     </application>
 
 </manifest>
