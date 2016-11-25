@@ -4,7 +4,10 @@ var highscoreController = function(){
 
 var fail = function(){
 //alert('Error madafaka');
- window.location.href = "error.html";
+ //window.location.href = "error.html";
+  $('.modal').modal();
+  $('#modal1').modal('open');
+          
 }
 var done = function(data){
 
