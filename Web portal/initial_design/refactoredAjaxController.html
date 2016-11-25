@@ -78,12 +78,13 @@
   <!-- Modal Structure -->
   <div id="error-modal" class="modal">
     <div class="modal-content">
-      <h4>Upgrading System</h4>
-      <p>Thank you for your patience</p>
-
+      <h4>Something went wrong</h4>
+      <p>If you are running this on your local machine try instaling this 
+      <a  target="_blank" href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US">plugin</a>
+      </p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-light btn">Ok</a>
     </div>
   </div>
 
@@ -97,14 +98,15 @@
   <script src="js/init.js"></script>
   <script src="js/mustache.js"></script>
 
-  <script src="js/app.js"></script>
+  <script src="js/RadialChartController.js"></script>
+  <script src="js/LineChartController.js"></script>
+  <script src="js/HighscoreController.js"></script>
 
-  
 
   <script type="text/javascript">
     $(document).ready(function(){
       
-      highscoreController.init();
+      HighscoreController.init();
 
     })
   </script>
