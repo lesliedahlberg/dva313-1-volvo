@@ -32,7 +32,9 @@ onComplete();
 function onComplete(){
 $('body').addClass('loaded');
 $(".hhhd:first").addClass('active');
-$('.collapsible').collapsible();
+$('.collapsible').collapsible({
+onOpen: function(el) { }
+});
 }
 
 function getData(){
