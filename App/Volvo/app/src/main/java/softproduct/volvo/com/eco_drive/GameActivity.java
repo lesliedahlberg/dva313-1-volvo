@@ -40,7 +40,69 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
+        lineGraph();
+        radarGraph();
 
+
+
+    }
+    //////////////////////SET DATA///////////////////////////
+    private void setData(int count, float range) {
+
+        ArrayList<Entry> values = new ArrayList<Entry>();
+
+        for (int i = 0; i < count; i++) {
+
+            float val = (float) (Math.random() * range) + 3;
+            values.add(new Entry(i, val));
+        }
+
+        LineDataSet set1;
+
+        if (mChart.getData() != null &&
+                mChart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            mChart.getData().notifyDataChanged();
+            mChart.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(values, "Insert Attribute here");
+
+            // set the line to be drawn like this "- - - - - -"
+            set1.enableDashedLine(10f, 5f, 0f);
+            set1.enableDashedHighlightLine(10f, 5f, 0f);
+            set1.setColor(Color.WHITE);
+            set1.setCircleColor(Color.WHITE);
+            set1.setLineWidth(1f);
+            set1.setCircleRadius(3f);
+            set1.setDrawCircleHole(false);
+            set1.setValueTextSize(9f);
+            set1.setDrawFilled(true);
+            set1.setFormLineWidth(1f);
+            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set1.setFormSize(15.f);
+                /*
+                if (Utils.getSDKInt() >= 18) {
+                    // fill drawable only supported on api level 18 and above
+                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
+                    set1.setFillDrawable(drawable);
+                }
+                else {
+                    set1.setFillColor(Color.BLACK);
+                }*/
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+            dataSets.add(set1); // add the datasets
+
+            // create a data object with the datasets
+            LineData data = new LineData(dataSets);
+
+            // set data
+            mChart.setData(data);
+        }
+    }
+    private void lineGraph() {
         mChart = (LineChart) findViewById(R.id.lineChart);
 
         // x-axis limit line
@@ -52,21 +114,21 @@ public class GameActivity extends Activity {
         XAxis xAxis = mChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), "Ariel.ttf");
+        //Typeface tf = Typeface.createFromAsset(getAssets(), "Ariel.ttf");
 
         LimitLine ll1 = new LimitLine(150f, "Upper Limit");
         ll1.setLineWidth(4f);
         ll1.enableDashedLine(10f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(10f);
-        ll1.setTypeface(tf);
+        //ll1.setTypeface(tf);
 
         LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
         ll2.setLineWidth(4f);
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(10f);
-        ll2.setTypeface(tf);
+        //ll2.setTypeface(tf);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
@@ -98,8 +160,8 @@ public class GameActivity extends Activity {
         // modify the legend ...
         l.setForm(Legend.LegendForm.LINE);
 
-        /*
-        ///////////////////////////RADAR CHART////////////////////////////////////////
+    }
+    private void radarGraph(){
         RadarChart radarChart = (RadarChart) findViewById(R.id.GameActivity_radarChart);
         //Pass values to radar chart
         List<RadarEntry> entries = new ArrayList<RadarEntry>();
@@ -157,62 +219,5 @@ public class GameActivity extends Activity {
         radarChart.setData(data);
         radarChart.setDescription(desc);
         radarChart.invalidate();
-        */
-    }
-    //////////////////////SET DATA///////////////////////////
-    private void setData(int count, float range) {
-
-        ArrayList<Entry> values = new ArrayList<Entry>();
-
-        for (int i = 0; i < count; i++) {
-
-            float val = (float) (Math.random() * range) + 3;
-            values.add(new Entry(i, val));
-        }
-
-        LineDataSet set1;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, "DataSet 1");
-
-            // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f);
-            set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.BLACK);
-            set1.setCircleColor(Color.BLACK);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
-            set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
-                /*
-                if (Utils.getSDKInt() >= 18) {
-                    // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
-                    set1.setFillDrawable(drawable);
-                }
-                else {
-                    set1.setFillColor(Color.BLACK);
-                }*/
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-
-            // set data
-            mChart.setData(data);
-        }
     }
 }

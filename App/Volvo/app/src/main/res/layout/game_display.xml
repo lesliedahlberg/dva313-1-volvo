@@ -15,19 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:weightSum="1">
 
         <com.github.mikephil.charting.charts.LineChart
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id = "@+id/lineChart">
+            android:id = "@+id/lineChart"
+            android:layout_weight="0.42">
         </com.github.mikephil.charting.charts.LineChart>
 
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"
             android:layout_width="match_parent"
 
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.32" />
 
         </LinearLayout>
 
