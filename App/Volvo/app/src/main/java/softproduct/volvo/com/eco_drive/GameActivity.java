@@ -1,18 +1,21 @@
 package softproduct.volvo.com.eco_drive;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.app.Activity;
+import android.graphics.DashPathEffect;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -23,7 +26,9 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
@@ -36,6 +41,7 @@ import java.util.List;
 
 public class GameActivity extends Activity {
     private LineChart mChart;
+    private RadarChart mChart2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +49,9 @@ public class GameActivity extends Activity {
         lineGraph();
         radarGraph();
 
-
-
     }
     //////////////////////SET DATA///////////////////////////
-    private void setData(int count, float range) {
+    private void setLineData(int count, float range) {
 
         ArrayList<Entry> values = new ArrayList<Entry>();
 
@@ -145,7 +149,7 @@ public class GameActivity extends Activity {
 
         mChart.getAxisRight().setEnabled(false);
 
-        setData(45, 100);
+        setLineData(45, 100);
 
 //        mChart.setVisibleXRange(20);
 //        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
@@ -162,62 +166,111 @@ public class GameActivity extends Activity {
 
     }
     private void radarGraph(){
-        RadarChart radarChart = (RadarChart) findViewById(R.id.GameActivity_radarChart);
-        //Pass values to radar chart
-        List<RadarEntry> entries = new ArrayList<RadarEntry>();
-        entries.add(new RadarEntry((float)1000/100.0f));
-        entries.add(new RadarEntry((float)0.01*2500.0f));
-        entries.add(new RadarEntry((float)200));
-        entries.add(new RadarEntry((float)42/15.0f));
-        entries.add(new RadarEntry((float)123*13.0f));
-        entries.add(new RadarEntry((float)23/10.0f));
-        RadarDataSet set = new RadarDataSet(entries, "Score");
-        //set.setColor(R.color.colorAccent); we need to fix this
 
-        //Remove number values
-        IValueFormatter valueFormatter = new IValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return "";
-            }
-        };
-        set.setValueFormatter(valueFormatter);
+        mChart2 = (RadarChart) findViewById(R.id.GameActivity_radarChart);
+        mChart2.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
 
-        //Set labels
-        XAxis xAxis = radarChart.getXAxis();
-        final String[] quarters = new String[] { "RPM", "Acceleration", "Distance", "Load", "Consumption", "Altitude"};
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return quarters[(int) value%6];
-            }
-        };
-        xAxis.setValueFormatter(formatter);
-        //xAxis.setTextColor(R.color.text); we need to fix this
-        xAxis.setDrawLabels(true);
+        mChart2.getDescription().setEnabled(false);
 
-        //Remove number values
-        YAxis yAxis = radarChart.getYAxis();;
-        IAxisValueFormatter Yformatter = new IAxisValueFormatter() {
+        mChart2.setWebLineWidth(1f);
+        mChart2.setWebColor(Color.LTGRAY);
+        mChart2.setWebLineWidthInner(1f);
+        mChart2.setWebColorInner(Color.LTGRAY);
+        mChart2.setWebAlpha(500);
+
+
+
+        setRadarData();
+
+        mChart.animateXY(
+                1400, 1400,
+                Easing.EasingOption.EaseInOutQuad,
+                Easing.EasingOption.EaseInOutQuad);
+
+        XAxis xAxis = mChart2.getXAxis();
+        //xAxis.setTypeface(mTfLight);
+        xAxis.setTextSize(12f);
+        xAxis.setYOffset(0f);
+        xAxis.setXOffset(0f);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+            private String[] mActivities = new String[]{"Fuel", "Acceleration", "Distance", "RPM", "Load"};
+
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return "";
+                return mActivities[(int) value % mActivities.length];
             }
-        };
-        yAxis.setValueFormatter(Yformatter);
+        });
+        xAxis.setTextColor(Color.WHITE);
 
-        //Remove description
-        Description desc = new Description();
-        desc.setText("");
+        YAxis yAxis = mChart2.getYAxis();
+        //yAxis.setTypeface(mTfLight);
+        yAxis.setLabelCount(5, false);
+        yAxis.setTextSize(12f);
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(80f);
+        yAxis.setDrawLabels(false);
 
-        //Remove legend
-        Legend legend = radarChart.getLegend();
-        legend.setEnabled(false);
+        Legend l = mChart2.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        //l.setTypeface(mTfLight);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(5f);
+        l.setTextColor(Color.WHITE);
+    }
 
-        //Create graph
-        RadarData data = new RadarData(set);
-        radarChart.setData(data);
-        radarChart.setDescription(desc);
-        radarChart.invalidate();
+
+    public void setRadarData() {
+
+        float mult = 80;
+        float min = 20;
+        int cnt = 5;
+
+        ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
+        ArrayList<RadarEntry> entries2 = new ArrayList<RadarEntry>();
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+        for (int i = 0; i < cnt; i++) {
+            float val1 = (float) (Math.random() * mult) + min;
+            entries1.add(new RadarEntry(val1));
+
+            float val2 = (float) (Math.random() * mult) + min;
+            entries2.add(new RadarEntry(val2));
+        }
+
+        RadarDataSet set1 = new RadarDataSet(entries1, "Average");
+        set1.setColor(Color.rgb(103, 110, 129));
+        set1.setFillColor(Color.rgb(103, 110, 129));
+        set1.setDrawFilled(true);
+        set1.setFillAlpha(180);
+        set1.setLineWidth(4f);
+        set1.setDrawHighlightCircleEnabled(true);
+        set1.setDrawHighlightIndicators(false);
+
+        RadarDataSet set2 = new RadarDataSet(entries2, "You");
+        set2.setColor(Color.rgb(121, 162, 175));
+        set2.setFillColor(Color.rgb(121, 162, 175));
+        set2.setDrawFilled(true);
+        set2.setFillAlpha(180);
+        set2.setLineWidth(4f);
+        set2.setDrawHighlightCircleEnabled(true);
+        set2.setDrawHighlightIndicators(false);
+
+        ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
+        sets.add(set1);
+        sets.add(set2);
+
+        RadarData data = new RadarData(sets);
+        //data.setValueTypeface(mTfLight);
+        data.setValueTextSize(8f);
+        data.setDrawValues(false);
+        data.setValueTextColor(Color.WHITE);
+
+        mChart2.setData(data);
+        mChart2.invalidate();
     }
 }
