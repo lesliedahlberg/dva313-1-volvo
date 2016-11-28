@@ -6,6 +6,9 @@
 * Made By MaterializeCSS.com
 */
 
+
+.fixed { position: fixed;}
+
 .collapsible-body{
 background:#E1F5FE;
 }

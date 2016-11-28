@@ -16,6 +16,7 @@ var done = function(data){
 
 	for (var i = 0; i < data.length; i++) {
 		data[i].index = i;
+		data[i].order = i + 1;
 		generatedView += generateView(data[i]);
 	};
 
@@ -94,7 +95,6 @@ var init = function (){
 function update(){
 	
 	var machineType = $('input[name="machines"]:checked', '#machine-types').val();
-	//alert(machineType);
 	getData(machineType);
 }
 
@@ -113,7 +113,7 @@ var html = `
 <!--Header of the item-->
 <div class="collapsible-header hhhd" id="{{index}}">
 
-{{name}}</span> 
+#{{order}} {{name}}</span> 
 <span class="right score">Score: {{score}}</span>
 </div>
 <!-- Body of first collapsable item -->
