@@ -27,49 +27,49 @@ var done = function(data){
 	};
 
 
-onComplete();	
+	onComplete();	
 }
 
 function onComplete(){
+
 $('body').addClass('loaded');
 $(".hhhd:first").addClass('active');
 $('.collapsible').collapsible();
 //Scroll on click but only if it is inactive highscore
 $(".collapsible-header").on("click", function(e){
-	 e.preventDefault();
-	 var idClicked = jQuery(this).attr("id");
-	var classClicked = jQuery(this).attr("class");
-	scrollToClickedLiIfInactive(idClicked, classClicked);
+	e.preventDefault();
 
+	var idClicked = jQuery(this).attr("id");
+	var isClicked = $(this).hasClass("active");
+
+	scrollToActiveItem(idClicked, isClicked);
 });
 
 $(".waves-light.btn").on("click", function(){
-	var type = $(this).html();
-	type = type.split("<")[0];
-	type=type.toUpperCase();
-	var idHighscore = jQuery(this).attr("id");
-	idHighscore=Number(idHighscore);
-	lineChart[idHighscore].data.datasets[0].data = json[idHighscore][type].split(",");
-	lineChart[idHighscore].data.datasets[0].label=type;
-	lineChart[idHighscore].update();
+	
+	var type =  $(this).attr('data-type');
+	var index = $(this).attr("data-id");
+	var label = $(this).attr("data-label");
+
+	var data = json[index][type].split(",");
+
+	lineChartController.change(index, data, label);
 });
 
-
 }
 
-function scrollToClickedLiIfInactive(idC, classC){
+function scrollToActiveItem(id, isClicked){
 
-	var classClicked=classC.split(" ");
-	
-	 if(classClicked.length<3){
-	setTimeout(function(){
-		
-		var completeS="#"+idC;
+	if(!isClicked){
 
-$('html, body').animate({scrollTop:$(completeS).position().top}, 'normal');
-		
-}, 300);
-}
+		setTimeout(function(){
+			
+			var completeS= "#" + id;
+			$('html, body').animate({
+			scrollTop:$(completeS).position().top}, 
+			'normal');
+		}, 300);
+	}
 }
 
 
@@ -127,9 +127,9 @@ var html = `
 <!--END LINE CHART-->
 <!--BUTTONS -->  
 
-<a class="waves-effect waves-light btn" id="{{index}}">Fuel</a>
-<a class="waves-effect waves-light btn" id="{{index}}">Distance</a>
-<a class="waves-effect waves-light btn" id="{{index}}">Loaded</a>
+<a class="waves-effect waves-light btn" data-label="Fuel" data-type="FUEL" data-id="{{index}}">Fuel</a>
+<a class="waves-effect waves-light btn" data-label="Distance" data-type="DISTANCE" data-id="{{index}}">Distance</a>
+<a class="waves-effect waves-light btn" data-label="Load" data-type="LOADED" data-id="{{index}}">Load</a>
 
 <!--END BUTTONS -->
 

@@ -1,4 +1,5 @@
 var lineChart=[];
+
 var LineChartController = function(){
 
 	var init = function (item){
@@ -6,9 +7,17 @@ var LineChartController = function(){
 		initialize(item);
 	}
 
-	return {
-		init : init
+	var change = function (idHighscore, data, label){
 
+		lineChart[idHighscore].data.datasets[0].data  = data;
+		lineChart[idHighscore].data.datasets[0].label = label;
+		lineChart[idHighscore].update();
+	}
+
+
+	return {
+		init : init,
+		change : change
 	}
 
 	function initialize(item){
@@ -17,7 +26,7 @@ var LineChartController = function(){
 			labels: getLabels(item),
 			datasets: [
 			{
-				label: "FUEL",
+				label: "Fuel",
 				fill: false,
 				lineTension: 0.1,
 				backgroundColor: "rgba(75,192,192,0.4)",
