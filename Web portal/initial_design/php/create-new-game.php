@@ -5,15 +5,16 @@ include "connection.php";
 //$time = $_POST["time"]; 
 //$alias = $_POST["alias"]
 
-$time = "12:00"; 
+$time = '12:00'; 
 //$alias = $_POST["alias"]
 
-$aliasID = 1;
+$aliasID = 4;
+$idmachine=1;
 
-$sql = "INSERT INTO session ( TimePlayed, IdAlias) VALUES ( $time, $aliasID)";
+$sql = "INSERT INTO Session ( TimePlayed, IdAlias, IdMachine) VALUES ( '$time', $aliasID, $idmachine)";
 $result = mysqli_query($connection, $sql);
 
-echo $conn->insert_id;
+echo $connection->insert_id;
 
 mysqli_close($connection);
 
