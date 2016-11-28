@@ -56,6 +56,13 @@ $(".waves-light.btn").on("click", function(){
 	lineChartController.change(index, data, label);
 });
 
+
+//On machine changed 
+$('#machine-types input').on('change', function() {
+    update($('input[name="Gender"]:checked', '#machine-types').val());
+});
+
+
 }
 
 function scrollToActiveItem(id, isClicked){
@@ -74,12 +81,13 @@ function scrollToActiveItem(id, isClicked){
 
 
 
-function getData(){
+function getData(machineType){
 
 $.ajax({
 type: "POST",
 url: "http://autoelektronikame.ipage.com/volvo/php/query.php",
 dataType : 'json',
+data: { getData : machineType },
 error: fail,
 success: done
 });
@@ -87,8 +95,14 @@ success: done
 
 var init = function (){
 
-getData();
+	getData("All");
 }
+
+function update (machineType){
+	
+	getData(machineType);
+}
+
 
 return {
 init : init

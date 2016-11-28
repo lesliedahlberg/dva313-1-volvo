@@ -10,7 +10,6 @@ $time = "12:00";
 $duration = "30"
 $alias = $_POST["alias"]
 
-
 $aliasID = 1;
 $sql = "INSERT INTO session (Duration, TimePlayed, IdAlias) VALUES ($duration, $time, $aliasID)";
 $result = mysqli_query($connection, $sql);
