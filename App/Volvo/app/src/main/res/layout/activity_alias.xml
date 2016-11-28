@@ -10,15 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="softproduct.volvo.com.eco_drive.AliasActivity">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:text="@string/Volvo_header"
-        android:gravity="center"
-        android:textSize="150sp"
-        android:textColor="@color/text"
-        android:layout_marginTop="80dp"
-        />
+        android:layout_height="96dp"
+        android:src="@mipmap/logo"
+        android:layout_marginTop="128dp" />
+
     <EditText
         android:layout_width="400dp"
         android:layout_height="100dp"

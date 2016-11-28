@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_vehicle"
     android:layout_width="match_parent"
@@ -8,24 +8,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="softproduct.volvo.com.eco_drive.VehicleActivity">
+    tools:context="softproduct.volvo.com.eco_drive.VehicleActivity"
+    android:orientation="vertical">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:text="@string/Volvo_header"
-        android:textSize="150sp"
-        android:gravity="center"
-        android:layout_marginTop="80dp"
-        android:textColor="@color/text"
-        />
+        android:layout_height="96dp"
+        android:src="@mipmap/logo"
+        android:layout_marginTop="128dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EXCAVATOR"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+    <ImageButton
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         android:id="@+id/excavatorButton"
-        android:onClick="excavatorClick"/>
-</RelativeLayout>
+        android:onClick="excavatorClick"
+        android:layout_gravity="center"
+        android:layout_marginTop="96dp"
+        android:src="@mipmap/excavator" />
+</LinearLayout>
