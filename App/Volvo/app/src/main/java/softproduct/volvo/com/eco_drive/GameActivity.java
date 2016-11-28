@@ -1,8 +1,12 @@
 package softproduct.volvo.com.eco_drive;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.Activity;
 import android.graphics.DashPathEffect;
@@ -38,6 +42,9 @@ public class GameActivity extends Activity {
     private LineChart detailedLineChart;
     private RadarChart generalRadialChart;
 
+    int minutes;
+    Context context;
+
     //Data arrays for charts
     ArrayList<Entry> fuelConsumptionData;
     ArrayList<Entry> rpmData;
@@ -48,6 +55,10 @@ public class GameActivity extends Activity {
     ArrayList<Entry> currentData;
 
     int currentGraphColor;
+    int radialGraphColor;
+    int radialAverageGraphColor;
+
+    ProgressBar progressBar;
 
     private void addEntryToDataSource(ArrayList<Entry> data, float x, float y){
         data.add(new Entry(x, y));
@@ -131,6 +142,14 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
 
+        context = this;
+
+        Intent intent = getIntent();
+        minutes = intent.getIntExtra("time", 5);
+
+        radialGraphColor = Color.parseColor(this.getString(R.color.radial));
+        radialAverageGraphColor = Color.parseColor(this.getString(R.color.radialAverage));
+
 
         fuelConsumptionData = new ArrayList<Entry>();
         rpmData = new ArrayList<Entry>();
@@ -159,6 +178,36 @@ public class GameActivity extends Activity {
         averageValuesView.setText("Average Score: " + averageValues.toString());
 
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setScaleY(18f);
+        progressBar.setMax(minutes*60);
+
+        startTimer();
+
+
+    }
+
+    private void startTimer(){
+        new CountDownTimer(minutes*60*1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                progressBar.setProgress((int) (millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                gameEnd();
+
+            }
+        }.start();
+    }
+
+    public void stop(View view){
+        gameEnd();
+    }
+
+    private void gameEnd() {
+        Intent intent = new Intent(context, StatsActivity.class);
+        startActivity(intent);
     }
 
 
@@ -204,7 +253,7 @@ public class GameActivity extends Activity {
 
         XAxis xAxis = generalRadialChart.getXAxis();
         //xAxis.setTypeface(mTfLight);
-        xAxis.setTextSize(12f);
+        xAxis.setTextSize(24f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -235,6 +284,7 @@ public class GameActivity extends Activity {
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
         l.setTextColor(Color.WHITE);
+        l.setEnabled(false);
     }
 
 
@@ -259,29 +309,30 @@ public class GameActivity extends Activity {
 
         RadarDataSet set1 = new RadarDataSet(entries1, "Average");
         set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        set1.setFillColor(radialGraphColor);
         set1.setDrawFilled(true);
-        set1.setFillAlpha(180);
+        set1.setFillAlpha(200);
         set1.setLineWidth(4f);
         set1.setDrawHighlightCircleEnabled(true);
         set1.setDrawHighlightIndicators(false);
 
         RadarDataSet set2 = new RadarDataSet(entries2, "You");
         set2.setColor(Color.rgb(121, 162, 175));
-        set2.setFillColor(Color.rgb(121, 162, 175));
+        set2.setFillColor(radialAverageGraphColor);
         set2.setDrawFilled(true);
-        set2.setFillAlpha(180);
+        set2.setFillAlpha(100);
         set2.setLineWidth(4f);
         set2.setDrawHighlightCircleEnabled(true);
         set2.setDrawHighlightIndicators(false);
 
         ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
-        sets.add(set1);
+
         sets.add(set2);
+        sets.add(set1);
 
         RadarData data = new RadarData(sets);
         //data.setValueTypeface(mTfLight);
-        data.setValueTextSize(8f);
+        data.setValueTextSize(18f);
         data.setDrawValues(false);
         data.setValueTextColor(Color.WHITE);
 
