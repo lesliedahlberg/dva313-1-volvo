@@ -110,12 +110,18 @@
   <script type="text/javascript">
     $(document).ready(function(){
       
-      HighscoreController.init();
+    HighscoreController.init();
 
-
-setTimeout(function(){
-      $('html, body').animate({scrollTop:$("#0").position().top}, 'normal');
+    setTimeout(function(){
+        $('html, body').animate({scrollTop:$("#0").position().top}, 'normal');
       }, 300);
+    
+    //On machine changed 
+    $('#machine-types').on('change', function() {
+        HighscoreController.update();
+ 
+    });
+
 
 
     })

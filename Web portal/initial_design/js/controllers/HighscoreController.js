@@ -56,13 +56,6 @@ $(".waves-light.btn").on("click", function(){
 	lineChartController.change(index, data, label);
 });
 
-
-//On machine changed 
-$('#machine-types input').on('change', function() {
-    update($('input[name="Gender"]:checked', '#machine-types').val());
-});
-
-
 }
 
 function scrollToActiveItem(id, isClicked){
@@ -98,14 +91,17 @@ var init = function (){
 	getData("All");
 }
 
-function update (machineType){
+function update(){
 	
+	var machineType = $('input[name="machines"]:checked', '#machine-types').val();
+	alert(machineType);
 	getData(machineType);
 }
 
 
 return {
-init : init
+	init : init,
+	update : update
 }
 
 
