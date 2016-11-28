@@ -29,4 +29,17 @@ public class ScoreItem {
         this.consumption = consumption;
         this.altitude = altitude;
     }
+
+    @Override
+    public String toString() {
+        return "[id:" + String.valueOf(id) + "; alias:" + String.valueOf(alias)
+                + "; alias:" + alias
+                + "; score:" + String.valueOf(score)
+                + "; date:" + alias
+                + "; rpm:" + String.valueOf(rpm)
+                + "; acceleration:" + String.valueOf(acceleration)
+                + "; distance:" + String.valueOf(distance)
+                + "; load:" + String.valueOf(load) + ";]";
+    }
+
 }

@@ -141,7 +141,10 @@ public class GameActivity extends Activity {
         lineGraph();
         radarGraph();
 
-        //setLineDataToCurrent();
+        //Insert average values
+        TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
+        ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
+        averageValuesView.setText("Average Score: " + averageValues.toString());
 
 
     }

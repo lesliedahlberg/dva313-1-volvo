@@ -68,6 +68,14 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/averageValuesView"
+                android:layout_gravity="center" />
+
             <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"
             android:layout_width="match_parent"
