@@ -3,9 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#ff9800</color>
-    <color name="text">#FAFAFA</color>
+    <color name="text">#fafafa</color>
     <color name="scoreTitleBackground">#263238</color>
-    <color name="scoreExpandedTitleBackground">#455A64</color>
+    <color name="scoreExpandedTitleBackground">#455a64</color>
     <color name="expandedBackground">#37474F</color>
+
+    <color name="fuel">#f44336</color>
+    <color name="acceleration">#9c27b0</color>
+    <color name="distance">#2196f3</color>
+    <color name="rpm">#8BC34A</color>
+    <color name="load">#FFC107</color>
+    <color name="radial">#4caf50</color>
+    <color name="radialAverage">#3F51B5</color>
+
 
 </resources>

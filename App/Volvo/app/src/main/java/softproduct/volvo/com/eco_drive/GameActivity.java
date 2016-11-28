@@ -1,15 +1,15 @@
 package softproduct.volvo.com.eco_drive;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.Activity;
 import android.graphics.DashPathEffect;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -18,7 +18,6 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -28,69 +27,90 @@ import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
-import com.github.mikephil.charting.utils.Utils;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Porya on 2016-11-25.
  */
 
 public class GameActivity extends Activity {
-    private LineChart mChart;
-    private RadarChart mChart2;
 
+    //Charts
+    private LineChart detailedLineChart;
+    private RadarChart generalRadialChart;
+
+    int minutes;
+    Context context;
+
+    //Data arrays for charts
     ArrayList<Entry> fuelConsumptionData;
     ArrayList<Entry> rpmData;
     ArrayList<Entry> altitudeData;
     ArrayList<Entry> accelerationData;
     ArrayList<Entry> loadData;
     ArrayList<Entry> distanceData;
-
     ArrayList<Entry> currentData;
 
-    private void updateData(ArrayList<Entry> data, float x, float y){
+    int currentGraphColor;
+    int radialGraphColor;
+    int radialAverageGraphColor;
+
+    ProgressBar progressBar;
+
+    private void addEntryToDataSource(ArrayList<Entry> data, float x, float y){
         data.add(new Entry(x, y));
     }
 
 
-    private void setCurrentData(ArrayList<Entry> data){
+    private void setCurrentDataSource(ArrayList<Entry> data){
         currentData = data;
     }
 
-    private void createDummyData(ArrayList<Entry> data, int count, float range){
+    private void createDummyDataForDataSource(ArrayList<Entry> data, int count, float range){
         for (int i = 0; i < count; i++) {
         float val = (float) (Math.random() * range) + 3;
-            updateData(data, i, val);
+            addEntryToDataSource(data, i, val);
         }
     }
 
     public void setFuel(View view) {
-        setCurrentData(fuelConsumptionData);
+        setCurrentDataSource(fuelConsumptionData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.fuel));
+        clearLineData();
         setLineDataToCurrent();
     }
     public void setAcceleration(View view) {
-        setCurrentData(accelerationData);
+        setCurrentDataSource(accelerationData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.acceleration));
+        clearLineData();
         setLineDataToCurrent();
     }
     public void setDistance(View view) {
-        setCurrentData(distanceData);
+        setCurrentDataSource(distanceData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.distance));
+        clearLineData();
         setLineDataToCurrent();
     }
     public void setRPM(View view) {
-        setCurrentData(rpmData);
+        setCurrentDataSource(rpmData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.rpm));
+        clearLineData();
         setLineDataToCurrent();
     }
     public void setLoad(View view) {
-        setCurrentData(loadData);
+        setCurrentDataSource(loadData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.load));
+        clearLineData();
         setLineDataToCurrent();
 
+    }
+
+    public void clearLineData(){
+        if(detailedLineChart != null)
+            detailedLineChart.clearValues();
     }
 
     public void setLineDataToCurrent(){
@@ -98,12 +118,14 @@ public class GameActivity extends Activity {
         set1 = new LineDataSet(currentData, "Insert Attribute here");
         set1.enableDashedLine(10f, 5f, 0f);
         set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.setColor(Color.WHITE);
-        set1.setCircleColor(Color.WHITE);
-        set1.setLineWidth(1f);
-        set1.setCircleRadius(3f);
+        set1.setColor(currentGraphColor);
+        set1.setCircleColor(currentGraphColor);
+        set1.setLineWidth(2f);
+        set1.setCircleRadius(10f);
         set1.setDrawCircleHole(false);
-        set1.setValueTextSize(9f);
+        set1.setValueTextSize(18f);
+        set1.setValueTextColor(Color.WHITE);
+        set1.setFillColor(currentGraphColor);
         set1.setDrawFilled(true);
         set1.setFormLineWidth(1f);
         set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
@@ -111,8 +133,7 @@ public class GameActivity extends Activity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
         dataSets.add(set1); // add the datasets
         LineData data = new LineData(dataSets);
-        mChart.clearValues();
-        mChart.setData(data);
+        detailedLineChart.setData(data);
     }
 
 
@@ -120,6 +141,14 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
+
+        context = this;
+
+        Intent intent = getIntent();
+        minutes = intent.getIntExtra("time", 5);
+
+        radialGraphColor = Color.parseColor(this.getString(R.color.radial));
+        radialAverageGraphColor = Color.parseColor(this.getString(R.color.radialAverage));
 
 
         fuelConsumptionData = new ArrayList<Entry>();
@@ -129,17 +158,19 @@ public class GameActivity extends Activity {
         loadData = new ArrayList<Entry>();
         distanceData = new ArrayList<Entry>();
 
-        currentData = fuelConsumptionData;
 
-        createDummyData(fuelConsumptionData, 10, 100);
-        createDummyData(rpmData, 10, 100);
-        createDummyData(altitudeData, 10, 100);
-        createDummyData(accelerationData, 10, 100);
-        createDummyData(loadData, 10, 100);
-        createDummyData(distanceData, 10, 100);
+
+        createDummyDataForDataSource(fuelConsumptionData, 10, 100);
+        createDummyDataForDataSource(rpmData, 10, 100);
+        createDummyDataForDataSource(altitudeData, 10, 100);
+        createDummyDataForDataSource(accelerationData, 10, 100);
+        createDummyDataForDataSource(loadData, 10, 100);
+        createDummyDataForDataSource(distanceData, 10, 100);
 
         lineGraph();
         radarGraph();
+
+        setFuel(null);
 
         //Insert average values
         TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
@@ -147,151 +178,82 @@ public class GameActivity extends Activity {
         averageValuesView.setText("Average Score: " + averageValues.toString());
 
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setScaleY(18f);
+        progressBar.setMax(minutes*60);
+
+        startTimer();
+
+
     }
 
-    //////////////////////SET DATA///////////////////////////
-    private void setLineData(int count, float range) {
+    private void startTimer(){
+        new CountDownTimer(minutes*60*1000, 1000) {
 
-        ArrayList<Entry> values = currentData;
+            public void onTick(long millisUntilFinished) {
+                progressBar.setProgress((int) (millisUntilFinished / 1000));
+            }
 
+            public void onFinish() {
+                gameEnd();
 
-        //for (int i = 0; i < count; i++) {
-
-            //float val = (float) (Math.random() * range) + 3;
-            //values.add(new Entry(i, val));
-        //}
-
-        LineDataSet set1;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, "Insert Attribute here");
-
-            // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f);
-            set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.WHITE);
-            set1.setCircleColor(Color.WHITE);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
-            set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
-                /*
-                if (Utils.getSDKInt() >= 18) {
-                    // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
-                    set1.setFillDrawable(drawable);
-                }
-                else {
-                    set1.setFillColor(Color.BLACK);
-                }*/
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-
-            // set data
-            mChart.setData(data);
-        }
+            }
+        }.start();
     }
+
+    public void stop(View view){
+        gameEnd();
+    }
+
+    private void gameEnd() {
+        Intent intent = new Intent(context, StatsActivity.class);
+        startActivity(intent);
+    }
+
 
     private void lineGraph() {
-        mChart = (LineChart) findViewById(R.id.lineChart);
+        detailedLineChart = (LineChart) findViewById(R.id.lineChart);
 
-        // x-axis limit line
-        LimitLine llXAxis = new LimitLine(10f, "Index 10");
-        llXAxis.setLineWidth(4f);
-        llXAxis.enableDashedLine(10f, 10f, 0f);
-        llXAxis.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        llXAxis.setTextSize(10f);
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        detailedLineChart.getAxisRight().setEnabled(false);
+        detailedLineChart.getAxisLeft().setEnabled(false);
+        detailedLineChart.getXAxis().setEnabled(false);
 
-        //Typeface tf = Typeface.createFromAsset(getAssets(), "Ariel.ttf");
+        Description desc = new Description();
+        desc.setText("");
+        detailedLineChart.setDescription(desc);
 
-        LimitLine ll1 = new LimitLine(150f, "Upper Limit");
-        ll1.setLineWidth(4f);
-        ll1.enableDashedLine(10f, 10f, 0f);
-        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll1.setTextSize(10f);
-        //ll1.setTypeface(tf);
+        Legend legend = detailedLineChart.getLegend();
+        legend.setEnabled(false);
 
-        LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
-        ll2.setLineWidth(4f);
-        ll2.enableDashedLine(10f, 10f, 0f);
-        ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        ll2.setTextSize(10f);
-        //ll2.setTypeface(tf);
+        detailedLineChart.setPadding(0, 0, 0, 0);
 
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.addLimitLine(ll1);
-        leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(200f);
-        leftAxis.setAxisMinimum(-50f);
-        //leftAxis.setYOffset(20f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
-
-        // limit lines are drawn behind data (and not on top)
-        leftAxis.setDrawLimitLinesBehindData(true);
-
-        mChart.getAxisRight().setEnabled(false);
-
-        setLineData(45, 100);
-
-
-//        mChart.setVisibleXRange(20);
-//        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
-//        mChart.centerViewTo(20, 50, AxisDependency.LEFT);
-
-        mChart.animateX(2500);
-        //mChart.invalidate();
-
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        l.setForm(Legend.LegendForm.LINE);
-
+        setLineDataToCurrent();
     }
     private void radarGraph(){
 
-        mChart2 = (RadarChart) findViewById(R.id.GameActivity_radarChart);
-        //mChart2.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
+        generalRadialChart = (RadarChart) findViewById(R.id.GameActivity_radarChart);
+        //generalRadialChart.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
 
-        mChart2.getDescription().setEnabled(false);
+        generalRadialChart.getDescription().setEnabled(false);
 
-        mChart2.setWebLineWidth(1f);
-        mChart2.setWebColor(Color.LTGRAY);
-        mChart2.setWebLineWidthInner(1f);
-        mChart2.setWebColorInner(Color.LTGRAY);
-        mChart2.setWebAlpha(500);
+        generalRadialChart.setWebLineWidth(1f);
+        generalRadialChart.setWebColor(Color.LTGRAY);
+        generalRadialChart.setWebLineWidthInner(1f);
+        generalRadialChart.setWebColorInner(Color.LTGRAY);
+        generalRadialChart.setWebAlpha(500);
 
 
 
         setRadarData();
 
-        mChart.animateXY(
+        detailedLineChart.animateXY(
                 1400, 1400,
                 Easing.EasingOption.EaseInOutQuad,
                 Easing.EasingOption.EaseInOutQuad);
 
-        XAxis xAxis = mChart2.getXAxis();
+        XAxis xAxis = generalRadialChart.getXAxis();
         //xAxis.setTypeface(mTfLight);
-        xAxis.setTextSize(12f);
+        xAxis.setTextSize(24f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -305,7 +267,7 @@ public class GameActivity extends Activity {
         });
         xAxis.setTextColor(Color.WHITE);
 
-        YAxis yAxis = mChart2.getYAxis();
+        YAxis yAxis = generalRadialChart.getYAxis();
         //yAxis.setTypeface(mTfLight);
         yAxis.setLabelCount(5, false);
         yAxis.setTextSize(12f);
@@ -313,7 +275,7 @@ public class GameActivity extends Activity {
         yAxis.setAxisMaximum(80f);
         yAxis.setDrawLabels(false);
 
-        Legend l = mChart2.getLegend();
+        Legend l = generalRadialChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -322,6 +284,7 @@ public class GameActivity extends Activity {
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
         l.setTextColor(Color.WHITE);
+        l.setEnabled(false);
     }
 
 
@@ -346,33 +309,34 @@ public class GameActivity extends Activity {
 
         RadarDataSet set1 = new RadarDataSet(entries1, "Average");
         set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        set1.setFillColor(radialGraphColor);
         set1.setDrawFilled(true);
-        set1.setFillAlpha(180);
+        set1.setFillAlpha(200);
         set1.setLineWidth(4f);
         set1.setDrawHighlightCircleEnabled(true);
         set1.setDrawHighlightIndicators(false);
 
         RadarDataSet set2 = new RadarDataSet(entries2, "You");
         set2.setColor(Color.rgb(121, 162, 175));
-        set2.setFillColor(Color.rgb(121, 162, 175));
+        set2.setFillColor(radialAverageGraphColor);
         set2.setDrawFilled(true);
-        set2.setFillAlpha(180);
+        set2.setFillAlpha(100);
         set2.setLineWidth(4f);
         set2.setDrawHighlightCircleEnabled(true);
         set2.setDrawHighlightIndicators(false);
 
         ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
-        sets.add(set1);
+
         sets.add(set2);
+        sets.add(set1);
 
         RadarData data = new RadarData(sets);
         //data.setValueTypeface(mTfLight);
-        data.setValueTextSize(8f);
+        data.setValueTextSize(18f);
         data.setDrawValues(false);
         data.setValueTextColor(Color.WHITE);
 
-        mChart2.setData(data);
-        mChart2.invalidate();
+        generalRadialChart.setData(data);
+        generalRadialChart.invalidate();
     }
 }

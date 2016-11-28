@@ -16,93 +16,119 @@
             android:layout_height="match_parent"
 
             android:layout_weight="0.5"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:background="@mipmap/shade">
 
         <com.github.mikephil.charting.charts.LineChart
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id = "@+id/lineChart"
-            android:layout_weight="0.42">
+            android:layout_weight="0.25">
         </com.github.mikephil.charting.charts.LineChart>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_weight="0">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fuel"
                     android:id="@+id/setFuel"
-                    android:onClick="setFuel" />
+                    android:onClick="setFuel"
+                    android:layout_weight="1"
+                    android:background="@color/fuel"
+                    android:layout_margin="6dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Acceleration"
                     android:id="@+id/setAcceleration"
-                    android:onClick="setAcceleration" />
+                    android:onClick="setAcceleration"
+                    android:layout_weight="1"
+                    android:background="@color/acceleration"
+                    android:layout_margin="6dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Distance"
                     android:id="@+id/setDistance"
-                    android:onClick="setDistance" />
+                    android:onClick="setDistance"
+                    android:layout_weight="1"
+                    android:background="@color/distance"
+                    android:layout_margin="6dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RPM"
                     android:id="@+id/setRPM"
-                    android:onClick="setRPM" />
+                    android:onClick="setRPM"
+                    android:layout_weight="1"
+                    android:background="@color/rpm"
+                    android:layout_margin="6dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Load"
                     android:id="@+id/setLoad"
-                    android:onClick="setLoad" />
+                    android:onClick="setLoad"
+                    android:layout_weight="1"
+                    android:background="@color/load"
+                    android:layout_margin="6dp" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
                 android:id="@+id/averageValuesView"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_weight="0" />
 
             <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"
             android:layout_width="match_parent"
 
-            android:layout_height="200dp"
-            android:layout_weight="0.32" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_margin="12dp">
 
                 <ProgressBar
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="wrap_content"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/progressBar"
-                    android:layout_weight="1"
-                    android:progress="50" />
+                    android:progress="50"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stop"
-                    android:id="@+id/button2"
-                    android:layout_weight="1"
-                    android:layout_gravity="center" />
+                <ImageButton
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:id="@+id/stopButton"
+                    android:src="@mipmap/stop"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:layout_marginLeft="12dp"
+                    android:onClick="stop" />
+
             </LinearLayout>
 
         </LinearLayout>
