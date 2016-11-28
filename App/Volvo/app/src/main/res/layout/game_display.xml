@@ -25,7 +25,49 @@
             android:layout_weight="0.42">
         </com.github.mikephil.charting.charts.LineChart>
 
-        <com.github.mikephil.charting.charts.RadarChart
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fuel"
+                    android:id="@+id/setFuel"
+                    android:onClick="setFuel" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Acceleration"
+                    android:id="@+id/setAcceleration"
+                    android:onClick="setAcceleration" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:id="@+id/setDistance"
+                    android:onClick="setDistance" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RPM"
+                    android:id="@+id/setRPM"
+                    android:onClick="setRPM" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Load"
+                    android:id="@+id/setLoad"
+                    android:onClick="setLoad" />
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"
             android:layout_width="match_parent"
 

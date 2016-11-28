@@ -34,7 +34,8 @@
             android:label="Statistics" />
         <activity android:name=".TimeActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".VehicleActivity"></activity>
+        <activity android:name=".VehicleActivity" />
+        <activity android:name=".SampleSwipeActivity"></activity>
     </application>
 
 </manifest>

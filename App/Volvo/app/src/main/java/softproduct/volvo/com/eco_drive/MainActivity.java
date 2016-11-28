@@ -34,5 +34,19 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
+    public void startSampleSwipeActivity(View view) {
+        Intent intent = new Intent(this, SampleSwipeActivity.class);
+        startActivity(intent);
+    }
+
+    public void startAliasActivity(View view) {
+        Intent intent = new Intent(this, AliasActivity.class);
+        startActivity(intent);
+    }
+
+    public void startVehicleActivity(View view) {
+        Intent intent = new Intent(this, VehicleActivity.class);
+        startActivity(intent);
+    }
 
 }

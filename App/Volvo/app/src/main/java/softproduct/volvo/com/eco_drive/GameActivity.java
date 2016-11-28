@@ -1,12 +1,15 @@
 package softproduct.volvo.com.eco_drive;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.app.Activity;
 import android.graphics.DashPathEffect;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,70 +45,106 @@ import java.util.List;
 public class GameActivity extends Activity {
     private LineChart mChart;
     private RadarChart mChart2;
+
+    ArrayList<Entry> fuelConsumptionData;
+    ArrayList<Entry> rpmData;
+    ArrayList<Entry> altitudeData;
+    ArrayList<Entry> accelerationData;
+    ArrayList<Entry> loadData;
+    ArrayList<Entry> distanceData;
+
+    ArrayList<Entry> currentData;
+
+    private void updateData(ArrayList<Entry> data, float x, float y){
+        data.add(new Entry(x, y));
+    }
+
+    private void setCurrentData(ArrayList<Entry> data){
+        currentData = data;
+    }
+
+    private void createDummyData(ArrayList<Entry> data, int count, float range){
+        for (int i = 0; i < count; i++) {
+        float val = (float) (Math.random() * range) + 3;
+            updateData(data, i, val);
+        }
+    }
+
+    public void setFuel(View view) {
+        setCurrentData(fuelConsumptionData);
+        setLineDataToCurrent();
+    }
+    public void setAcceleration(View view) {
+        setCurrentData(accelerationData);
+        setLineDataToCurrent();
+    }
+    public void setDistance(View view) {
+        setCurrentData(distanceData);
+        setLineDataToCurrent();
+    }
+    public void setRPM(View view) {
+        setCurrentData(rpmData);
+        setLineDataToCurrent();
+    }
+    public void setLoad(View view) {
+        setCurrentData(loadData);
+        setLineDataToCurrent();
+
+    }
+
+    //public void dummyGetNew
+
+    public void setLineDataToCurrent(){
+        LineDataSet set1;
+        set1 = new LineDataSet(currentData, "Insert Attribute here");
+        set1.enableDashedLine(10f, 5f, 0f);
+        set1.enableDashedHighlightLine(10f, 5f, 0f);
+        set1.setColor(Color.WHITE);
+        set1.setCircleColor(Color.WHITE);
+        set1.setLineWidth(1f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(false);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(true);
+        set1.setFormLineWidth(1f);
+        set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set1.setFormSize(15.f);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        dataSets.add(set1); // add the datasets
+        LineData data = new LineData(dataSets);
+        mChart.clearValues();
+        mChart.setData(data);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
+
+
+        fuelConsumptionData = new ArrayList<Entry>();
+        rpmData = new ArrayList<Entry>();
+        altitudeData = new ArrayList<Entry>();
+        accelerationData = new ArrayList<Entry>();
+        loadData = new ArrayList<Entry>();
+        distanceData = new ArrayList<Entry>();
+
+        currentData = fuelConsumptionData;
+
+        createDummyData(fuelConsumptionData, 10, 100);
+        createDummyData(rpmData, 10, 100);
+        createDummyData(altitudeData, 10, 100);
+        createDummyData(accelerationData, 10, 100);
+        createDummyData(loadData, 10, 100);
+        createDummyData(distanceData, 10, 100);
+
         lineGraph();
         radarGraph();
 
+
     }
-    //////////////////////SET DATA///////////////////////////
-    private void setLineData(int count, float range) {
 
-        ArrayList<Entry> values = new ArrayList<Entry>();
-
-        for (int i = 0; i < count; i++) {
-
-            float val = (float) (Math.random() * range) + 3;
-            values.add(new Entry(i, val));
-        }
-
-        LineDataSet set1;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, "Insert Attribute here");
-
-            // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f);
-            set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.WHITE);
-            set1.setCircleColor(Color.WHITE);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
-            set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
-                /*
-                if (Utils.getSDKInt() >= 18) {
-                    // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
-                    set1.setFillDrawable(drawable);
-                }
-                else {
-                    set1.setFillColor(Color.BLACK);
-                }*/
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-
-            // set data
-            mChart.setData(data);
-        }
-    }
     private void lineGraph() {
         mChart = (LineChart) findViewById(R.id.lineChart);
 
@@ -149,7 +188,7 @@ public class GameActivity extends Activity {
 
         mChart.getAxisRight().setEnabled(false);
 
-        setLineData(45, 100);
+        setLineDataToCurrent();
 
 //        mChart.setVisibleXRange(20);
 //        mChart.setVisibleYRange(20f, AxisDependency.LEFT);

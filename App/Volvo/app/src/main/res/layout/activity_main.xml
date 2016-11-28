@@ -44,4 +44,29 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:onClick="startTimeActivity" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Sample Swipe Activity"
+        android:id="@+id/sampleSwipeStart"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startSampleSwipeActivity" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Alias Activity"
+        android:id="@+id/sampleAliasStart"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startAliasActivity" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Vehicle Activity"
+        android:id="@+id/sampleVehicleStart"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startVehicleActivity" />
+
 </LinearLayout>
