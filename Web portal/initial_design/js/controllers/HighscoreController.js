@@ -94,7 +94,7 @@ var init = function (){
 function update(){
 	
 	var machineType = $('input[name="machines"]:checked', '#machine-types').val();
-	alert(machineType);
+	//alert(machineType);
 	getData(machineType);
 }
 
