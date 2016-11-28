@@ -1,3 +1,4 @@
+var json="";
 
 var HighscoreController = function(radialChartController, lineChartController){
 
@@ -9,6 +10,7 @@ var fail = function(){
 
 }
 var done = function(data){
+	json=data;
 
 	var generatedView = "";
 
@@ -40,6 +42,18 @@ $(".collapsible-header").on("click", function(e){
 	scrollToClickedLiIfInactive(idClicked, classClicked);
 
 });
+
+$(".waves-light.btn").on("click", function(){
+	var type = $(this).html();
+	type = type.split("<")[0];
+	type=type.toUpperCase();
+	var idHighscore = jQuery(this).attr("id");
+	idHighscore=Number(idHighscore);
+	lineChart[idHighscore].data.datasets[0].data = json[idHighscore][type].split(",");
+	lineChart[idHighscore].data.datasets[0].label=type;
+	lineChart[idHighscore].update();
+});
+
 
 }
 
@@ -113,9 +127,9 @@ var html = `
 <!--END LINE CHART-->
 <!--BUTTONS -->  
 
-<a class="waves-effect waves-light btn">Fuel</a>
-<a class="waves-effect waves-light btn">Distance</a>
-<a class="waves-effect waves-light btn">Load</a>
+<a class="waves-effect waves-light btn" id="{{index}}">Fuel</a>
+<a class="waves-effect waves-light btn" id="{{index}}">Distance</a>
+<a class="waves-effect waves-light btn" id="{{index}}">Loaded</a>
 
 <!--END BUTTONS -->
 

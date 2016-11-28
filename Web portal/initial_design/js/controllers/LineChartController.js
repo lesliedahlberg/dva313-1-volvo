@@ -1,3 +1,4 @@
+var lineChart=[];
 var LineChartController = function(){
 
 	var init = function (item){
@@ -16,7 +17,7 @@ var LineChartController = function(){
 			labels: getLabels(item),
 			datasets: [
 			{
-				label: "Fuel",
+				label: "FUEL",
 				fill: false,
 				lineTension: 0.1,
 				backgroundColor: "rgba(75,192,192,0.4)",
@@ -34,7 +35,7 @@ var LineChartController = function(){
 				pointHoverBorderWidth: 2,
 				pointRadius: 1,
 				pointHitRadius: 10,
-				data: getData(item),
+				data: getData(item, "FUEL"),
 				spanGaps: false,
 
 			}
@@ -55,16 +56,19 @@ var LineChartController = function(){
 
 
 			}
+			
 		});
+
+		lineChart.push(myLineChart);
 
 	}
 	function getLabels(item){
 
 		return item.TIME.split(',').map(x => x + " min");
 	}
-	function getData(item){
+	function getData(item, index){
 
-		return item.FUEL.split(",");
+		return item[index].split(",");
 	}
 
 }();
