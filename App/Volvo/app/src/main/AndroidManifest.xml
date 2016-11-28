@@ -35,6 +35,7 @@
         <activity android:name=".TimeActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".VehicleActivity" />
+        <activity android:name=".AliasActivity" />
         <activity android:name=".SampleSwipeActivity"></activity>
     </application>
 

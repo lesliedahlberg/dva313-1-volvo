@@ -267,7 +267,7 @@ public class GameActivity extends Activity {
     private void radarGraph(){
 
         mChart2 = (RadarChart) findViewById(R.id.GameActivity_radarChart);
-        mChart2.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
+        //mChart2.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
 
         mChart2.getDescription().setEnabled(false);
 

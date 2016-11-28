@@ -28,7 +28,8 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <Button
                     android:layout_width="wrap_content"
@@ -71,8 +72,30 @@
             android:id="@+id/GameActivity_radarChart"
             android:layout_width="match_parent"
 
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_weight="0.32" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:layout_weight="1"
+                    android:progress="50" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop"
+                    android:id="@+id/button2"
+                    android:layout_weight="1"
+                    android:layout_gravity="center" />
+            </LinearLayout>
 
         </LinearLayout>
 
