@@ -5,14 +5,16 @@ include "connection.php";
 //$time = $_POST["time"]; 
 //$alias = $_POST["alias"]
 
-$time  = "12:00"; 
-$value = "5"
-$type  = "FUEL"
+$time  = '12:00'; 
+$value = 5;
+$type  = 'FUEL';
 
-$session  = 1;
+$sessionId  = 9;
 
-$sql = "INSERT INTO valuetime ( Type,  Value, Time,  IdSession) 
-					   VALUES ( $type, $value,$time, $IdSession)";
+$sql = "INSERT INTO ValueTime ( Type,  Value, Time,  IdSession) 
+					   VALUES ( '$type', $value,'$time', $sessionId)";
+
+echo $sql;
 
 $result = mysqli_query($connection, $sql);
 
