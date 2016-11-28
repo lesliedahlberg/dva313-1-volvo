@@ -1,15 +1,6 @@
-/* Custom Stylesheet */
-/**
-* Use this file to override Materialize files so you can update
-* the core Materialize files in the future
-*
-* Made By MaterializeCSS.com
-*/
-
-
 .fixed { position: fixed;}
 
-.collapsible-body{
+.collapsible-body {
 background:#E1F5FE;
 }
 
@@ -22,7 +13,7 @@ background: #607D8B;
 color:#F5F5F5;
 
 }
-.sidebar_inner {
+.sidebar-inner {
 min-height: 100vh;
 }
 
@@ -38,14 +29,7 @@ color:#E0E0E0;
 color: #E0E0E0;
 }
 
-.content {
-
-
-}
-
-
-
-.content_inner {
+.content-inner {
 padding-top: 1em;
 padding-left: 0.3em;
 padding-right: 0.3em;
@@ -61,58 +45,12 @@ width:100%;
 margin-top:18px;
 }
 
-
-
-.score-box {
-background: #E1F5FE;
-padding: 1em;
-margin-bottom: 1em;
-}
-
-.score-box h4 {
-color: #F5F5F5;
-background: #03A9F4;
-padding: 0.5em;
-}
-
-
-.score-box-expanded {
-}
-
 .btn {
 background: #03A9F4;
 }
 
 .btn:hover {
 background: #0277BD;
-}
-
-.hexagon {
-position: relative;
-width: 128px;
-height: 73.90px;
-background-color: #0277BD;
-margin: 36.95px 0;
-}
-
-.hexagon:before,
-.hexagon:after {
-content: "";
-position: absolute;
-width: 0;
-border-left: 64px solid transparent;
-border-right: 64px solid transparent;
-}
-
-.hexagon:before {
-bottom: 100%;
-border-bottom: 36.95px solid #0277BD;
-}
-
-.hexagon:after {
-top: 100%;
-width: 0;
-border-top: 36.95px solid #0277BD;
 }
 
 nav ul a,
@@ -124,58 +62,7 @@ p {
 line-height: 2rem;
 }
 
-.button-collapse {
-color: #26a69a;
-}
-
-.parallax-container {
-min-height: 380px;
-line-height: 0;
-height: auto;
-color: rgba(255,255,255,.9);
-}
-.parallax-container .section {
-width: 100%;
-}
-
-@media only screen and (max-width : 992px) {
-.parallax-container .section {
-  position: absolute;
-  top: 40%;
-}
-#index-banner .section {
-  top: 10%;
-}
-}
-
-@media only screen and (max-width : 600px) {
-#index-banner .section {
-  top: 0;
-}
-}
-
-.icon-block {
-padding: 0 15px;
-}
-.icon-block .material-icons {
-font-size: inherit;
-}
-
-footer.page-footer {
-margin: 0;
-}
-
-.radar-chart-container{
-margin-top: -50px;
-}
-
-.radar-chart {
-width: 1600 !important;
-height: 800 !important;
-
-}
-
-.score{
+.score {
 font-weight: 600;
 }
 
@@ -184,7 +71,7 @@ background: #37474F !important;
 padding:8px;
 }
 
-.zeroPadding{
+.zero-padding{
 padding: 0px !important;
 }
 
