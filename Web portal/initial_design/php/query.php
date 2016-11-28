@@ -14,7 +14,7 @@ $queryy="SELECT s.id,s.score,a.name,s.timePlayed,s.duration, (select sum(vtt.val
 (select sum(vtt.value) from ValueTime as vtt where vtt.type='LOAD' and vtt.IdSession=s.id) as totalLoad,
 (select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='Fuel' and vtt.IdSession=s.id) as averageFuel,
 (select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='DISTANCE' and vtt.IdSession=s.id) as averageDistance,
-(select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='LOAD' and vtt.IdSession=s.id) as average,
+(select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='LOAD' and vtt.IdSession=s.id) as averageLoad,
 (select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='Speed' and vtt.IdSession=s.id) as averageSpeed, 
 (select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='RPM' and vtt.IdSession=s.id) as averageRpm,    
 (select ROUND(avg(vtt.value),0) from ValueTime as vtt where vtt.type='ALTITUDE' and vtt.IdSession=s.id) as averageAltitude,
@@ -23,7 +23,7 @@ FUEL,GROUP_CONCAT(case when v.type='RPM' then v.value end ORDER BY v.time asc SE
 GROUP_CONCAT(case when v.type='SPEED' then v.value end ORDER BY v.time asc SEPARATOR ',') SPEED, 
 GROUP_CONCAT(case when v.type='ALTITUDE' then v.value end ORDER BY v.time asc SEPARATOR ',') ALTITUDE, 
 GROUP_CONCAT(case when v.type='DISTANCE' then v.value end ORDER BY v.time asc SEPARATOR ',') DISTANCE, 
-GROUP_CONCAT(case when v.type='LOAD' then v.value end ORDER BY v.time asc SEPARATOR ',') "LOAD" 
+GROUP_CONCAT(case when v.type='LOAD' then v.value end ORDER BY v.time asc SEPARATOR ',') LOADED 
 FROM Session as s JOIN Alias as a ON (a.id = s.IdAlias) JOIN ValueTime as v ON (v.IdSession=s.id) GROUP BY s.id order by s.score desc LIMIT 20";
 
 $result = mysqli_query($connection, $queryy);
@@ -46,3 +46,4 @@ echo $json;
 
 mysqli_close($connection);
 ?>
+
