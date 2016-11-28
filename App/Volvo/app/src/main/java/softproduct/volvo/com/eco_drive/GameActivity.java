@@ -59,6 +59,7 @@ public class GameActivity extends Activity {
         data.add(new Entry(x, y));
     }
 
+
     private void setCurrentData(ArrayList<Entry> data){
         currentData = data;
     }
@@ -91,8 +92,6 @@ public class GameActivity extends Activity {
         setLineDataToCurrent();
 
     }
-
-    //public void dummyGetNew
 
     public void setLineDataToCurrent(){
         LineDataSet set1;
@@ -142,7 +141,67 @@ public class GameActivity extends Activity {
         lineGraph();
         radarGraph();
 
+        //setLineDataToCurrent();
 
+
+    }
+
+    //////////////////////SET DATA///////////////////////////
+    private void setLineData(int count, float range) {
+
+        ArrayList<Entry> values = currentData;
+
+
+        //for (int i = 0; i < count; i++) {
+
+            //float val = (float) (Math.random() * range) + 3;
+            //values.add(new Entry(i, val));
+        //}
+
+        LineDataSet set1;
+
+        if (mChart.getData() != null &&
+                mChart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            mChart.getData().notifyDataChanged();
+            mChart.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(values, "Insert Attribute here");
+
+            // set the line to be drawn like this "- - - - - -"
+            set1.enableDashedLine(10f, 5f, 0f);
+            set1.enableDashedHighlightLine(10f, 5f, 0f);
+            set1.setColor(Color.WHITE);
+            set1.setCircleColor(Color.WHITE);
+            set1.setLineWidth(1f);
+            set1.setCircleRadius(3f);
+            set1.setDrawCircleHole(false);
+            set1.setValueTextSize(9f);
+            set1.setDrawFilled(true);
+            set1.setFormLineWidth(1f);
+            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set1.setFormSize(15.f);
+                /*
+                if (Utils.getSDKInt() >= 18) {
+                    // fill drawable only supported on api level 18 and above
+                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
+                    set1.setFillDrawable(drawable);
+                }
+                else {
+                    set1.setFillColor(Color.BLACK);
+                }*/
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+            dataSets.add(set1); // add the datasets
+
+            // create a data object with the datasets
+            LineData data = new LineData(dataSets);
+
+            // set data
+            mChart.setData(data);
+        }
     }
 
     private void lineGraph() {
@@ -188,7 +247,8 @@ public class GameActivity extends Activity {
 
         mChart.getAxisRight().setEnabled(false);
 
-        setLineDataToCurrent();
+        setLineData(45, 100);
+
 
 //        mChart.setVisibleXRange(20);
 //        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
