@@ -15,7 +15,7 @@ public class AliasActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alias);
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preset_vehicle), Context.MODE_PRIVATE);
         String defaultValue = "missing";
         String test = sharedPref.getString("machine", defaultValue);
 
@@ -29,5 +29,13 @@ public class AliasActivity extends Activity {
         String message = editText.getText().toString();
         intent.putExtra("alias", message);
         startActivity(intent);
+    }
+
+    public void clearPreferences(View view){
+        Intent intent = new Intent(this, VehicleActivity.class);
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPref.edit();
+        edit.clear();
+        edit.commit();
     }
 }

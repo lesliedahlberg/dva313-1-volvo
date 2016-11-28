@@ -9,18 +9,30 @@ import android.content.Intent;
 
 public class VehicleActivity extends Activity {
 
+    private boolean ispreset = false;
+    private SharedPreferences sharedPref;
+    String preset_value = "key_is_preset";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
+
+        sharedPref = this.getSharedPreferences(getString(R.string.preset_vehicle), Context.MODE_PRIVATE);
+        ispreset = sharedPref.getBoolean(preset_value, false);
+        if(ispreset){
+            Intent intent = new Intent(this, AliasActivity.class);
+            startActivity(intent);
+        }
     }
 
 
     public void excavatorClick(View view){
         Intent intent = new Intent(this, AliasActivity.class);
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.preset_vehicle), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPref.edit();
+        edit.putBoolean(preset_value, true);
         edit.putString("machine", "Excavator");
         edit.commit();
         //String message = "Excavator";

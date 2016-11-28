@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Volvo Eco Driving</string>
     <string name="Volvo_header">VOLVO</string>
+    <string name="preset_vehicle">com.volvo-app.preset_vehicle</string>
 </resources>
