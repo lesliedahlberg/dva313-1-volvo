@@ -6,9 +6,9 @@ include "connection.php";
 
 $data='%';
 
-if(!empty($_POST['getData']) && $_POST['getData']!="All"){
-$valu=(string) $_POST['getData'];
-$data='Excavator';
+if(!empty($_POST["getData"]) && $_POST["getData"]!="All"){
+$valu= "%".$_POST["getData"];
+$data="".$_POST['getData']."";
 }
 
 
