@@ -2,21 +2,15 @@
 
 include "connection.php";
 
-//$time = $_POST["time"]; 
-//$alias = $_POST["alias"]
-
-$time = '12:00'; 
+$time = $_POST["time"]; 
 $alias = $_POST["alias"];
 
-//$aliasID = 4;
 $idmachine=1;
 
- $sql = $connection->prepare("SELECT id from Alias WHERE name=?");
-$sql->bind_param('s', $alias);
 
-$sql->execute();
+$sql = "SELECT Id from Alias WHERE name='$alias'";
+$result = mysqli_query($connection, $sql);
 
-$result = $sql->get_result();
 
 $idAlias="";
 if(mysqli_num_rows($result)!=0){

@@ -14,9 +14,6 @@ $sql = "INSERT INTO ValueTime ( Type,  Value, Time,  IdSession)
 
 $result = mysqli_query($connection, $sql);
 
-echo $connection->insert_id;
-
-
 
 mysqli_close($connection);
 
