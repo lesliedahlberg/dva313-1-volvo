@@ -1,0 +1,77 @@
+API reference 
+
+========================================================================
+
+Name:
+	Create new game
+
+Description: 
+	This should be invoked on game start and the returned ID should be 
+	stored inside of the android app because it has to be sent with 
+	other requests in other parts of the application:
+
+Link:
+	http://autoelektronikame.ipage.com/volvo/php/create-new-game.php
+
+Type:
+	POST
+
+Return Type: 
+	ID of new created session
+
+Body parameters (accepts): 
+	- time  : "14:35"
+	- alias : "alias"
+
+========================================================================
+
+Name:
+	End session / End game
+
+Description: 
+	This should be invoked when game is finished.  
+
+Link:
+	http://autoelektronikame.ipage.com/volvo/php/end-session.php
+
+Type:
+	POST
+
+Return Type: 
+	NONE
+
+Body parameters (accepts): 
+
+	- duration  : "1:30" 
+	- score     :  250
+	- published :  true
+    - session   :  12
+
+========================================================================
+
+
+Name:
+	Register event
+
+Description: 
+	This should send an event for example, fuel consumption at 2'nd min.  
+
+Link:
+	http://autoelektronikame.ipage.com/volvo/php/register-event.php
+
+Type:
+	POST
+
+Return Type: 
+	NONE
+
+Body parameters (accepts): 
+
+	- time    : "1" 
+	- value   :  2 
+	- type    : "Fuel"
+	- session :  12
+
+
+========================================================================
+
