@@ -115,14 +115,15 @@
       
     HighscoreController.init();
 
-    setTimeout(function(){
-        $('html, body').animate({scrollTop:$("#0").position().top}, 'normal');
-      }, 300);
+    
     
     //On machine changed 
     $('#machine-types').on('change', function() {
         HighscoreController.update();
         lineChart=[];
+        setTimeout(function(){
+        $('html, body').animate({scrollTop:$("#0").position().top}, 'slow');
+      }, 300);
     });
 
 
