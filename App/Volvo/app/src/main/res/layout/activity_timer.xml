@@ -54,13 +54,16 @@
                 android:layout_height="wrap_content"
 
                 android:layout_centerHorizontal="true"
-                android:text="Start"
-                android:id="@+id/startButton"
+                android:text="Return"
+                android:id="@+id/returnButton"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:padding="24dp"
                 android:textSize="24dp"
-                android:onClick="start" />
+                android:onClick="_return"
+                android:background="@color/button"
+                android:textColor="@color/text" />
+
         </FrameLayout>
 
         <FrameLayout
@@ -73,13 +76,15 @@
                 android:layout_height="wrap_content"
 
                 android:layout_centerHorizontal="true"
-                android:text="Return"
-                android:id="@+id/returnButton"
+                android:text="Start"
+                android:id="@+id/startButton"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:padding="24dp"
                 android:textSize="24dp"
-                android:onClick="_return" />
+                android:onClick="start"
+                android:background="@color/button"
+                android:textColor="@color/text" />
         </FrameLayout>
 
     </LinearLayout>

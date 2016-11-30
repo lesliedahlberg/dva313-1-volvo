@@ -37,5 +37,6 @@ public class AliasActivity extends Activity {
         SharedPreferences.Editor edit = sharedPref.edit();
         edit.clear();
         edit.commit();
+        startActivity(intent);
     }
 }

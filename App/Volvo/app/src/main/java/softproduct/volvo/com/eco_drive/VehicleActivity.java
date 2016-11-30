@@ -18,14 +18,20 @@ public class VehicleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
 
-        sharedPref = this.getSharedPreferences(getString(R.string.preset_vehicle), Context.MODE_PRIVATE);
-        ispreset = sharedPref.getBoolean(preset_value, false);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if(ispreset){
+            sharedPref = this.getSharedPreferences(getString(R.string.preset_vehicle), Context.MODE_PRIVATE);
+            ispreset = sharedPref.getBoolean(preset_value, false);
             Intent intent = new Intent(this, AliasActivity.class);
             startActivity(intent);
         }
     }
-
 
     public void excavatorClick(View view){
         Intent intent = new Intent(this, AliasActivity.class);

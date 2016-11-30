@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="softproduct.volvo.com.eco_drive.VehicleActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@mipmap/shade">
 
     <ImageView
         android:layout_width="match_parent"
@@ -24,5 +25,6 @@
         android:onClick="excavatorClick"
         android:layout_gravity="center"
         android:layout_marginTop="96dp"
-        android:src="@mipmap/excavator" />
+        android:src="@mipmap/excavator"
+        android:background="@color/button" />
 </LinearLayout>

@@ -229,7 +229,7 @@ public class GameActivity extends Activity {
         Button newGameButton = (Button) findViewById(R.id.newGame);
         newGameButton.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        ImageButton stopButton = (ImageButton) findViewById(R.id.stopButton);
+        Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
 
     }

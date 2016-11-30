@@ -5,6 +5,6 @@ package softproduct.volvo.com.eco_drive;
  */
 public class UploadData {
     public void uploadData(RecordedData data){
-        
+
     }
 }

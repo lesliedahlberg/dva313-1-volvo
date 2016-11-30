@@ -12,9 +12,10 @@
     <color name="acceleration">#9c27b0</color>
     <color name="distance">#2196f3</color>
     <color name="rpm">#8BC34A</color>
-    <color name="load">#FFC107</color>
+    <color name="load">#ffc107</color>
     <color name="radial">#4caf50</color>
     <color name="radialAverage">#3F51B5</color>
+    <color name="button">#2196f3</color>
 
 
 </resources>
