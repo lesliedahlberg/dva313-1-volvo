@@ -1,5 +1,4 @@
 <?php
-
 include "connection.php";
 
 $duration = $_POST["duration"]; 
@@ -8,12 +7,12 @@ $published = $_POST["published"];
 $sessionId = $_POST["session"];
 
 
-$sql = "UPDATE Session set Duration='$duration', Published=$published, Score=$score WHERE Id=$sessionId";
 
+$stmt = $connection->prepare("UPDATE Session set Duration=?, Published=?, Score=? WHERE Id=?");
+$stmt->bind_param("siii", $duration, $published, $score, $sessionId);
 
-$result = mysqli_query($connection, $sql);
+$stmt->execute();
 
 
 mysqli_close($connection);
-
 ?>

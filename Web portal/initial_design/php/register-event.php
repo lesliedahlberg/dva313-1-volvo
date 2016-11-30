@@ -8,11 +8,14 @@ $type = $_POST["type"];
 $sessionId = $_POST["session"];
 
 
-$sql = "INSERT INTO ValueTime ( Type,  Value, Time,  IdSession) 
-					   VALUES ( '$type', $value,'$time', $sessionId)";
+$stmt = $connection->prepare("INSERT INTO ValueTime ( Type,  Value, Time,  IdSession) 
+					   VALUES ( ?, ?, ?, ?)");
+$stmt->bind_param("sisi", $type, $value, $time, $sessionId);
+
+$stmt->execute();
 
 
-$result = mysqli_query($connection, $sql);
+//$result = mysqli_query($connection, $sql);
 
 
 mysqli_close($connection);
