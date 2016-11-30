@@ -32,8 +32,11 @@ import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Porya on 2016-11-25.
@@ -44,7 +47,7 @@ public class GameActivity extends Activity {
     //Charts
     private LineChart detailedLineChart;
     private RadarChart generalRadialChart;
-
+    int i =0;
     int minutes;
     Context context;
     CountDownTimer timer;
@@ -73,12 +76,13 @@ public class GameActivity extends Activity {
         currentData = data;
     }
 
-    private void createDummyDataForDataSource(ArrayList<Entry> data, int count, float range){
-        for (int i = 0; i < count; i++) {
+    /*private void createDummyDataForDataSource(ArrayList<Entry> data, int count, float range){
+
+
         float val = (float) (Math.random() * range) + 3;
-            addEntryToDataSource(data, i, val);
-        }
-    }
+            addEntryToDataSource(data, count, val);
+
+    }*/
 
     public void newGame(View view) {
         Intent intent = new Intent(context, AliasActivity.class);
@@ -167,18 +171,19 @@ public class GameActivity extends Activity {
         loadData = new ArrayList<Entry>();
         distanceData = new ArrayList<Entry>();
 
-
-
+        //timer(fuelConsumptionData, 100);
+        /*
         createDummyDataForDataSource(fuelConsumptionData, 10, 100);
         createDummyDataForDataSource(rpmData, 10, 100);
         createDummyDataForDataSource(altitudeData, 10, 100);
         createDummyDataForDataSource(accelerationData, 10, 100);
         createDummyDataForDataSource(loadData, 10, 100);
-        createDummyDataForDataSource(distanceData, 10, 100);
+        createDummyDataForDataSource(distanceData, 10, 100);*/
 
         lineGraph();
         radarGraph();
-
+        //feedMultiple(fuelConsumptionData);
+        feedMultiple();
         setFuel(null);
 
         //Insert average values
@@ -311,6 +316,95 @@ public class GameActivity extends Activity {
         l.setEnabled(false);
     }
 
+    private void addEntry() {
+
+        //setCurrentDataSource();
+        //setLineDataToCurrent();
+        LineData data = detailedLineChart.getData();
+
+        if (data != null) {
+
+            ILineDataSet set = data.getDataSetByIndex(0);
+
+            if (set == null) {
+                set = createSet();
+                data.addDataSet(set);
+            }
+
+            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 40) + 30f), 0);
+            data.notifyDataChanged();
+
+            // let the chart know it's data has changed
+            detailedLineChart.notifyDataSetChanged();
+
+            // limit the number of visible entries
+            detailedLineChart.setVisibleXRangeMaximum(120);
+            // mChart.setVisibleYRange(30, AxisDependency.LEFT);
+
+            // move to the latest entry
+            detailedLineChart.moveViewToX(data.getEntryCount());
+
+            // this automatically refreshes the chart (calls invalidate())
+            // mChart.moveViewTo(data.getXValCount()-7, 55f,
+            // AxisDependency.LEFT);
+        }
+    }
+
+    private LineDataSet createSet() {
+
+        LineDataSet set = new LineDataSet(null, "Dynamic Data");
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setColor(ColorTemplate.getHoloBlue());
+        set.setCircleColor(Color.WHITE);
+        set.setLineWidth(2f);
+        set.setCircleRadius(4f);
+        set.setFillAlpha(65);
+        set.setFillColor(ColorTemplate.getHoloBlue());
+        set.setHighLightColor(Color.rgb(244, 117, 117));
+        set.setValueTextColor(Color.WHITE);
+        set.setValueTextSize(9f);
+        set.setDrawValues(false);
+        return set;
+    }
+
+    private Thread thread;
+
+    private void feedMultiple() {
+
+        if (thread != null)
+            thread.interrupt();
+
+        final Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                addEntry();
+                setRadarData();
+
+            }
+        };
+
+        thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < 1000; i++) {
+
+                    // Don't generate garbage runnables inside the loop.
+                    runOnUiThread(runnable);
+
+                    try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        thread.start();
+    }
 
     public void setRadarData() {
 
