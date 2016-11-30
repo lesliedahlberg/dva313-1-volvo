@@ -6,10 +6,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.app.Activity;
 import android.graphics.DashPathEffect;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -44,6 +47,7 @@ public class GameActivity extends Activity {
 
     int minutes;
     Context context;
+    CountDownTimer timer;
 
     //Data arrays for charts
     ArrayList<Entry> fuelConsumptionData;
@@ -74,6 +78,11 @@ public class GameActivity extends Activity {
         float val = (float) (Math.random() * range) + 3;
             addEntryToDataSource(data, i, val);
         }
+    }
+
+    public void newGame(View view) {
+        Intent intent = new Intent(context, AliasActivity.class);
+        startActivity(intent);
     }
 
     public void setFuel(View view) {
@@ -187,8 +196,14 @@ public class GameActivity extends Activity {
 
     }
 
+    //@Override
+    /*public void onBackPressed() {
+        Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
+
+    }*/
+
     private void startTimer(){
-        new CountDownTimer(minutes*60*1000, 1000) {
+        timer = new CountDownTimer(minutes*60*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 progressBar.setProgress((int) (millisUntilFinished / 1000));
@@ -199,15 +214,24 @@ public class GameActivity extends Activity {
 
             }
         }.start();
+
     }
 
     public void stop(View view){
+        timer.onFinish();
+        timer.cancel();
+        progressBar.setProgress(0);
         gameEnd();
+
     }
 
     private void gameEnd() {
-        Intent intent = new Intent(context, StatsActivity.class);
-        startActivity(intent);
+        Button newGameButton = (Button) findViewById(R.id.newGame);
+        newGameButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        ImageButton stopButton = (ImageButton) findViewById(R.id.stopButton);
+        stopButton.setVisibility(View.GONE);
+
     }
 
 
