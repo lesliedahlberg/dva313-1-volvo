@@ -396,7 +396,7 @@ public class GameActivity extends Activity {
         context = this;
 
         //CAN
-        can = new CanBusInformation();
+        can = new CanBusInformation(this);
         canData = new RecordedData();
         canData.setDataSource(can);
 
