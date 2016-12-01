@@ -15,9 +15,5 @@ $stmt->bind_param("sisi", $type, $value, $time, $sessionId);
 $stmt->execute();
 
 
-//$result = mysqli_query($connection, $sql);
-
-
 mysqli_close($connection);
-
 ?>

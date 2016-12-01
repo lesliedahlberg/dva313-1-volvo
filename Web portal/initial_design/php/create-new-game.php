@@ -6,10 +6,13 @@ $alias = $_POST["alias"];
 
 $idmachine=1;
 
+$stmt = $connection->prepare("SELECT Id from Alias WHERE name=?");
 
-$sql = "SELECT Id from Alias WHERE name='$alias'";
-$result = mysqli_query($connection, $sql);
+$stmt->bind_param("s", $alias);
 
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 $idAlias="";
 if(mysqli_num_rows($result)!=0){
@@ -39,31 +42,3 @@ echo $connection->insert_id;
 
 mysqli_close($connection);
 ?>
-
-
- <!-- $stmt->bind_param('i',$id);
-
-   /* execute query */
-   $stmt->execute();
-
-   /* Store the result (to get properties) */
-   $stmt->store_result();
-
-   /* Get the number of rows */
-   $num_of_rows = $stmt->num_rows;
-
-   /* Bind the result to variables */
-   $stmt->bind_result($id, $first_name, $last_name, $username);
-
-   while ($stmt->fetch()) {
-        echo 'ID: '.$id.'<br>';
-        echo 'First Name: '.$first_name.'<br>';
-        echo 'Last Name: '.$last_name.'<br>';
-        echo 'Username: '.$username.'<br><br>';
-   }
-
-   /* free results */
-   $stmt->free_result();
-
-   /* close statement */
-   $stmt->close(); -->
