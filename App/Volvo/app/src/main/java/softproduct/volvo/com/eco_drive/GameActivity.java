@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,13 +45,11 @@ import java.util.TimerTask;
 
 public class GameActivity extends Activity {
 
+    Context context;
+
     //Charts
     private LineChart detailedLineChart;
     private RadarChart generalRadialChart;
-    int i =0;
-    int minutes;
-    Context context;
-    CountDownTimer timer;
 
     //Data arrays for charts
     ArrayList<Entry> fuelConsumptionData;
@@ -60,204 +59,28 @@ public class GameActivity extends Activity {
     ArrayList<Entry> loadData;
     ArrayList<Entry> distanceData;
     ArrayList<Entry> currentData;
+    ArrayList<RadarEntry> radarData;
 
+    //UI
+    ProgressBar progressBar;
+    TextView score;
+
+    //Color
     int currentGraphColor;
     int radialGraphColor;
     int radialAverageGraphColor;
 
-    ProgressBar progressBar;
+    //Timer
+    CountDownTimer timer;
+    int minutes;
 
-    private void addEntryToDataSource(ArrayList<Entry> data, float x, float y){
-        data.add(new Entry(x, y));
-    }
-
-
-    private void setCurrentDataSource(ArrayList<Entry> data){
-        currentData = data;
-    }
-
-    /*private void createDummyDataForDataSource(ArrayList<Entry> data, int count, float range){
+    //Live data
+    boolean live = true;
+    int xPos = 0;
+    int updateInterval = 1000;
 
 
-        float val = (float) (Math.random() * range) + 3;
-            addEntryToDataSource(data, count, val);
-
-    }*/
-
-    public void newGame(View view) {
-        Intent intent = new Intent(context, AliasActivity.class);
-        startActivity(intent);
-    }
-
-    public void setFuel(View view) {
-        setCurrentDataSource(fuelConsumptionData);
-        currentGraphColor = Color.parseColor(this.getString(R.color.fuel));
-        clearLineData();
-        setLineDataToCurrent();
-    }
-    public void setAcceleration(View view) {
-        setCurrentDataSource(accelerationData);
-        currentGraphColor = Color.parseColor(this.getString(R.color.acceleration));
-        clearLineData();
-        setLineDataToCurrent();
-    }
-    public void setDistance(View view) {
-        setCurrentDataSource(distanceData);
-        currentGraphColor = Color.parseColor(this.getString(R.color.distance));
-        clearLineData();
-        setLineDataToCurrent();
-    }
-    public void setRPM(View view) {
-        setCurrentDataSource(rpmData);
-        currentGraphColor = Color.parseColor(this.getString(R.color.rpm));
-        clearLineData();
-        setLineDataToCurrent();
-    }
-    public void setLoad(View view) {
-        setCurrentDataSource(loadData);
-        currentGraphColor = Color.parseColor(this.getString(R.color.load));
-        clearLineData();
-        setLineDataToCurrent();
-
-    }
-
-    public void clearLineData(){
-        if(detailedLineChart != null)
-            detailedLineChart.clearValues();
-    }
-
-    public void setLineDataToCurrent(){
-        LineDataSet set1;
-        set1 = new LineDataSet(currentData, "Insert Attribute here");
-        set1.enableDashedLine(10f, 5f, 0f);
-        set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.setColor(currentGraphColor);
-        set1.setCircleColor(currentGraphColor);
-        set1.setLineWidth(2f);
-        set1.setCircleRadius(10f);
-        set1.setDrawCircleHole(false);
-        set1.setValueTextSize(18f);
-        set1.setValueTextColor(Color.WHITE);
-        set1.setFillColor(currentGraphColor);
-        set1.setDrawFilled(true);
-        set1.setFormLineWidth(1f);
-        set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        set1.setFormSize(15.f);
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(set1); // add the datasets
-        LineData data = new LineData(dataSets);
-        detailedLineChart.setData(data);
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_display);
-
-        context = this;
-
-        Intent intent = getIntent();
-        minutes = intent.getIntExtra("time", 5);
-
-        radialGraphColor = Color.parseColor(this.getString(R.color.radial));
-        radialAverageGraphColor = Color.parseColor(this.getString(R.color.radialAverage));
-
-
-        fuelConsumptionData = new ArrayList<Entry>();
-        rpmData = new ArrayList<Entry>();
-        altitudeData = new ArrayList<Entry>();
-        accelerationData = new ArrayList<Entry>();
-        loadData = new ArrayList<Entry>();
-        distanceData = new ArrayList<Entry>();
-
-        //timer(fuelConsumptionData, 100);
-        /*
-        createDummyDataForDataSource(fuelConsumptionData, 10, 100);
-        createDummyDataForDataSource(rpmData, 10, 100);
-        createDummyDataForDataSource(altitudeData, 10, 100);
-        createDummyDataForDataSource(accelerationData, 10, 100);
-        createDummyDataForDataSource(loadData, 10, 100);
-        createDummyDataForDataSource(distanceData, 10, 100);*/
-
-        lineGraph();
-        radarGraph();
-        //feedMultiple(fuelConsumptionData);
-        feedMultiple();
-        setFuel(null);
-
-        //Insert average values
-        TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
-        ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
-        averageValuesView.setText("Average Score: " + averageValues.toString());
-
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setScaleY(18f);
-        progressBar.setMax(minutes*60);
-
-        startTimer();
-
-
-    }
-
-    //@Override
-    /*public void onBackPressed() {
-        Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
-
-    }*/
-
-    private void startTimer(){
-        timer = new CountDownTimer(minutes*60*1000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                progressBar.setProgress((int) (millisUntilFinished / 1000));
-            }
-
-            public void onFinish() {
-                gameEnd();
-
-            }
-        }.start();
-
-    }
-
-    public void stop(View view){
-        timer.onFinish();
-        timer.cancel();
-        progressBar.setProgress(0);
-        gameEnd();
-
-    }
-
-    private void gameEnd() {
-        Button newGameButton = (Button) findViewById(R.id.newGame);
-        newGameButton.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
-        Button stopButton = (Button) findViewById(R.id.stopButton);
-        stopButton.setVisibility(View.GONE);
-
-    }
-
-
-    private void lineGraph() {
-        detailedLineChart = (LineChart) findViewById(R.id.lineChart);
-
-        detailedLineChart.getAxisRight().setEnabled(false);
-        detailedLineChart.getAxisLeft().setEnabled(false);
-        detailedLineChart.getXAxis().setEnabled(false);
-
-        Description desc = new Description();
-        desc.setText("");
-        detailedLineChart.setDescription(desc);
-
-        Legend legend = detailedLineChart.getLegend();
-        legend.setEnabled(false);
-
-        detailedLineChart.setPadding(0, 0, 0, 0);
-
-        setLineDataToCurrent();
-    }
+    //Radar graph
     private void radarGraph(){
 
         generalRadialChart = (RadarChart) findViewById(R.id.GameActivity_radarChart);
@@ -316,145 +139,296 @@ public class GameActivity extends Activity {
         l.setEnabled(false);
     }
 
-    private void addEntry() {
-
-        //setCurrentDataSource();
-        //setLineDataToCurrent();
-        LineData data = detailedLineChart.getData();
-
-        if (data != null) {
-
-            ILineDataSet set = data.getDataSetByIndex(0);
-
-            if (set == null) {
-                set = createSet();
-                data.addDataSet(set);
-            }
-
-            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 40) + 30f), 0);
-            data.notifyDataChanged();
-
-            // let the chart know it's data has changed
-            detailedLineChart.notifyDataSetChanged();
-
-            // limit the number of visible entries
-            detailedLineChart.setVisibleXRangeMaximum(120);
-            // mChart.setVisibleYRange(30, AxisDependency.LEFT);
-
-            // move to the latest entry
-            detailedLineChart.moveViewToX(data.getEntryCount());
-
-            // this automatically refreshes the chart (calls invalidate())
-            // mChart.moveViewTo(data.getXValCount()-7, 55f,
-            // AxisDependency.LEFT);
-        }
-    }
-
-    private LineDataSet createSet() {
-
-        LineDataSet set = new LineDataSet(null, "Dynamic Data");
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setColor(ColorTemplate.getHoloBlue());
-        set.setCircleColor(Color.WHITE);
-        set.setLineWidth(2f);
-        set.setCircleRadius(4f);
-        set.setFillAlpha(65);
-        set.setFillColor(ColorTemplate.getHoloBlue());
-        set.setHighLightColor(Color.rgb(244, 117, 117));
-        set.setValueTextColor(Color.WHITE);
-        set.setValueTextSize(9f);
-        set.setDrawValues(false);
-        return set;
-    }
-
-    private Thread thread;
-
-    private void feedMultiple() {
-
-        if (thread != null)
-            thread.interrupt();
-
-        final Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                addEntry();
-                setRadarData();
-
-            }
-        };
-
-        thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < 1000; i++) {
-
-                    // Don't generate garbage runnables inside the loop.
-                    runOnUiThread(runnable);
-
-                    try {
-                        Thread.sleep(25);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        thread.start();
-    }
-
     public void setRadarData() {
+        if(radarData != null){
+            if(radarData.size() > 0){
+                /*RadarDataSet set1 = new RadarDataSet(entries1, "Average");
+                set1.setColor(Color.rgb(103, 110, 129));
+                set1.setFillColor(radialGraphColor);
+                set1.setDrawFilled(true);
+                set1.setFillAlpha(200);
+                set1.setLineWidth(4f);
+                set1.setDrawHighlightCircleEnabled(true);
+                set1.setDrawHighlightIndicators(false);*/
 
-        float mult = 80;
-        float min = 20;
-        int cnt = 5;
+                RadarDataSet set2 = new RadarDataSet(radarData, "You");
+                set2.setColor(Color.rgb(121, 162, 175));
+                set2.setFillColor(radialAverageGraphColor);
+                set2.setDrawFilled(true);
+                set2.setFillAlpha(100);
+                set2.setLineWidth(4f);
+                set2.setDrawHighlightCircleEnabled(true);
+                set2.setDrawHighlightIndicators(false);
 
-        ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
-        ArrayList<RadarEntry> entries2 = new ArrayList<RadarEntry>();
+                ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < cnt; i++) {
-            float val1 = (float) (Math.random() * mult) + min;
-            entries1.add(new RadarEntry(val1));
+                sets.add(set2);
+                //sets.add(set1);
 
-            float val2 = (float) (Math.random() * mult) + min;
-            entries2.add(new RadarEntry(val2));
+                RadarData data = new RadarData(sets);
+                //data.setValueTypeface(mTfLight);
+                data.setValueTextSize(18f);
+                data.setDrawValues(false);
+                data.setValueTextColor(Color.WHITE);
+
+                generalRadialChart.setData(data);
+                generalRadialChart.invalidate();
+            }
+        }
+    }
+
+
+    //Line graph
+    private void lineGraph() {
+        detailedLineChart = (LineChart) findViewById(R.id.lineChart);
+
+        detailedLineChart.getAxisRight().setEnabled(false);
+        detailedLineChart.getAxisLeft().setEnabled(false);
+        detailedLineChart.getXAxis().setEnabled(false);
+
+        Description desc = new Description();
+        desc.setText("");
+        detailedLineChart.setDescription(desc);
+
+        Legend legend = detailedLineChart.getLegend();
+        legend.setEnabled(false);
+
+        detailedLineChart.setPadding(0, 0, 0, 0);
+
+        setLineDataToCurrent();
+    }
+
+    public void setLineDataToCurrent(){
+        if(currentData != null){
+            if(currentData.size() > 0){
+                LineDataSet set1;
+                set1 = new LineDataSet(currentData, "Insert Attribute here");
+                set1.enableDashedLine(10f, 5f, 0f);
+                set1.enableDashedHighlightLine(10f, 5f, 0f);
+                set1.setColor(currentGraphColor);
+                set1.setCircleColor(currentGraphColor);
+                set1.setLineWidth(2f);
+                set1.setCircleRadius(10f);
+                set1.setDrawCircleHole(false);
+                set1.setValueTextSize(18f);
+                set1.setValueTextColor(Color.WHITE);
+                set1.setFillColor(currentGraphColor);
+                set1.setDrawFilled(true);
+                set1.setFormLineWidth(1f);
+                set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+                set1.setFormSize(15.f);
+                ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                dataSets.add(set1); // add the datasets
+                LineData data = new LineData(dataSets);
+                detailedLineChart.setData(data);
+            }
         }
 
-        RadarDataSet set1 = new RadarDataSet(entries1, "Average");
-        set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(radialGraphColor);
-        set1.setDrawFilled(true);
-        set1.setFillAlpha(200);
-        set1.setLineWidth(4f);
-        set1.setDrawHighlightCircleEnabled(true);
-        set1.setDrawHighlightIndicators(false);
-
-        RadarDataSet set2 = new RadarDataSet(entries2, "You");
-        set2.setColor(Color.rgb(121, 162, 175));
-        set2.setFillColor(radialAverageGraphColor);
-        set2.setDrawFilled(true);
-        set2.setFillAlpha(100);
-        set2.setLineWidth(4f);
-        set2.setDrawHighlightCircleEnabled(true);
-        set2.setDrawHighlightIndicators(false);
-
-        ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
-
-        sets.add(set2);
-        sets.add(set1);
-
-        RadarData data = new RadarData(sets);
-        //data.setValueTypeface(mTfLight);
-        data.setValueTextSize(18f);
-        data.setDrawValues(false);
-        data.setValueTextColor(Color.WHITE);
-
-        generalRadialChart.setData(data);
-        generalRadialChart.invalidate();
     }
+
+    public void clearLineData(){
+        if(detailedLineChart != null){
+            if(detailedLineChart.getLineData() != null){
+                detailedLineChart.clearValues();
+            }
+        }
+    }
+
+
+    private void addEntryToDataSource(ArrayList<Entry> data, float x, float y){
+        data.add(new Entry(x, y));
+
+    }
+
+
+    //Set current data source buttons
+    public void setFuel(View view) {
+        setCurrentDataSource(fuelConsumptionData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.fuel));
+        clearLineData();
+        setLineDataToCurrent();
+    }
+    public void setAcceleration(View view) {
+        setCurrentDataSource(accelerationData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.acceleration));
+        clearLineData();
+        setLineDataToCurrent();
+    }
+    public void setDistance(View view) {
+        setCurrentDataSource(distanceData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.distance));
+        clearLineData();
+        setLineDataToCurrent();
+    }
+    public void setRPM(View view) {
+        setCurrentDataSource(rpmData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.rpm));
+        clearLineData();
+        setLineDataToCurrent();
+    }
+    public void setLoad(View view) {
+        setCurrentDataSource(loadData);
+        currentGraphColor = Color.parseColor(this.getString(R.color.load));
+        clearLineData();
+        setLineDataToCurrent();
+
+    }
+    private void setCurrentDataSource(ArrayList<Entry> data){
+        currentData = data;
+    }
+
+    //New game
+    public void newGame(View view) {
+        Intent intent = new Intent(context, AliasActivity.class);
+        startActivity(intent);
+    }
+
+    //Stop game
+    public void stop(View view){
+        timer.onFinish();
+        timer.cancel();
+        progressBar.setProgress(0);
+        gameEnd();
+
+    }
+
+    //End game
+    private void gameEnd() {
+        live = false;
+        Button newGameButton = (Button) findViewById(R.id.newGame);
+        newGameButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        Button stopButton = (Button) findViewById(R.id.stopButton);
+        stopButton.setVisibility(View.GONE);
+
+    }
+
+    //Timer for countdown
+    private void startTimer(){
+        startLiveUpdate();
+        timer = new CountDownTimer(minutes*60*1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                progressBar.setProgress((int) (millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                gameEnd();
+
+            }
+        }.start();
+
+    }
+
+    //Start periodically reading live data
+    private void startLiveUpdate(){
+        final Handler h = new Handler();
+        final int delay = 1000; //milliseconds
+
+        h.postDelayed(new Runnable(){
+            public void run(){
+                updateLiveData();
+                if(live) h.postDelayed(this, updateInterval);
+            }
+        }, delay);
+    }
+
+    //Get new live data
+    private void updateLiveData() {
+
+        float u = 100.0f;
+        float v = 0.5f;
+        float k = 2;
+        float l = 0.01f;
+        float m = 1;
+
+
+        float fuelConsumption = (float) (Math.random() * 100) + 3;
+        float rpm = (float) (Math.random() * 100) + 3;
+        float acceleration = (float) (Math.random() * 100) + 3;
+        float distance = (float) (Math.random() * 100) + 3;
+        float load = (float) (Math.random() * 100) + 3;
+
+        String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
+
+        addEntryToDataSource(fuelConsumptionData, xPos, fuelConsumption);
+        addEntryToDataSource(rpmData, xPos, rpm);
+        addEntryToDataSource(accelerationData, xPos, acceleration);
+        addEntryToDataSource(distanceData, xPos, distance);
+        addEntryToDataSource(loadData, xPos, load);
+
+        xPos++;
+        clearLineData();
+        setLineDataToCurrent();
+        detailedLineChart.notifyDataSetChanged();
+
+        radarData.clear();
+        radarData.add(new RadarEntry(fuelConsumption));
+        radarData.add(new RadarEntry(acceleration));
+        radarData.add(new RadarEntry(distance));
+        radarData.add(new RadarEntry(rpm));
+        radarData.add(new RadarEntry(load));
+        setRadarData();
+
+        score.setText(newScore);
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.game_display);
+        context = this;
+
+        //Timer
+        Intent intent = getIntent();
+        minutes = intent.getIntExtra("time", 5);
+
+        //Color
+        radialGraphColor = Color.parseColor(this.getString(R.color.radial));
+        radialAverageGraphColor = Color.parseColor(this.getString(R.color.radialAverage));
+
+        //Datasets
+        fuelConsumptionData = new ArrayList<Entry>();
+        rpmData = new ArrayList<Entry>();
+        altitudeData = new ArrayList<Entry>();
+        accelerationData = new ArrayList<Entry>();
+        loadData = new ArrayList<Entry>();
+        distanceData = new ArrayList<Entry>();
+        radarData = new ArrayList<RadarEntry>();
+
+        //Create graphs
+        lineGraph();
+        radarGraph();
+
+        //Insert average values
+        TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
+        ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
+        averageValuesView.setText("Average Score: " + averageValues.toString());
+
+        //Setup progress bar
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setScaleY(18f);
+        progressBar.setMax(minutes*60);
+
+        //Score
+        score = (TextView) findViewById(R.id.score);
+        score.setText("0");
+
+        //Start countdown
+        startTimer();
+
+        //Set Fuel as start graph
+        setFuel(null);
+
+
+    }
+
+    //@Override
+    /*public void onBackPressed() {
+        Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
+
+    }*/
+
 }
