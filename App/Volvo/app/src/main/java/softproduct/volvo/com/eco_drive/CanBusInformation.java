@@ -5,18 +5,18 @@ package softproduct.volvo.com.eco_drive;
  */
 public class CanBusInformation {
     public float getRPM(){
-        return 0.0f;
+        return (float) (Math.random() * 3000) + 500;
     }
-    public float getSpeed(){
-        return 0.0f;
+    public float getDistance(){
+        return (float) (Math.random() * 500) + 5;
     }
     public float getFuelConsumption(){
-        return 0.0f;
+        return (float) (Math.random() * 10) + 0.1f;
     }
     public float getAcceleration(){
-        return 0.0f;
+        return (float) (Math.random() * 5) + 0;
     }
     public float getLoad(){
-        return 0.0f;
+        return (float) (Math.random() * 1000) + 10;
     }
 }

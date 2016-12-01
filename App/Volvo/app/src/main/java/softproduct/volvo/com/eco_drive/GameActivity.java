@@ -47,6 +47,10 @@ public class GameActivity extends Activity {
 
     Context context;
 
+    //CAN
+    CanBusInformation can;
+    RecordedData canData;
+
     //Charts
     private LineChart detailedLineChart;
     private RadarChart generalRadialChart;
@@ -336,38 +340,48 @@ public class GameActivity extends Activity {
     //Get new live data
     private void updateLiveData() {
 
-        float u = 100.0f;
+        canData.updateDataFromSource();
+        String newScore = String.valueOf(canData.getCurrentScore());
+        float[] liveValues = canData.getLiveValues();
+        addEntryToDataSource(fuelConsumptionData, xPos, liveValues[0]);
+        addEntryToDataSource(rpmData, xPos, liveValues[1]);
+        addEntryToDataSource(accelerationData, xPos, liveValues[2]);
+        addEntryToDataSource(distanceData, xPos, liveValues[3]);
+        addEntryToDataSource(loadData, xPos, liveValues[4]);
+        xPos = canData.getX();
+
+
+        /*float u = 100.0f;
         float v = 0.5f;
         float k = 2;
         float l = 0.01f;
         float m = 1;
 
+        float fuelConsumption = can.getFuelConsumption();
+        float rpm = can.getRPM();
+        float acceleration = can.getAcceleration();
+        float distance = can.getDistance();
+        float load = can.getLoad();
 
-        float fuelConsumption = (float) (Math.random() * 100) + 3;
-        float rpm = (float) (Math.random() * 100) + 3;
-        float acceleration = (float) (Math.random() * 100) + 3;
-        float distance = (float) (Math.random() * 100) + 3;
-        float load = (float) (Math.random() * 100) + 3;
 
         String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
+        */
 
-        addEntryToDataSource(fuelConsumptionData, xPos, fuelConsumption);
-        addEntryToDataSource(rpmData, xPos, rpm);
-        addEntryToDataSource(accelerationData, xPos, acceleration);
-        addEntryToDataSource(distanceData, xPos, distance);
-        addEntryToDataSource(loadData, xPos, load);
 
-        xPos++;
+        //xPos++;
         clearLineData();
         setLineDataToCurrent();
         detailedLineChart.notifyDataSetChanged();
 
+
+        float[] liveNormalizedValues = canData.getNormalizedLiveValues();
+
         radarData.clear();
-        radarData.add(new RadarEntry(fuelConsumption));
-        radarData.add(new RadarEntry(acceleration));
-        radarData.add(new RadarEntry(distance));
-        radarData.add(new RadarEntry(rpm));
-        radarData.add(new RadarEntry(load));
+        radarData.add(new RadarEntry(liveNormalizedValues[0]));
+        radarData.add(new RadarEntry(liveNormalizedValues[1]));
+        radarData.add(new RadarEntry(liveNormalizedValues[2]));
+        radarData.add(new RadarEntry(liveNormalizedValues[3]));
+        radarData.add(new RadarEntry(liveNormalizedValues[4]));
         setRadarData();
 
         score.setText(newScore);
@@ -380,6 +394,11 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
         context = this;
+
+        //CAN
+        can = new CanBusInformation();
+        canData = new RecordedData();
+        canData.setDataSource(can);
 
         //Timer
         Intent intent = getIntent();
