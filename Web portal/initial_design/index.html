@@ -18,120 +18,139 @@
 <body >
 
 
-  <div id="loader-wrapper">
-      <div id="loader"></div>
-      <div class="loader-section section-left"></div>
-      <div class="loader-section section-right"></div>
-  </div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
 
 
 <div class="row">
 
-  <!-- BEGINING // SIDE SECTION -->
-  <div class="col s12 m4 l2 sidebar zero-padding fixed"> 
+<!-- BEGINING // SIDE SECTION -->
+<div class="col s12 m4 l2 sidebar zero-padding fixed"> 
 
-    <div class="affix">
-    <div class="logo">
-      <img src="images/logo.png" class="logo-img" alt="" title="Volvo Eco Driving - Highscores"/>
-    </div>
+  <div class="affix">
+  <div class="logo">
+    <img src="images/logo.png" class="logo-img" alt="" title="Volvo Eco Driving - Highscores"/>
+  </div>
 
-    <div class="sidebar-inner">
+  <div class="sidebar-inner">
 
-      <ul class="collapsible" data-collapsible="accordion" style="margin-top:80px; border:0px">
-        <li>
-          <div class="collapsible-header active" style="color: black"><i class="material-icons">settings</i>Category</div>
-          <div class="collapsible-body collapsible-body-settings "> 
-            <form action="#" id="machine-types">
-              <div>
-                <input name="machines" type="radio" id="all_radio" checked="checked" value="All"/>
-                <label for="all_radio">All</label><br/><br/>
+    <ul class="collapsible" data-collapsible="accordion" style="margin-top:80px; border:0px">
+      <li>
+        <div class="collapsible-header active" style="color: black"><i class="material-icons">settings</i>Category</div>
+        <div class="collapsible-body collapsible-body-settings "> 
+          <form action="#" id="machine-types">
+            <div>
+              <input name="machines" type="radio" id="all_radio" checked="checked" value="All"/>
+              <label for="all_radio">All</label><br/><br/>
 
-                <input name="machines" type="radio" id="excavator_radio" value="Excavator"/>
-                <label for="excavator_radio">Excavator</label>
-                <br/><br/>  
-                              
-                <input name="machines" type="radio" id="wheel_loader_radio" value="Wheel loader"/>
-                <label for="wheel_loader_radio">Wheel Loader</label>
-              </div>
-            </form>
-          </div>
-        </li>
+              <input name="machines" type="radio" id="excavator_radio" value="Excavator"/>
+              <label for="excavator_radio">Excavator</label>
+              <br/><br/>  
+                            
+              <input name="machines" type="radio" id="wheel_loader_radio" value="Wheel loader"/>
+              <label for="wheel_loader_radio">Wheel Loader</label>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>
+</div>
+
+
+<div class="progress positionDiv hidden">
+    <div class="indeterminate"></div>
+</div>
+      
+
+
+
+<!-- END // SIDEBAR SECTION -->
+
+<!-- BEGINING // MAIN SECTION -->
+<div class="col s12 m8 l10 content offset-m4 offset-l2"> <!-- Note that "m8 l9" was added -->
+
+  <div class="content-inner">
+    <!-- List of 20 highscores - ACORDION -->
+      <ul id="results-table" class="collapsible" data-collapsible="accordion">
+
       </ul>
+    </div> <!--INNER CONTENT DIV-->
+  </div><!-- END // MAIN SECTION-->
+</div>
 
-    </div>
+<ul>
+<li></li>
+</ul>
+
+<!-- Modal Structure -->
+<div id="error-modal" class="modal">
+  <div class="modal-content">
+    <h4>Something went wrong</h4>
+    <p>If you are running this on your local machine try instaling this 
+    <a  target="_blank" href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US">plugin</a>
+    </p>
   </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-light btn">Ok</a>
   </div>
+</div>
 
 
 
-  <!-- END // SIDEBAR SECTION -->
+<!--  SCRIPTS -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-  <!-- BEGINING // MAIN SECTION -->
-  <div class="col s12 m8 l10 content offset-m4 offset-l2"> <!-- Note that "m8 l9" was added -->
-
-    <div class="content-inner">
-      <!-- List of 20 highscores - ACORDION -->
-        <ul id="results-table" class="collapsible" data-collapsible="accordion">
-
-        </ul>
-      </div> <!--INNER CONTENT DIV-->
-    </div><!-- END // MAIN SECTION-->
-  </div>
-
-  <ul>
-  <li></li>
-  </ul>
-
-  <!-- Modal Structure -->
-  <div id="error-modal" class="modal">
-    <div class="modal-content">
-      <h4>Something went wrong</h4>
-      <p>If you are running this on your local machine try instaling this 
-      <a  target="_blank" href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US">plugin</a>
-      </p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-light btn">Ok</a>
-    </div>
-  </div>
+<script src="js/vendor/materialize.js"></script>
 
 
+<script src="js/vendor/mustache.js"></script>
 
-  <!--  SCRIPTS -->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/controllers/RadialChartController.js"></script>
+<script src="js/controllers/LineChartController.js"></script>
+<script src="js/controllers/HighscoreController.js"></script>
 
-  <script src="js/vendor/materialize.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+  HighscoreController.init();
 
   
-  <script src="js/vendor/mustache.js"></script>
-
-  <script src="js/controllers/RadialChartController.js"></script>
-  <script src="js/controllers/LineChartController.js"></script>
-  <script src="js/controllers/HighscoreController.js"></script>
-
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      
-    HighscoreController.init();
+  
+  //On machine changed 
+  $('#machine-types').on('change', function() {
+      $(".content-inner").addClass("hidden", 400);
+      $(".progress").removeClass("hidden");
+      HighscoreController.update();
+      lineChart=[];
 
     
-    
-    //On machine changed 
-    $('#machine-types').on('change', function() {
-        HighscoreController.update();
-        lineChart=[];
-        setTimeout(function(){
-        $('html, body').animate({scrollTop:$("#0").position().top}, 'slow');
-      }, 300);
-    });
+
+      setTimeout(function(){
+      $(".progress").addClass("hidden");
+      $(".content-inner").removeClass("hidden", 500);
+
+      }, 500);
+
+
+         setTimeout(function(){
+      $('html, body').animate({scrollTop:$("#0").position().top}, 'medium');
+     }, 600);
+
+  });
 
 
 
-    })
-  </script>
+  })
+</script>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
 </script>
 
