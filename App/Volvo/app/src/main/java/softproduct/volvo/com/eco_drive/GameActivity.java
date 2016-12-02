@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -133,6 +134,8 @@ public class GameActivity extends Activity {
         yAxis.setAxisMinimum(0f);
         yAxis.setAxisMaximum(80f);
         yAxis.setDrawLabels(false);
+        yAxis.mAxisMaximum = 1.0f;
+        yAxis.mAxisMinimum = 0.0f;
 
         Legend l = generalRadialChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -347,9 +350,9 @@ public class GameActivity extends Activity {
         String newScore = String.valueOf(canData.getCurrentScore());
         float[] liveValues = canData.getLiveValues();
         addEntryToDataSource(fuelConsumptionData, xPos, liveValues[0]);
-        addEntryToDataSource(rpmData, xPos, liveValues[1]);
-        addEntryToDataSource(accelerationData, xPos, liveValues[2]);
-        addEntryToDataSource(distanceData, xPos, liveValues[3]);
+        addEntryToDataSource(accelerationData, xPos, liveValues[1]);
+        addEntryToDataSource(distanceData, xPos, liveValues[2]);
+        addEntryToDataSource(rpmData, xPos, liveValues[3]);
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
@@ -378,6 +381,7 @@ public class GameActivity extends Activity {
 
 
         float[] liveNormalizedValues = canData.getNormalizedLiveValues();
+        //Log.d("APP", "updateLiveData: " + liveNormalizedValues[0] + ", " + liveNormalizedValues[1] + ", " + liveNormalizedValues[2] + ", " + liveNormalizedValues[3] + ", " + liveNormalizedValues[4]);
 
         radarData.clear();
         radarData.add(new RadarEntry(liveNormalizedValues[0]));

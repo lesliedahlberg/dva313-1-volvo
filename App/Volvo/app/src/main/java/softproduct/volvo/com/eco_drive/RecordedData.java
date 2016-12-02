@@ -14,6 +14,12 @@ public class RecordedData {
     ArrayList<Float> rpm;
     ArrayList<Float> load;
 
+    Interval interval_rpm = new Interval(500, 3000);
+    Interval interval_distance = new Interval(0, 10);
+    Interval interval_fuel = new Interval(0.1f, 10);
+    Interval interval_acceleration = new Interval(0.001f, 1.0f);
+    Interval interval_load = new Interval(0, 1000);
+
     public float u = 0.8f;
     public float v = 0.5f;
     public float k = 50;
@@ -44,7 +50,16 @@ public class RecordedData {
         return new float[]{fuelConsumption.get(fuelConsumption.size()-1), acceleration.get(acceleration.size()-1), distance.get(distance.size()-1), rpm.get(rpm.size()-1), load.get(load.size()-1)};
     };
     public float[] getNormalizedLiveValues(){
-        return new float[]{k*fuelConsumption.get(fuelConsumption.size()-1), l*acceleration.get(acceleration.size()-1), u*distance.get(distance.size()-1), m*rpm.get(rpm.size()-1), v*load.get(load.size()-1)};
+        return new float[]{
+                interval_fuel.normalizeToInterval(fuelConsumption.get(fuelConsumption.size()-1)),
+                interval_acceleration.normalizeToInterval(acceleration.get(acceleration.size()-1)),
+                interval_distance.normalizeToInterval(distance.get(distance.size()-1)),
+                interval_rpm.normalizeToInterval(rpm.get(rpm.size()-1)),
+                interval_load.normalizeToInterval(load.get(load.size()-1))
+        };
+
+
+                //k*fuelConsumption.get(fuelConsumption.size()-1), l*acceleration.get(acceleration.size()-1), u*distance.get(distance.size()-1), m*rpm.get(rpm.size()-1), v*load.get(load.size()-1)};
     };
     public ArrayList<Float> getHistoricalDataValues(int type){
         ArrayList<Float> r = null;

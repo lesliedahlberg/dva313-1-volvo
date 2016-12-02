@@ -26,14 +26,16 @@ public class CanBusInformation {
     //SIM// private Handler handlerMachineData;
     //SIM// private machine_manager _mdm;
 
+
+
     float rpm = 0;
     float distance = 0;
     float fuel = 0;
     float acceleration = 0;
     float load = 0;
-    float startTime;
-    float endTime;
-    float lastCheck;
+    long startTime;
+    long endTime;
+    long lastCheck;
     int lastCheckIndex;
     ArrayList<Float> speeds;
 
@@ -63,23 +65,28 @@ public class CanBusInformation {
 
 
     public float getRPM(){
-        return (float) (Math.random() * 3000) + 500;
+        float v = (float) (Math.random() * 3000) + 500;
+        return v;
         //SIM//return rpm;
     }
     public float getDistance(){
-        return (float) (Math.random() * 500) + 5;
+        float v = (float) (Math.random() * 10) + 0;
+        return v;
         //SIM//return calculateDistance();
     }
     public float getFuelConsumption(){
-        return (float) (Math.random() * 10) + 0.1f;
+        float v = (float) (Math.random() * 10) + 0.1f;
+        return v;
         //SIM//return fuel;
     }
     public float getAcceleration(){
-        return (float) (Math.random() * 5) + 0;
+        float v = (float) (Math.random() * 1.0f) + 0.001f;
+        return v;
         //SIM//return calculateAcceleration();
     }
     public float getLoad(){
-        return (float) (Math.random() * 1000) + 10;
+        float v = (float) (Math.random() * 1000) + 0;
+        return v;
         //SIM//return load;
     }
 
@@ -118,7 +125,7 @@ public class CanBusInformation {
     }
 
     private float calculateAcceleration(){
-        float interval = endTime - lastCheck;
+        long interval = endTime - lastCheck;
         float acc = speeds.get(speeds.size()-1) - speeds.get(speeds.size()-2);
         return acc / (interval/1000.0f/60.0f/60.0f);
     }
