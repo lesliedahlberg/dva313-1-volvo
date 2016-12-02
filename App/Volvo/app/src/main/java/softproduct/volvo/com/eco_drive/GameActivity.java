@@ -74,6 +74,7 @@ public class GameActivity extends Activity {
     //UI
     ProgressBar progressBar;
     TextView score;
+    TextView avgScore;
 
     //Color
     int currentGraphColor;
@@ -356,6 +357,7 @@ public class GameActivity extends Activity {
 
         canData.updateDataFromSource();
         String newScore = String.valueOf(canData.getCurrentScore());
+        String overallScore = String.valueOf(canData.getOverallScore());
         float[] liveValues = canData.getLiveValues();
         addEntryToDataSource(fuelConsumptionData, xPos, liveValues[0]);
         addEntryToDataSource(accelerationData, xPos, liveValues[1]);
@@ -407,6 +409,7 @@ public class GameActivity extends Activity {
         }else{
             score.setTextColor(Color.parseColor(this.getString(R.color.text)));
         }
+        avgScore.setText(overallScore);
         score.setText(newScore);
     }
 
@@ -460,6 +463,7 @@ public class GameActivity extends Activity {
         //Score
         score = (TextView) findViewById(R.id.score);
         score.setText("0");
+        avgScore = (TextView) findViewById(R.id.avgScore);
 
         //Start countdown
         startTimer();

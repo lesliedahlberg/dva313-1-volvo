@@ -93,13 +93,29 @@
                 android:layout_gravity="center"
                 android:layout_weight="0" />
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Score"
-                android:id="@+id/score"
-                android:gravity="center"
-                android:textSize="64dp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:id="@+id/score"
+                    android:gravity="center"
+                    android:textSize="64dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AvgScore"
+                    android:id="@+id/avgScore"
+                    android:gravity="center"
+                    android:textSize="64dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"

@@ -13,6 +13,7 @@ public class RecordedData {
     ArrayList<Float> distance;
     ArrayList<Float> rpm;
     ArrayList<Float> load;
+    ArrayList<Integer> scores;
 
     Interval interval_rpm = new Interval(500, 3000);
     Interval interval_distance = new Interval(0, 10);
@@ -32,6 +33,7 @@ public class RecordedData {
         distance = new ArrayList<Float>();
         rpm = new ArrayList<Float>();
         load = new ArrayList<Float>();
+        scores = new ArrayList<Integer>();
     }
 
     public void setDataSource(CanBusInformation src){
@@ -44,6 +46,7 @@ public class RecordedData {
         distance.add(src.getDistance());
         rpm.add(src.getRPM());
         load.add(src.getLoad());
+        scores.add(getCurrentScore());
 
     };
     public float[] getLiveValues(){
@@ -82,6 +85,16 @@ public class RecordedData {
         }
         return r;
     };
+
+    public int getOverallScore(){
+        float avg = 0.0f;
+        for (int s:scores) {
+            avg += (float) s;
+        }
+        avg /= scores.size();
+        return (int) avg;
+    }
+
     public int getCurrentScore(){
 
         //Averaging should be done here
