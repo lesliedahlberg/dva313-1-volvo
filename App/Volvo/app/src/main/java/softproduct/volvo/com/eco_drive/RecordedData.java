@@ -20,11 +20,11 @@ public class RecordedData {
     Interval interval_acceleration = new Interval(0.001f, 1.0f);
     Interval interval_load = new Interval(0, 1000);
 
-    public float u = 0.8f;
-    public float v = 0.5f;
-    public float k = 50;
-    public float l = 50;
-    public float m = 0.3f;
+    public float coef_rpm = 1.0f;
+    public float coef_distance = 2.0f;
+    public float coef_fuel = 1.0f;
+    public float coef_accleration = 1.0f;
+    public float coef_load = 2.0f;
 
     public RecordedData(){
         fuelConsumption = new ArrayList<Float>();
@@ -85,8 +85,12 @@ public class RecordedData {
     public int getCurrentScore(){
 
         //Averaging should be done here
-        float[] liveValues = getLiveValues();
-        return (int) (1000*(liveValues[2] * u * liveValues[4] * v)/(liveValues[0] * k *liveValues[3] * l *liveValues[1] * m));
+        float[] liveValues = getNormalizedLiveValues();
+        return (int) (
+                (liveValues[2] * coef_distance * liveValues[4] * coef_load
+                )/(
+                        liveValues[0] * coef_fuel  *liveValues[3] * coef_rpm *liveValues[1] * coef_accleration
+                ));
     }
     public int getX(){
         return x;

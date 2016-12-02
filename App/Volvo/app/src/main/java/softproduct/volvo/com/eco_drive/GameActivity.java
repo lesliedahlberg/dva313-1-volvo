@@ -32,9 +32,11 @@ import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -103,7 +105,6 @@ public class GameActivity extends Activity {
         generalRadialChart.setWebAlpha(500);
 
 
-
         setRadarData();
 
         detailedLineChart.animateXY(
@@ -132,11 +133,8 @@ public class GameActivity extends Activity {
         yAxis.setLabelCount(5, false);
         yAxis.setTextSize(12f);
         yAxis.setAxisMinimum(0f);
-        yAxis.setAxisMaximum(80f);
+        yAxis.setAxisMaximum(1f);
         yAxis.setDrawLabels(false);
-        yAxis.mAxisMaximum = 1.0f;
-        yAxis.mAxisMinimum = 0.0f;
-
         Legend l = generalRadialChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -147,6 +145,7 @@ public class GameActivity extends Activity {
         l.setYEntrySpace(5f);
         l.setTextColor(Color.WHITE);
         l.setEnabled(false);
+
     }
 
     public void setRadarData() {
@@ -205,6 +204,7 @@ public class GameActivity extends Activity {
 
         detailedLineChart.setPadding(0, 0, 0, 0);
 
+
         setLineDataToCurrent();
     }
 
@@ -218,10 +218,18 @@ public class GameActivity extends Activity {
                 set1.setColor(currentGraphColor);
                 set1.setCircleColor(currentGraphColor);
                 set1.setLineWidth(2f);
-                set1.setCircleRadius(10f);
+                set1.setCircleRadius(1f);
                 set1.setDrawCircleHole(false);
                 set1.setValueTextSize(18f);
                 set1.setValueTextColor(Color.WHITE);
+
+                set1.setValueFormatter(new IValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        return "";
+                    }
+                });
+
                 set1.setFillColor(currentGraphColor);
                 set1.setDrawFilled(true);
                 set1.setFormLineWidth(1f);
@@ -391,8 +399,15 @@ public class GameActivity extends Activity {
         radarData.add(new RadarEntry(liveNormalizedValues[4]));
         setRadarData();
 
-        score.setText(newScore);
+
         gamification.updateScore(canData.getCurrentScore());
+
+        if(gamification.overThreshold){
+            score.setTextColor(Color.parseColor(this.getString(R.color.rpm)));
+        }else{
+            score.setTextColor(Color.parseColor(this.getString(R.color.text)));
+        }
+        score.setText(newScore);
     }
 
 

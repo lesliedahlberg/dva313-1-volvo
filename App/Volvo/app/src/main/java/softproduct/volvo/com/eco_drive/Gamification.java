@@ -13,7 +13,7 @@ public class Gamification {
     Context context;
     float scoreThreshold;
     float score;
-    boolean overThreshold;
+    public boolean overThreshold;
     long startThresholdTime;
     long stopThresholdTime;
 
@@ -42,7 +42,7 @@ public class Gamification {
 
         long duration = stopThresholdTime - startThresholdTime;
 
-        Toast.makeText(context, (float)duration/1000.0f + "s fo great gameplay!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, (float)duration/1000.0f + "s of great gameplay!", Toast.LENGTH_LONG).show();
 
         /*Notification.Builder mBuilder =
                 new Notification.Builder(context)
