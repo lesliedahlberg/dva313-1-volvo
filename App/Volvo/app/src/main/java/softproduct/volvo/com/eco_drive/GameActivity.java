@@ -47,6 +47,9 @@ public class GameActivity extends Activity {
 
     Context context;
 
+    //Notification
+    Gamification gamification;
+
     //CAN
     CanBusInformation can;
     RecordedData canData;
@@ -385,6 +388,7 @@ public class GameActivity extends Activity {
         setRadarData();
 
         score.setText(newScore);
+        gamification.updateScore(canData.getCurrentScore());
     }
 
 
@@ -394,6 +398,9 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_display);
         context = this;
+
+        //Gamification
+        gamification = new Gamification(this, 10);
 
         //CAN
         can = new CanBusInformation(this);

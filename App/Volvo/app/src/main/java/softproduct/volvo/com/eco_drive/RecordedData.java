@@ -14,11 +14,11 @@ public class RecordedData {
     ArrayList<Float> rpm;
     ArrayList<Float> load;
 
-    public float u = 0.5f;
-    public float v = 0.2f;
-    public float k = 10;
-    public float l = 10;
-    public float m = 0.1f;
+    public float u = 0.8f;
+    public float v = 0.5f;
+    public float k = 50;
+    public float l = 50;
+    public float m = 0.3f;
 
     public RecordedData(){
         fuelConsumption = new ArrayList<Float>();
@@ -71,7 +71,7 @@ public class RecordedData {
 
         //Averaging should be done here
         float[] liveValues = getLiveValues();
-        return (int) Math.floor((liveValues[2] * u * liveValues[4] * v)/(liveValues[0] * k *liveValues[3] * l *liveValues[1] * m));
+        return (int) (1000*(liveValues[2] * u * liveValues[4] * v)/(liveValues[0] * k *liveValues[3] * l *liveValues[1] * m));
     }
     public int getX(){
         return x;
