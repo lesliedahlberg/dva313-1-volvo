@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,8 +49,6 @@ public class ScoreCursorAdapter extends CursorAdapter {
         return LayoutInflater.from(context).inflate(R.layout.score_item, parent, false);
     }
 
-
-
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
         //id
@@ -67,6 +66,8 @@ public class ScoreCursorAdapter extends CursorAdapter {
         TextView scoreTextView = (TextView) view.findViewById(R.id.scoreTextView);
         final LinearLayout expandedScoreView = (LinearLayout) view.findViewById(R.id.expandedScoreView);
         final LinearLayout titleScoreLayout = (LinearLayout) view.findViewById(R.id.titleScoreLayout);
+        final LinearLayout topTitleLayout = (LinearLayout) view.findViewById(R.id.topTitleLayout);
+        final Button backButton = (Button) view.findViewById(R.id.backButton);
 
         //Get references to expanded objects in list
         TextView rpmTextView = (TextView) view.findViewById(R.id.rpmTextView);
@@ -159,13 +160,16 @@ public class ScoreCursorAdapter extends CursorAdapter {
         radarChart.setData(data);
         radarChart.setDescription(desc);
         radarChart.invalidate();
-
+        if(currentId == initExpandedId){topTitleLayout.setVisibility(View.VISIBLE);}
+        else {topTitleLayout.setVisibility(View.GONE);}
         //Set Expanded View
         if(expandedId != currentId){
             expandedScoreView.setVisibility(View.GONE);
+
             titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreTitleBackground)));
         }else{
             expandedScoreView.setVisibility(View.VISIBLE);
+
             titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreExpandedTitleBackground)));
         }
 
@@ -174,11 +178,11 @@ public class ScoreCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 int id = currentId;
-                if(expandedId == id){
+                if (expandedId == id) {
                     expandedId = -1;
                     expandedScoreView.setVisibility(View.GONE);
                     titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreTitleBackground)));
-                }else{
+                } else {
                     expandedId = id;
                     expandedScoreView.setVisibility(View.VISIBLE);
                     titleScoreLayout.setBackgroundColor(Color.parseColor(context.getString(R.color.scoreExpandedTitleBackground)));

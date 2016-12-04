@@ -4,7 +4,29 @@
     android:layout_height="match_parent"
     android:divider="#B0BEC5"
     android:showDividers="end">
-
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:background="#263238"
+        android:id="@+id/topTitleLayout">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:text="Back"
+            android:onClick="returnToPrevious"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Highscore List"
+            android:id="@+id/scoreTitle"
+            android:layout_weight="0.25"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -123,5 +145,12 @@
                 android:textSize="18sp"
                 android:padding="6dp" />
         </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/uploadButton"
+            android:text="Upload"
+            android:padding="24dp"
+            android:onClick="sendData"/>
     </LinearLayout>
 </LinearLayout>

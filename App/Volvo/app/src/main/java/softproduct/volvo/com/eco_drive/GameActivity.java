@@ -473,7 +473,10 @@ public class GameActivity extends Activity {
 
 
     }
-
+    public void statistics(View view){
+        Intent intent = new Intent(this, StatsActivity.class);
+        startActivity(intent);
+    }
     //@Override
     /*public void onBackPressed() {
         Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
