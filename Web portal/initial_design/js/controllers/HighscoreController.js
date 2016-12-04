@@ -1,3 +1,6 @@
+
+
+
 var json="";
 
 var HighscoreController = function(radialChartController, lineChartController){
@@ -94,6 +97,7 @@ var init = function (){
 
 function update(){
 	
+	lineChartController.clear();
 	var machineType = $('input[name="machines"]:checked', '#machine-types').val();
 	getData(machineType);
 }
