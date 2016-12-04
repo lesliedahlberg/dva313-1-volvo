@@ -63,13 +63,10 @@
 </div>
 
 
-<div class="progress positionDiv hidden">
+<div class="progress progress-graph hidden">
     <div class="indeterminate"></div>
 </div>
       
-
-
-
 <!-- END // SIDEBAR SECTION -->
 
 <!-- BEGINING // MAIN SECTION -->
@@ -125,10 +122,11 @@
   
   //On machine changed 
   $('#machine-types').on('change', function() {
+      
       $(".content-inner").addClass("hidden", 400);
       $(".progress").removeClass("hidden");
       HighscoreController.update();
-      lineChart=[];
+      //lineChart=[];
 
     
 
@@ -138,7 +136,7 @@
       }, 500);
 
 
-         setTimeout(function(){
+     setTimeout(function(){
       $('html, body').animate({scrollTop:$("#0").position().top}, 'medium');
      }, 600);
 

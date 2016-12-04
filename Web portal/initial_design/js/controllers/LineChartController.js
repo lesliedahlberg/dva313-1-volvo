@@ -1,3 +1,4 @@
+
 var lineChart=[];
 
 var LineChartController = function(){
@@ -15,9 +16,15 @@ var LineChartController = function(){
 	}
 
 
+	var clear = function() {
+		
+		lineChart = [];
+	}
+
 	return {
 		init : init,
-		change : change
+		change : change,
+		clear : clear
 	}
 
 	function initialize(item){
