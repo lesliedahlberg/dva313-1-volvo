@@ -1,3 +1,57 @@
+NEW API REFERENCE
+========================================================================
+
+Name:
+	Send data
+
+Description: 
+	This should be invoked on the end of the game and send all data parameters.
+
+Link:
+	http://autoelektronikame.ipage.com/volvo/php/upload-data.php
+
+Type:
+	POST
+
+Return Type: 
+
+	/
+
+Body parameters (JSON EXAMPLE): 
+
+{
+	"time": "12:40",
+	"alias": "Vladimir",
+	"score": "120",
+	"duration": "1202",
+	"published": "1",
+	"timeList": ["1", "2", "3", "4"],
+	"load": ["1", "2", "3", "4"],
+	"fuel": ["1", "2", "3", "4"],
+	"distance": ["1", "2", "3", "4"],
+	"speed": ["1", "2", "3", "4"],
+	"rpm": ["1", "2", "3", "4"],
+	"altitude": ["1", "2", "3", "4"]
+}
+
+Explanation of variables:
+
+time - start time of the game
+duration - time passed to the moment when the game is ended
+alias - name of player
+published - 0 or 1 depending if the person who is playing choose NO/YES option, respectively, in the dialog 
+at the end of the game
+timeList - list of minutes that corresponds to observed data
+
+
+
+========================================================================
+
+
+
+
+DEPRECATED - OLD
+
 API reference 
 
 ========================================================================
