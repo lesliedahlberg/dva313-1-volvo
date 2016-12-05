@@ -1,1 +1,3 @@
-include ':app'
+include ':app', ':canparser', ':sensorextensionlibrary'
+project(':canparser').projectDir = new File('Simulator_sensor_extension/canparser')
+project(':sensorextensionlibrary').projectDir = new File('Simulator_sensor_extension/sensorextensionlibrary')

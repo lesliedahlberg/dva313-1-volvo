@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.volvo.softproduct.simulator_sensor_extension">
+
+    <uses-permission android:name="se.cpacsystems.permission.CAN3"/>
+    <uses-permission android:name="se.cpacsystems.permission.CAN4"/>
+    <uses-permission android:name="se.cpacsystems.permission.MACHINE_FRAME"/>
+    <uses-permission android:name="se.cpacsystems.permission.MACHINE_SIGNAL"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:debuggable="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name">
+        <uses-library android:name="se.cpacsystems.addon" android:required="true" />
+
+        <activity android:name=".SimulatorActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data android:name="CPACToken" android:value="OzqJhIr/SzpUUmLiJ5fVClE54FGMXUmnxqCICtvM7bYDQ5PCFprx009qxI3Q0qXxSlyJGfqG+tpWL3rskDLqwuwepwWwOqqWKBgVS4q+rWtZKymRESyglVssz3fAiSqIyJB++jp/QjE9EooOYvVTCgwRnF9QRLuVTYK66USjtA3rlzI7/JqyCz42xSuirb1BYXutAfU7o/MHI2J5VMRtK+nRAmzuWJjL4ycD+nK0+bzMPrYiOR7zVpqcJ2BDTf4mtvyMfjmalJEyjVAbpVh6zNcbCi991gdsxieSvnjgpct4dTseC21NvnfENdTU0Dw+qMk3wXnuBVIZTPf0DA/deQ=="/>
+
+    </application>
+
+</manifest>

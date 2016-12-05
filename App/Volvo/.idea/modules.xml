@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Volvo.iml" filepath="$PROJECT_DIR$/Volvo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Simulator_sensor_extension/canparser/canparser.iml" filepath="$PROJECT_DIR$/Simulator_sensor_extension/canparser/canparser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Simulator_sensor_extension/sensorextensionlibrary/sensorextensionlibrary.iml" filepath="$PROJECT_DIR$/Simulator_sensor_extension/sensorextensionlibrary/sensorextensionlibrary.iml" />
     </modules>
   </component>
 </project>

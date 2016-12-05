@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbg"
+    tools:context=".EmulatorActivity">
+
+    <ListView
+        android:id="@+id/machineDataList"
+        android:layout_height="600dp"
+        android:layout_width="600dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/artbg">
+    </ListView>
+    <RelativeLayout
+        android:id="@+id/selectionList"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" >
+
+            <RadioButton
+                android:id="@+id/radioArt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:textColor="@color/colorWhite"
+                android:text="ART"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/radioWlo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="WLO"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/radioExc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="EXC"
+                android:textSize="14dp" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/quitbtn"
+        android:onClick="onClickQuitBtn"
+        android:background="@color/colorQuit"
+        android:layout_height="40dp"
+        android:layout_width="200dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:text="QUIT"
+        android:textSize="22dp"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@id/selectionList"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/timeSlot"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Current time:"
+        android:textSize="22dp"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@id/quitbtn"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/timeSlot"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gps_status"
+        android:textSize="14dp"
+        android:id="@+id/gps_status">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gps_status"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpstime"
+        android:textSize="14dp"
+        android:id="@+id/gpstime">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gpstime"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpsageofdiff"
+        android:textSize="14dp"
+        android:id="@+id/gpsageofdiff">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gpsageofdiff"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpsposition"
+        android:textSize="14dp"
+        android:id="@+id/gpsposition">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gpsposition"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpsheading"
+        android:textSize="14dp"
+        android:id="@+id/gpsheading">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gpsheading"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpsheading_status"
+        android:textSize="14dp"
+        android:id="@+id/gpsheading_status">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/gpsheading_status"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpssop_cog"
+        android:textSize="14dp"
+        android:id="@+id/gpssop_cog">
+    </TextView>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/gpssop_cog"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/colorWhite"
+        android:text="gpssop_cog_status"
+        android:textSize="14dp"
+        android:id="@+id/gpssop_cog_status">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/machineGlow"
+        android:layout_width="400dp"
+        android:layout_height="190dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/glowart"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
+    <ImageView
+        android:id="@+id/machineType"
+        android:layout_width="340dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/art"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
+
+</RelativeLayout>

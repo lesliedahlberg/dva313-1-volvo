@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\a227304\AndroidStudioProjects\Emulator_sensor_extension\app\build\intermediates\exploded-aar\Emulator_sensor_extension\emulatorextensionlibrary\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="2f84ec84c11063f1f8352753ab861fc8e5c5af97">
+        <dex dex="C:\Users\a227304\AndroidStudioProjects\Emulator_sensor_extension\app\build\intermediates\pre-dexed\debug\Emulator_sensor_extension-emulatorextensionlibrary-unspecified_9bdce0e963f42e40789fb70296115e6a40e973aa.jar" />
+    </item>
+    <item
+        jar="C:\Users\a227304\AndroidStudioProjects\Emulator_sensor_extension\app\build\intermediates\exploded-aar\Emulator_sensor_extension\canparser\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f122583899f8df2dc185435095bb51e0ec151ae5">
+        <dex dex="C:\Users\a227304\AndroidStudioProjects\Emulator_sensor_extension\app\build\intermediates\pre-dexed\debug\Emulator_sensor_extension-canparser-unspecified_f61f951eb43b03b0bb6f98fb4ad192a523fd9570.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'TestKeyStore'
+            keyPassword 'sommar2016'
+            storeFile file('C:/Users/a227304/KeyStore/TestKeyStore.jks')
+            storePassword 'sommar2016'
+        }
+    }
+    compileSdkVersion 'Cpac Systems AB:Cpac APIs:15'
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 15
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':canparser')
+}

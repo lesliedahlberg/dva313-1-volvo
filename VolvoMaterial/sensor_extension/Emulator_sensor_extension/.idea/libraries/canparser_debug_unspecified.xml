@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="canparser-debug-unspecified">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Emulator_sensor_extension/canparser-debug/unspecified/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Emulator_sensor_extension/canparser-debug/unspecified/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

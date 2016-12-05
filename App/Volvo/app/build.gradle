@@ -10,8 +10,8 @@ android {
         }
     }
 
-    //compileSdkVersion 'Cpac Systems AB:Cpac APIs:15'
-    compileSdkVersion 15
+    compileSdkVersion 'Cpac Systems AB:Cpac APIs:15'
+    //compileSdkVersion 15
     buildToolsVersion "23.0.3"
 
     defaultConfig {
@@ -39,4 +39,5 @@ dependencies {
     //compile 'com.android.support:appcompat-v7:15'
     testCompile 'junit:junit:4.12'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile project (':sensorextensionlibrary')
 }

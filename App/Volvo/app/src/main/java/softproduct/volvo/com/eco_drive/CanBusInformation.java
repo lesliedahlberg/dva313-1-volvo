@@ -7,14 +7,14 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 
-/*SIM
+
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.art_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.exc_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.gnss_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.wlo_data;
 import com.volvo.softproduct.sensorextensionlibrary.managers.*;
 import com.volvo.softproduct.sensorextensionlibrary.db_value.*;
-*/
+
 
 /**
  * Created by lesliedahlberg on 2016-11-30.
@@ -23,8 +23,8 @@ public class CanBusInformation {
 
     Context context;
 
-    //SIM// private Handler handlerMachineData;
-    //SIM// private machine_manager _mdm;
+    private Handler handlerMachineData;
+    private machine_manager _mdm;
 
 
 
@@ -49,48 +49,48 @@ public class CanBusInformation {
 
         startTime = System.currentTimeMillis();
 
-        //SIM// handlerMachineData = new Handler();
-        //SIM// _mdm = new machine_manager(this);
+         handlerMachineData = new Handler();
+        _mdm = new machine_manager(context);
 
-        /*SIM
+
         if(_mdm.Connect() == true) {
             handlerMachineData.post(runnableMachineData);
         }
-        */
+
     }
 
     public void end(){
-        //SIM//_mdm.Disconnect();
+        _mdm.Disconnect();
     }
 
 
     public float getRPM(){
-        float v = (float) (Math.random() * 3000) + 500;
-        return v;
-        //SIM//return rpm;
+        //float v = (float) (Math.random() * 3000) + 500;
+        //return v;
+        return rpm;
     }
     public float getDistance(){
-        float v = (float) (Math.random() * 10) + 0;
-        return v;
-        //SIM//return calculateDistance();
+        //float v = (float) (Math.random() * 10) + 0;
+        //return v;
+        return calculateDistance();
     }
     public float getFuelConsumption(){
-        float v = (float) (Math.random() * 10) + 0.1f;
-        return v;
-        //SIM//return fuel;
+        //float v = (float) (Math.random() * 10) + 0.1f;
+        //return v;
+        return fuel;
     }
     public float getAcceleration(){
-        float v = (float) (Math.random() * 1.0f) + 0.001f;
-        return v;
-        //SIM//return calculateAcceleration();
+        //float v = (float) (Math.random() * 1.0f) + 0.001f;
+        //return v;
+        return calculateAcceleration();
     }
     public float getLoad(){
-        float v = (float) (Math.random() * 1000) + 0;
-        return v;
-        //SIM//return load;
+        //float v = (float) (Math.random() * 1000) + 0;
+        //return v;
+        return load;
     }
 
-    /*SIM
+
     private Runnable runnableMachineData = new Runnable() {
 
         @Override
@@ -98,14 +98,14 @@ public class CanBusInformation {
         {
             handlerMachineData.postDelayed(runnableMachineData, 500);
 
-            rpm = _mdm.getFloatSignal(exc_data.Engine_speed.getCode());
-            load = _mdm.getFloatSignal(exc_data.Weight_in_bucket.getCode());
-            fuel = _mdm.getFloatSignal(exc_data.Instant_fuel_consumption.getCode());
-            speeds.add(_mdm.getFloatSignal(exc_data.Vehicle_speed.getCode()));
+            rpm = _mdm.getFloatSignal(exc_data.Engine_speed.getCode()).getValue();
+            load = _mdm.getFloatSignal(exc_data.Weight_in_bucket.getCode()).getValue();
+            fuel = _mdm.getFloatSignal(exc_data.Instant_fuel_consumption.getCode()).getValue();
+            speeds.add(_mdm.getFloatSignal(exc_data.Vehicle_speed.getCode()).getValue());
 
             updateTime();
         }
-    };*/
+    };
 
 
     private void updateTime(){
