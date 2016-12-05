@@ -25,6 +25,7 @@ Body parameters (JSON EXAMPLE):
 	"score": "120",
 	"duration": "1202",
 	"published": "1",
+	"machine":"Excavator",
 	"timeList": ["1", "2", "3", "4"],
 	"load": ["1", "2", "3", "4"],
 	"fuel": ["1", "2", "3", "4"],
