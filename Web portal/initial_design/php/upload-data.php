@@ -1,10 +1,12 @@
 <?php
 include "connection.php";
 
-$jsonData=$_POST["data"];
+$jsonData=json_decode($_POST["data"],true);
+
 
 $time = $jsonData["time"]; 
 $alias = $jsonData["alias"];
+
 $idmachine=1;
 
 $stmt = $connection->prepare("SELECT Id from Alias WHERE name=?");
@@ -61,10 +63,10 @@ $values[]=$altitude;
 
 
 for ($i=0; $i <count($timeList) ; $i++) { 
-for ($j=0; $j <6; $j++) { 
+	for ($j=0; $j <6; $j++) { 
 
 $stmt = $connection->prepare("INSERT INTO ValueTime ( Type,  Value, Time,  IdSession) 
-	   VALUES ( ?, ?, ?, ?)");
+		   VALUES ( ?, ?, ?, ?)");
 $stmt->bind_param("sisi", $type[$i], $values[$i][$j], $timeList[$j], $session_id);
 
 $stmt->execute();
@@ -72,7 +74,6 @@ $stmt->execute();
 
 
 }
-
 
 
 $duration = $jsonData["duration"]; 
@@ -85,6 +86,7 @@ $stmt = $connection->prepare("UPDATE Session set Duration=?, Published=?, Score=
 $stmt->bind_param("siii", $duration, $published, $score, $session_id);
 
 $stmt->execute();
+
 
 
 
