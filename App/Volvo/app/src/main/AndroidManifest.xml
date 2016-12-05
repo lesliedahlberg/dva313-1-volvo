@@ -22,19 +22,26 @@
             android:name="se.cpacsystems.addon"
             android:required="false" />
 
-        <activity android:name=".MainActivity">
+        <!--<activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
+        <activity
+            android:name=".StatsActivity"
+            android:label="Statistics" />
+        <activity android:name=".TimeActivity" />
+        <activity android:name=".GameActivity" />
+        <activity android:name=".VehicleActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".StatsActivity"
-            android:label="Statistics" />
-        <activity android:name=".TimeActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".VehicleActivity" />
+
         <activity android:name=".AliasActivity" />
         <activity android:name=".SampleSwipeActivity"></activity>
     </application>
