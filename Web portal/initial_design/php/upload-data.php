@@ -3,8 +3,6 @@ include "connection.php";
 
 $jsonData=$_POST["data"];
 
-echo "$jsonData";
-
 $time = $jsonData["time"]; 
 $alias = $jsonData["alias"];
 $idmachine=1;
