@@ -17,7 +17,8 @@
         android:textSize="28pt"
         android:id="@+id/timeHeader"
         android:gravity="center"
-        android:layout_marginTop="128dp" />
+        android:layout_marginTop="128dp"
+        android:textColor="#ffffff" />
 
     <NumberPicker
         android:layout_width="wrap_content"
@@ -62,7 +63,7 @@
                 android:textSize="24dp"
                 android:onClick="_return"
                 android:background="@color/button"
-                android:textColor="@color/text" />
+                android:textColor="#ffffff" />
 
         </FrameLayout>
 
@@ -84,7 +85,7 @@
                 android:textSize="24dp"
                 android:onClick="start"
                 android:background="@color/button"
-                android:textColor="@color/text" />
+                android:textColor="#ffffff" />
         </FrameLayout>
 
     </LinearLayout>

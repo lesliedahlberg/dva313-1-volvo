@@ -41,7 +41,8 @@
                     android:onClick="setFuel"
                     android:layout_weight="1"
                     android:background="@color/fuel"
-                    android:layout_margin="6dp" />
+                    android:layout_margin="6dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -51,7 +52,8 @@
                     android:onClick="setAcceleration"
                     android:layout_weight="1"
                     android:background="@color/acceleration"
-                    android:layout_margin="6dp" />
+                    android:layout_margin="6dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -61,7 +63,8 @@
                     android:onClick="setDistance"
                     android:layout_weight="1"
                     android:background="@color/distance"
-                    android:layout_margin="6dp" />
+                    android:layout_margin="6dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -71,7 +74,8 @@
                     android:onClick="setRPM"
                     android:layout_weight="1"
                     android:background="@color/rpm"
-                    android:layout_margin="6dp" />
+                    android:layout_margin="6dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -81,7 +85,8 @@
                     android:onClick="setLoad"
                     android:layout_weight="1"
                     android:background="@color/load"
-                    android:layout_margin="6dp" />
+                    android:layout_margin="6dp"
+                    android:textColor="#ffffff" />
 
             </LinearLayout>
 
@@ -105,7 +110,8 @@
                     android:id="@+id/score"
                     android:gravity="center"
                     android:textSize="64dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#ffffff" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -114,15 +120,8 @@
                     android:id="@+id/avgScore"
                     android:gravity="center"
                     android:textSize="64dp"
-                    android:layout_weight="1" />
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sendDataButton"
-                    android:text="Statistics"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:onClick="statistics"/>
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
             <com.github.mikephil.charting.charts.RadarChart
@@ -173,7 +172,7 @@
                     android:onClick="stop"
                     android:background="@color/button"
                     android:text="Stop"
-                    android:textColor="@color/text"
+                    android:textColor="#ffffff"
                     android:textSize="28sp" />
 
             </LinearLayout>

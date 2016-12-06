@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/backButton"
             android:text="Back"
-            android:onClick="returnToPrevious"/>
+            android:onClick="returnToPrevious"
+            android:textColor="#ffffff" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +26,8 @@
             android:layout_weight="0.25"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="#ffffff" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -41,7 +43,8 @@
             android:text="01-01-2000"
             android:id="@+id/dateTextView"
             android:layout_weight="0.25"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="#ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +53,8 @@
             android:id="@+id/aliasTextView"
             android:layout_weight="0.25"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,7 +107,8 @@
                 android:text="RPM: "
                 android:id="@+id/rpmTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +116,8 @@
                 android:text="Accelaration: "
                 android:id="@+id/accelerationTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,7 +125,8 @@
                 android:text="Distance: "
                 android:id="@+id/distanceTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,7 +134,8 @@
                 android:text="Load: "
                 android:id="@+id/loadTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,7 +143,8 @@
                 android:text="Consumption: "
                 android:id="@+id/consumptionTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,7 +152,8 @@
                 android:text="Altitude: "
                 android:id="@+id/altitudeTextView"
                 android:textSize="18sp"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColor="#ffffff" />
         </LinearLayout>
         <Button
             android:layout_width="wrap_content"
@@ -151,6 +161,7 @@
             android:id="@+id/uploadButton"
             android:text="Upload"
             android:padding="24dp"
-            android:onClick="sendData"/>
+            android:onClick="sendData"
+            android:textColor="#ffffff" />
     </LinearLayout>
 </LinearLayout>
