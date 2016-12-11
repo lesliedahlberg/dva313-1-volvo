@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by lesliedahlberg on 2016-11-30.
  */
 public class RecordedData {
-    CanBusInformation src;
+    //CanBusInformation src;
     int x = 0;
     ArrayList<Float> fuelConsumption;
     ArrayList<Float> acceleration;
@@ -35,7 +35,7 @@ public class RecordedData {
         load = new ArrayList<Float>();
         scores = new ArrayList<Integer>();
     }
-
+    /*
     public void setDataSource(CanBusInformation src){
         this.src = src;
     }
@@ -49,6 +49,7 @@ public class RecordedData {
         scores.add(getCurrentScore());
 
     };
+    */
     public float[] getLiveValues(){
         return new float[]{fuelConsumption.get(fuelConsumption.size()-1), acceleration.get(acceleration.size()-1), distance.get(distance.size()-1), rpm.get(rpm.size()-1), load.get(load.size()-1)};
     };

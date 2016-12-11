@@ -38,7 +38,15 @@ import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,7 +62,7 @@ public class GameActivity extends Activity {
     Gamification gamification;
 
     //CAN
-    CanBusInformation can;
+    //CanBusInformation can;
     RecordedData canData;
 
     //Charts
@@ -84,6 +92,10 @@ public class GameActivity extends Activity {
     //Timer
     CountDownTimer timer;
     int minutes;
+
+    //Alias and machine
+    public String alias;
+    public String machine;
 
     //Live data
     boolean live = true;
@@ -355,7 +367,7 @@ public class GameActivity extends Activity {
     //Get new live data
     private void updateLiveData() {
 
-        canData.updateDataFromSource();
+        //canData.updateDataFromSource();
         String newScore = String.valueOf(canData.getCurrentScore());
         String overallScore = String.valueOf(canData.getOverallScore());
         float[] liveValues = canData.getLiveValues();
@@ -423,15 +435,17 @@ public class GameActivity extends Activity {
 
         //Gamification
         gamification = new Gamification(this, 10);
-
+        /*
         //CAN
         can = new CanBusInformation(this);
         canData = new RecordedData();
         canData.setDataSource(can);
-
+        */
         //Timer
         Intent intent = getIntent();
         minutes = intent.getIntExtra("time", 5);
+        alias = intent.getStringExtra("alias");
+        machine = intent.getStringExtra("machine");
 
         //Color
         radialGraphColor = Color.parseColor(this.getString(R.color.radial));
@@ -472,6 +486,51 @@ public class GameActivity extends Activity {
         setFuel(null);
 
 
+    }
+    public void sendData(View view){
+        RecordedData recordedData = new RecordedData();
+        int currentScore = recordedData.getOverallScore();
+        float[] dataList = recordedData.getNormalizedLiveValues();
+        ArrayList<Float> fuelArray = recordedData.getHistoricalDataValues(0);
+        ArrayList<Float> accelerationArray = recordedData.getHistoricalDataValues(1);
+        ArrayList<Float> distanceArray = recordedData.getHistoricalDataValues(2);
+        ArrayList<Float> rpmArray = recordedData.getHistoricalDataValues(3);
+        ArrayList<Float> loadArray = recordedData.getHistoricalDataValues(4);
+
+
+        //get current time
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+        Date currentLocalTime = cal.getTime();
+        DateFormat date = new SimpleDateFormat("HH:mm a");
+        // you can get seconds by adding  "...:ss" to it
+        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+        String localTime = date.format(currentLocalTime);
+
+
+
+        JSONObject sendObject = new JSONObject();
+        try{
+            sendObject.put("time", localTime);
+            sendObject.put("alias", alias);
+            sendObject.put("currentScore", currentScore);
+            sendObject.put("duration", minutes);
+            sendObject.put("published", 1); // change the 1 to result from dialog (yes/no) upload data
+            sendObject.put("machine", machine);
+            //timeList
+            sendObject.put("load", loadArray);
+            sendObject.put("fuel", fuelArray);
+            sendObject.put("distance", distanceArray);
+            sendObject.put("speed", accelerationArray);
+            sendObject.put("rpm", rpmArray);
+            //Altitude
+
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        new UploadData().execute(sendObject);
     }
     public void statistics(View view){
         Intent intent = new Intent(this, StatsActivity.class);

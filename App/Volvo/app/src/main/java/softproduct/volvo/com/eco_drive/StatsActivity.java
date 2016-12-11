@@ -40,20 +40,7 @@ public class StatsActivity extends Activity {
         statsListView.setEmptyView(emptyListView);
 
     }
-    public void sendData(View view){
-        Intent intent = getIntent();
-        /*RecordedData recordedData = new RecordedData();
-        float[] dataList = recordedData.getNormalizedLiveValues();*/
-        ArrayList<String> dataList = new ArrayList<String>();
-        dataList.add(0, "fuelConsumptionData"); //This will be changed to the values
-        dataList.add(1, "rpmData");
-        dataList.add(2,"altitudeData");
-        dataList.add(3,"accelerationData");
-        dataList.add(4,"loadData");
-        dataList.add(5, "distanceData");
-        dataList.add(6,"currentData");
-        new UploadData().execute(dataList);
-    }
+
     public void returnToPrevious(View view) {
         finish();
     }

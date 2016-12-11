@@ -16,6 +16,7 @@ public class TimeActivity extends Activity {
 
     int minutes;
     public String val;
+    public String machine;
     NumberPicker numberPicker;
 
     @Override
@@ -25,6 +26,8 @@ public class TimeActivity extends Activity {
 
         Intent intent = getIntent();
         val = intent.getStringExtra("alias");
+        machine = intent.getStringExtra("machine");
+
 
         numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(1);
@@ -42,6 +45,7 @@ public class TimeActivity extends Activity {
 
         extras.putString("alias", val);
         extras.putInt("time", numberPicker.getValue());
+        extras.putString("machine", machine);
         intent.putExtras(extras);
         startActivity(intent);
     }
