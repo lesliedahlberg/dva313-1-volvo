@@ -41,7 +41,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 
+<<<<<<< HEAD
 import org.json.JSONArray;
+=======
+>>>>>>> origin/master
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +59,10 @@ import java.util.TimeZone;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -103,7 +109,11 @@ public class GameActivity extends Activity {
 
     //Timer
     CountDownTimer timer;
+<<<<<<< HEAD
     int minutes;
+=======
+    public int minutes;
+>>>>>>> origin/master
 
     //Alias and machine
     public String alias;
@@ -116,8 +126,12 @@ public class GameActivity extends Activity {
     int finalScore = 0;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     //Radar graph
-    private void radarGraph(){
+    private void radarGraph() {
 
         generalRadialChart = (RadarChart) findViewById(R.id.GameActivity_radarChart);
         //generalRadialChart.setBackgroundColor(Color.rgb(60, 65, 82)); //change later to something else
@@ -175,8 +189,8 @@ public class GameActivity extends Activity {
     }
 
     public void setRadarData() {
-        if(radarData != null){
-            if(radarData.size() > 0){
+        if (radarData != null) {
+            if (radarData.size() > 0) {
                 /*RadarDataSet set1 = new RadarDataSet(entries1, "Average");
                 set1.setColor(Color.rgb(103, 110, 129));
                 set1.setFillColor(radialGraphColor);
@@ -234,9 +248,9 @@ public class GameActivity extends Activity {
         setLineDataToCurrent();
     }
 
-    public void setLineDataToCurrent(){
-        if(currentData != null){
-            if(currentData.size() > 0){
+    public void setLineDataToCurrent() {
+        if (currentData != null) {
+            if (currentData.size() > 0) {
                 LineDataSet set1;
                 set1 = new LineDataSet(currentData, "Insert Attribute here");
                 set1.enableDashedLine(10f, 5f, 0f);
@@ -270,16 +284,16 @@ public class GameActivity extends Activity {
 
     }
 
-    public void clearLineData(){
-        if(detailedLineChart != null){
-            if(detailedLineChart.getLineData() != null){
+    public void clearLineData() {
+        if (detailedLineChart != null) {
+            if (detailedLineChart.getLineData() != null) {
                 detailedLineChart.clearValues();
             }
         }
     }
 
 
-    private void addEntryToDataSource(ArrayList<Entry> data, float x, float y){
+    private void addEntryToDataSource(ArrayList<Entry> data, float x, float y) {
         data.add(new Entry(x, y));
 
     }
@@ -292,24 +306,28 @@ public class GameActivity extends Activity {
         clearLineData();
         setLineDataToCurrent();
     }
+
     public void setAcceleration(View view) {
         setCurrentDataSource(accelerationData);
         currentGraphColor = Color.parseColor(this.getString(R.color.acceleration));
         clearLineData();
         setLineDataToCurrent();
     }
+
     public void setDistance(View view) {
         setCurrentDataSource(distanceData);
         currentGraphColor = Color.parseColor(this.getString(R.color.distance));
         clearLineData();
         setLineDataToCurrent();
     }
+
     public void setRPM(View view) {
         setCurrentDataSource(rpmData);
         currentGraphColor = Color.parseColor(this.getString(R.color.rpm));
         clearLineData();
         setLineDataToCurrent();
     }
+
     public void setLoad(View view) {
         setCurrentDataSource(loadData);
         currentGraphColor = Color.parseColor(this.getString(R.color.load));
@@ -317,7 +335,8 @@ public class GameActivity extends Activity {
         setLineDataToCurrent();
 
     }
-    private void setCurrentDataSource(ArrayList<Entry> data){
+
+    private void setCurrentDataSource(ArrayList<Entry> data) {
         currentData = data;
     }
 
@@ -333,7 +352,7 @@ public class GameActivity extends Activity {
     }
 
     //Stop game
-    public void stop(View view){
+    public void stop(View view) {
         timer.onFinish();
         timer.cancel();
         progressBar.setProgress(0);
@@ -350,6 +369,7 @@ public class GameActivity extends Activity {
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
 
+<<<<<<< HEAD
         if(!uploaded) {
             ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
             sendData();
@@ -357,13 +377,20 @@ public class GameActivity extends Activity {
         uploaded = true;
 
 
+=======
+        //fix dialog prompt to ask if send data or not / need to set published to 0 or 1 for no / yes
+        // THIS IS UPLOAD FUNCTION CALL
+        sendData();
+
+        ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
+>>>>>>> origin/master
 
     }
 
     //Timer for countdown
-    private void startTimer(){
+    private void startTimer() {
         startLiveUpdate();
-        timer = new CountDownTimer(minutes*60*1000, 1000) {
+        timer = new CountDownTimer(minutes * 60 * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 progressBar.setProgress((int) (millisUntilFinished / 1000));
@@ -378,22 +405,27 @@ public class GameActivity extends Activity {
     }
 
     //Start periodically reading live data
-    private void startLiveUpdate(){
+    private void startLiveUpdate() {
         final Handler h = new Handler();
         final int delay = 1000; //milliseconds
 
-        h.postDelayed(new Runnable(){
-            public void run(){
+        h.postDelayed(new Runnable() {
+            public void run() {
                 updateLiveData();
-                if(live) h.postDelayed(this, updateInterval);
+                if (live) h.postDelayed(this, updateInterval);
             }
         }, delay);
     }
 
     //Get new live data
     private void updateLiveData() {
+<<<<<<< HEAD
 
         canData.updateDataFromSource();
+=======
+        /*
+        //canData.updateDataFromSource();
+>>>>>>> origin/master
         String newScore = String.valueOf(canData.getCurrentScore());
         String overallScore = String.valueOf(canData.getOverallScore());
         float[] liveValues = canData.getLiveValues();
@@ -404,9 +436,13 @@ public class GameActivity extends Activity {
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
+<<<<<<< HEAD
 //
 
         /*float u = 100.0f;
+=======
+        float u = 100.0f;
+>>>>>>> origin/master
         float v = 0.5f;
         float k = 2;
         float l = 0.01f;
@@ -420,8 +456,13 @@ public class GameActivity extends Activity {
 
 
         String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
+<<<<<<< HEAD
         */
 //
+=======
+
+
+>>>>>>> origin/master
 
         //xPos++;
         clearLineData();
@@ -448,11 +489,17 @@ public class GameActivity extends Activity {
         }else{
             score.setTextColor(Color.parseColor(this.getString(R.color.text)));
         }
+<<<<<<< HEAD
         finalScore = canData.getOverallScore();
+=======
+        //finalScore = overallScore;
+>>>>>>> origin/master
         avgScore.setText(overallScore);
         score.setText(newScore);
+        */
     }
-    public void sendData(){
+
+    public void sendData() {
         RecordedData recordedData = new RecordedData();
         int currentScore = recordedData.getOverallScore();
         ArrayList<Float> fuelArray = recordedData.getHistoricalDataValues(0);
@@ -468,9 +515,10 @@ public class GameActivity extends Activity {
         DateFormat date = new SimpleDateFormat("HH:mm a");
         // you can get seconds by adding  "...:ss" to it
         date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
+        machine = "Excavator";
         String localTime = date.format(currentLocalTime);
 
+<<<<<<< HEAD
         int [] timeList = new int[]{};
         for(int i = 0; i < fuelArray.size(); i ++) {
             timeList[i] = i;
@@ -488,6 +536,26 @@ public class GameActivity extends Activity {
         try{
 
             sendObject.put("time", localTime);
+=======
+        int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
+        ArrayList<String> sendObject = new ArrayList<String>();
+        sendObject.add(localTime.toString());
+        sendObject.add(alias);
+        sendObject.add("100");
+        sendObject.add("5");
+        sendObject.add("1"); // change the 1 to result from dialog (yes/no) upload data
+        sendObject.add(machine);
+        sendObject.add(timeList.toString());
+        sendObject.add(loadArray.toString());
+        sendObject.add(fuelArray.toString());
+        sendObject.add(distanceArray.toString());
+        sendObject.add(accelerationArray.toString());
+        sendObject.add(rpmArray.toString());
+        new UploadData().execute(sendObject);
+        /*JSONObject sendObject = new JSONObject();
+        try{
+            sendObject.put("time", localTime.toString());
+>>>>>>> origin/master
             sendObject.put("alias", alias);
             sendObject.put("currentScore", currentScore);
             sendObject.put("duration", minutes);
@@ -500,17 +568,21 @@ public class GameActivity extends Activity {
             sendObject.put("speed", accelerationArray);
             sendObject.put("rpm", rpmArray);
 
-
-
         }catch (JSONException e){
             e.printStackTrace();
-        }
 
+<<<<<<< HEAD
         Toast.makeText(context, sendObject.toString(), Toast.LENGTH_LONG).show();
 
         //new UploadData(this).execute(sendObject);
         new UploadData(this).execute(sendObject);
     }
+=======
+    } */
+
+
+}
+>>>>>>> origin/master
 
 
     @Override

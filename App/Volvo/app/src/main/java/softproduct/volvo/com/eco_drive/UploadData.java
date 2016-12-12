@@ -23,7 +23,7 @@ import java.util.List;
 
 
 
-public class UploadData extends AsyncTask<JSONObject, Void, Void>{
+public class UploadData extends AsyncTask<ArrayList<String>, Void, Void>{
 
     Context context;
     String s = "fail";
@@ -40,7 +40,7 @@ public class UploadData extends AsyncTask<JSONObject, Void, Void>{
     }
 
     @Override
-    protected Void doInBackground(JSONObject... params) {
+    protected Void doInBackground(ArrayList<String>... params) {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://autoelektronikame.ipage.com/volvo/php/upload-data.php");
@@ -51,9 +51,26 @@ public class UploadData extends AsyncTask<JSONObject, Void, Void>{
 
 
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
+<<<<<<< HEAD
             nameValuePairs.add(new BasicNameValuePair("data", params[0].toString()));
 
             /*nameValuePairs.add(new BasicNameValuePair("time", params[0].getJSONObject("time").toString()));
+=======
+            nameValuePairs.add(new BasicNameValuePair("time", params[0].get(1)));
+            nameValuePairs.add(new BasicNameValuePair("alias", params[0].get(2)));
+            nameValuePairs.add(new BasicNameValuePair("score", params[0].get(3)));
+            nameValuePairs.add(new BasicNameValuePair("duration", params[0].get(4)));
+            nameValuePairs.add(new BasicNameValuePair("published", params[0].get(5)));
+            nameValuePairs.add(new BasicNameValuePair("machine", params[0].get(6)));
+            nameValuePairs.add(new BasicNameValuePair("timeList", params[0].get(7)));
+            nameValuePairs.add(new BasicNameValuePair("load", params[0].get(8)));
+            nameValuePairs.add(new BasicNameValuePair("fuel", params[0].get(9)));
+            nameValuePairs.add(new BasicNameValuePair("distance", params[0].get(10)));
+            nameValuePairs.add(new BasicNameValuePair("speed", params[0].get(11)));
+            nameValuePairs.add(new BasicNameValuePair("rpm", params[0].get(12)));
+            /*
+            nameValuePairs.add(new BasicNameValuePair("time", params[0].getJSONObject("time").toString()));
+>>>>>>> origin/master
             nameValuePairs.add(new BasicNameValuePair("alias", params[0].getJSONObject("alias").toString()));
             nameValuePairs.add(new BasicNameValuePair("score", params[0].getJSONObject("currentScore").toString()));
             nameValuePairs.add(new BasicNameValuePair("duration", params[0].getJSONObject("duration").toString()));
@@ -64,8 +81,13 @@ public class UploadData extends AsyncTask<JSONObject, Void, Void>{
             nameValuePairs.add(new BasicNameValuePair("fuel", params[0].getJSONObject("fuel").toString()));
             nameValuePairs.add(new BasicNameValuePair("distance", params[0].getJSONObject("distance").toString()));
             nameValuePairs.add(new BasicNameValuePair("speed", params[0].getJSONObject("speed").toString()));
+<<<<<<< HEAD
             nameValuePairs.add(new BasicNameValuePair("rpm", params[0].getJSONObject("rpm").toString()));*/
 
+=======
+            nameValuePairs.add(new BasicNameValuePair("rpm", params[0].getJSONObject("rpm").toString()));
+            */
+>>>>>>> origin/master
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
             // Execute HTTP Post Request
