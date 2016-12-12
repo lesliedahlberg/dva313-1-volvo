@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -41,6 +42,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -331,7 +333,9 @@ public class GameActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
-
+        //fix dialog prompt to ask if send data or not / need to set published to 0 or 1 for no / yes
+        // THIS IS UPLOAD FUNCTION CALL
+        //sendData();
     }
 
     //Timer for countdown
@@ -378,7 +382,6 @@ public class GameActivity extends Activity {
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
-
         /*float u = 100.0f;
         float v = 0.5f;
         float k = 2;
@@ -424,7 +427,50 @@ public class GameActivity extends Activity {
         avgScore.setText(overallScore);
         score.setText(newScore);
     }
+    public void sendData(){
+        RecordedData recordedData = new RecordedData();
+        int currentScore = recordedData.getOverallScore();
+        ArrayList<Float> fuelArray = recordedData.getHistoricalDataValues(0);
+        ArrayList<Float> accelerationArray = recordedData.getHistoricalDataValues(1);
+        ArrayList<Float> distanceArray = recordedData.getHistoricalDataValues(2);
+        ArrayList<Float> rpmArray = recordedData.getHistoricalDataValues(3);
+        ArrayList<Float> loadArray = recordedData.getHistoricalDataValues(4);
 
+
+        //get current time
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+        Date currentLocalTime = cal.getTime();
+        DateFormat date = new SimpleDateFormat("HH:mm a");
+        // you can get seconds by adding  "...:ss" to it
+        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+        String localTime = date.format(currentLocalTime);
+
+        int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
+
+        JSONObject sendObject = new JSONObject();
+        try{
+            sendObject.put("time", localTime);
+            sendObject.put("alias", alias);
+            sendObject.put("currentScore", currentScore);
+            sendObject.put("duration", minutes);
+            sendObject.put("published", 1); // change the 1 to result from dialog (yes/no) upload data
+            sendObject.put("machine", machine);
+            sendObject.put("timeList", timeList);
+            sendObject.put("load", loadArray);
+            sendObject.put("fuel", fuelArray);
+            sendObject.put("distance", distanceArray);
+            sendObject.put("speed", accelerationArray);
+            sendObject.put("rpm", rpmArray);
+
+
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        new UploadData().execute(sendObject);
+    }
 
 
     @Override
@@ -487,51 +533,7 @@ public class GameActivity extends Activity {
 
 
     }
-    public void sendData(View view){
-        RecordedData recordedData = new RecordedData();
-        int currentScore = recordedData.getOverallScore();
-        float[] dataList = recordedData.getNormalizedLiveValues();
-        ArrayList<Float> fuelArray = recordedData.getHistoricalDataValues(0);
-        ArrayList<Float> accelerationArray = recordedData.getHistoricalDataValues(1);
-        ArrayList<Float> distanceArray = recordedData.getHistoricalDataValues(2);
-        ArrayList<Float> rpmArray = recordedData.getHistoricalDataValues(3);
-        ArrayList<Float> loadArray = recordedData.getHistoricalDataValues(4);
 
-
-        //get current time
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-        Date currentLocalTime = cal.getTime();
-        DateFormat date = new SimpleDateFormat("HH:mm a");
-        // you can get seconds by adding  "...:ss" to it
-        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-        String localTime = date.format(currentLocalTime);
-
-
-
-        JSONObject sendObject = new JSONObject();
-        try{
-            sendObject.put("time", localTime);
-            sendObject.put("alias", alias);
-            sendObject.put("currentScore", currentScore);
-            sendObject.put("duration", minutes);
-            sendObject.put("published", 1); // change the 1 to result from dialog (yes/no) upload data
-            sendObject.put("machine", machine);
-            //timeList
-            sendObject.put("load", loadArray);
-            sendObject.put("fuel", fuelArray);
-            sendObject.put("distance", distanceArray);
-            sendObject.put("speed", accelerationArray);
-            sendObject.put("rpm", rpmArray);
-            //Altitude
-
-
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        new UploadData().execute(sendObject);
-    }
     public void statistics(View view){
         Intent intent = new Intent(this, StatsActivity.class);
         startActivity(intent);
