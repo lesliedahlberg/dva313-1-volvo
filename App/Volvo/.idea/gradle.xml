@@ -5,7 +5,10 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
         <option name="gradleJvm" value="1.7" />
+=======
+>>>>>>> origin/master
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -14,6 +17,17 @@
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
+<<<<<<< HEAD
+=======
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Simulator_sensor_extension/canparser" />
+            <option value="$PROJECT_DIR$/Simulator_sensor_extension/sensorextensionlibrary" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+>>>>>>> origin/master
       </GradleProjectSettings>
     </option>
   </component>
