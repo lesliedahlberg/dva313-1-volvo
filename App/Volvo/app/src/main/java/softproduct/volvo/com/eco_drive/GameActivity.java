@@ -357,7 +357,6 @@ public class GameActivity extends Activity {
         timer.cancel();
         progressBar.setProgress(0);
         gameEnd();
-
     }
 
     //End game
