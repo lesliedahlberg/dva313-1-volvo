@@ -38,7 +38,9 @@ import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -84,13 +86,15 @@ public class GameActivity extends Activity {
     //Timer
     CountDownTimer timer;
     int minutes;
+    String alias;
 
     //Live data
     boolean live = true;
     int xPos = 0;
     int updateInterval = 1000;
+    int finalScore;
 
-
+    finalScore
     //Radar graph
     private void radarGraph(){
 
@@ -319,7 +323,7 @@ public class GameActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
-
+        ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
     }
 
     //Timer for countdown
@@ -409,6 +413,7 @@ public class GameActivity extends Activity {
         }else{
             score.setTextColor(Color.parseColor(this.getString(R.color.text)));
         }
+        finalScore = overallScore;
         avgScore.setText(overallScore);
         score.setText(newScore);
     }
@@ -421,6 +426,7 @@ public class GameActivity extends Activity {
         setContentView(R.layout.game_display);
         context = this;
 
+
         //Gamification
         gamification = new Gamification(this, 10);
 
@@ -432,6 +438,10 @@ public class GameActivity extends Activity {
         //Timer
         Intent intent = getIntent();
         minutes = intent.getIntExtra("time", 5);
+
+
+        //Alias
+        alias = intent.getStringExtra("alias");
 
         //Color
         radialGraphColor = Color.parseColor(this.getString(R.color.radial));
@@ -482,5 +492,15 @@ public class GameActivity extends Activity {
         Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
 
     }*/
+
+    private float getAverage(ArrayList<Entry> a){
+        float avg = 0;
+        for (Entry e:a) {
+            float ee = e.getY();
+            avg += ee;
+        }
+        avg /= a.size();
+        return avg;
+    }
 
 }
