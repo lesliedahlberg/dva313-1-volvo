@@ -41,10 +41,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 
-<<<<<<< HEAD
 import org.json.JSONArray;
-=======
->>>>>>> origin/master
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,10 +56,6 @@ import java.util.TimeZone;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -109,11 +102,7 @@ public class GameActivity extends Activity {
 
     //Timer
     CountDownTimer timer;
-<<<<<<< HEAD
-    int minutes;
-=======
     public int minutes;
->>>>>>> origin/master
 
     //Alias and machine
     public String alias;
@@ -126,10 +115,6 @@ public class GameActivity extends Activity {
     int finalScore = 0;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     //Radar graph
     private void radarGraph() {
 
@@ -368,21 +353,12 @@ public class GameActivity extends Activity {
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
 
-<<<<<<< HEAD
         if(!uploaded) {
             ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
             sendData();
         }
         uploaded = true;
 
-
-=======
-        //fix dialog prompt to ask if send data or not / need to set published to 0 or 1 for no / yes
-        // THIS IS UPLOAD FUNCTION CALL
-        sendData();
-
-        ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
->>>>>>> origin/master
 
     }
 
@@ -418,13 +394,11 @@ public class GameActivity extends Activity {
 
     //Get new live data
     private void updateLiveData() {
-<<<<<<< HEAD
+
 
         canData.updateDataFromSource();
-=======
-        /*
-        //canData.updateDataFromSource();
->>>>>>> origin/master
+        canData.updateDataFromSource();
+
         String newScore = String.valueOf(canData.getCurrentScore());
         String overallScore = String.valueOf(canData.getOverallScore());
         float[] liveValues = canData.getLiveValues();
@@ -435,13 +409,12 @@ public class GameActivity extends Activity {
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
-<<<<<<< HEAD
+
 //
 
         /*float u = 100.0f;
-=======
         float u = 100.0f;
->>>>>>> origin/master
+
         float v = 0.5f;
         float k = 2;
         float l = 0.01f;
@@ -455,13 +428,9 @@ public class GameActivity extends Activity {
 
 
         String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
-<<<<<<< HEAD
+
         */
 //
-=======
-
-
->>>>>>> origin/master
 
         //xPos++;
         clearLineData();
@@ -488,24 +457,22 @@ public class GameActivity extends Activity {
         }else{
             score.setTextColor(Color.parseColor(this.getString(R.color.text)));
         }
-<<<<<<< HEAD
+
         finalScore = canData.getOverallScore();
-=======
-        //finalScore = overallScore;
->>>>>>> origin/master
+
+
         avgScore.setText(overallScore);
         score.setText(newScore);
-        */
+
     }
 
     public void sendData() {
-        RecordedData recordedData = new RecordedData();
-        int currentScore = recordedData.getOverallScore();
-        ArrayList<Float> fuelArray = recordedData.getHistoricalDataValues(0);
-        ArrayList<Float> accelerationArray = recordedData.getHistoricalDataValues(1);
-        ArrayList<Float> distanceArray = recordedData.getHistoricalDataValues(2);
-        ArrayList<Float> rpmArray = recordedData.getHistoricalDataValues(3);
-        ArrayList<Float> loadArray = recordedData.getHistoricalDataValues(4);
+        int currentScore = canData.getOverallScore();
+        ArrayList<Float> fuelArray = canData.getHistoricalDataValues(0);
+        ArrayList<Float> accelerationArray = canData.getHistoricalDataValues(1);
+        ArrayList<Float> distanceArray = canData.getHistoricalDataValues(2);
+        ArrayList<Float> rpmArray = canData.getHistoricalDataValues(3);
+        ArrayList<Float> loadArray = canData.getHistoricalDataValues(4);
 
 
         //get current time
@@ -517,71 +484,45 @@ public class GameActivity extends Activity {
         machine = "Excavator";
         String localTime = date.format(currentLocalTime);
 
-<<<<<<< HEAD
-        int [] timeList = new int[]{};
+
+        ArrayList<Integer> time = new ArrayList<Integer>();
+
+
         for(int i = 0; i < fuelArray.size(); i ++) {
-            timeList[i] = i;
+            time.add(i);
         }
-
-
-
-
-        //int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
-
-        Toast.makeText(context, loadArray.toString(), Toast.LENGTH_SHORT).show();
 
 
         JSONObject sendObject = new JSONObject();
         try{
-
-            sendObject.put("time", localTime);
-=======
-        int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
-        ArrayList<String> sendObject = new ArrayList<String>();
-        sendObject.add(localTime.toString());
-        sendObject.add(alias);
-        sendObject.add("100");
-        sendObject.add("5");
-        sendObject.add("1"); // change the 1 to result from dialog (yes/no) upload data
-        sendObject.add(machine);
-        sendObject.add(timeList.toString());
-        sendObject.add(loadArray.toString());
-        sendObject.add(fuelArray.toString());
-        sendObject.add(distanceArray.toString());
-        sendObject.add(accelerationArray.toString());
-        sendObject.add(rpmArray.toString());
-        new UploadData().execute(sendObject);
-        /*JSONObject sendObject = new JSONObject();
-        try{
             sendObject.put("time", localTime.toString());
->>>>>>> origin/master
+
             sendObject.put("alias", alias);
             sendObject.put("currentScore", currentScore);
             sendObject.put("duration", minutes);
             sendObject.put("published", 1); // change the 1 to result from dialog (yes/no) upload data
             sendObject.put("machine", machine);
-            //sendObject.put("timeList", timeList);
+            sendObject.put("timeList", new JSONArray(time));
             sendObject.put("load", new JSONArray(loadArray));
-            sendObject.put("fuel", fuelArray);
-            sendObject.put("distance", distanceArray);
-            sendObject.put("speed", accelerationArray);
-            sendObject.put("rpm", rpmArray);
+            sendObject.put("fuel", new JSONArray(fuelArray));
+            sendObject.put("distance", new JSONArray(distanceArray));
+            sendObject.put("speed", new JSONArray(accelerationArray));
+            sendObject.put("rpm", new JSONArray(rpmArray));
 
-        }catch (JSONException e){
+        }catch (JSONException e) {
             e.printStackTrace();
+        }
 
-<<<<<<< HEAD
         Toast.makeText(context, sendObject.toString(), Toast.LENGTH_LONG).show();
 
-        //new UploadData(this).execute(sendObject);
         new UploadData(this).execute(sendObject);
     }
-=======
-    } */
 
 
-}
->>>>>>> origin/master
+
+
+
+
 
 
     @Override
@@ -596,7 +537,7 @@ public class GameActivity extends Activity {
 
 
         can = new CanBusInformation(this);
-        canData = new RecordedData();
+        canData = new RecordedData(this);
         canData.setDataSource(can);
 
         //Timer

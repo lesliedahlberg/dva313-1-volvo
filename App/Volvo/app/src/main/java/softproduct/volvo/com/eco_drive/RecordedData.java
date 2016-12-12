@@ -1,5 +1,8 @@
 package softproduct.volvo.com.eco_drive;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +10,7 @@ import java.util.ArrayList;
  */
 public class RecordedData {
     CanBusInformation src;
+    Context context;
     int x = 0;
     ArrayList<Float> fuelConsumption;
     ArrayList<Float> acceleration;
@@ -27,13 +31,14 @@ public class RecordedData {
     public float coef_accleration = 1.0f;
     public float coef_load = 2.0f;
 
-    public RecordedData(){
+    public RecordedData(Context context){
         fuelConsumption = new ArrayList<Float>();
         acceleration = new ArrayList<Float>();
         distance = new ArrayList<Float>();
         rpm = new ArrayList<Float>();
         load = new ArrayList<Float>();
         scores = new ArrayList<Integer>();
+        this.context = context;
     }
 
     public void setDataSource(CanBusInformation src){
