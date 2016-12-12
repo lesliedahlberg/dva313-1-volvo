@@ -18,7 +18,6 @@ public class VehicleActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     public void excavatorClick(View view){

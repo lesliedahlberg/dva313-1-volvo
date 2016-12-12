@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import java.sql.Time;
 
 public class TimeActivity extends Activity {
@@ -27,7 +26,6 @@ public class TimeActivity extends Activity {
         Intent intent = getIntent();
         val = intent.getStringExtra("alias");
         machine = intent.getStringExtra("machine");
-
 
         numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(1);

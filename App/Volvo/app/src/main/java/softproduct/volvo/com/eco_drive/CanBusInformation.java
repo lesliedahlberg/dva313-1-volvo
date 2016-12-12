@@ -27,8 +27,6 @@ public class CanBusInformation {
     private Handler handlerMachineData;
     private machine_manager _mdm;
 
-
-
     float rpm = 0;
     float distance = 0;
     float fuel = 0;
@@ -40,20 +38,13 @@ public class CanBusInformation {
     int lastCheckIndex;
     ArrayList<Float> speeds;
 
-
-
     public CanBusInformation(Context context){
         this.context = context;
-
         speeds = new ArrayList<Float>();
         speeds.add(0.0f);
-
         startTime = System.currentTimeMillis();
-
          handlerMachineData = new Handler();
         _mdm = new machine_manager(context);
-
-
         if(_mdm.Connect() == true) {
             handlerMachineData.post(runnableMachineData);
         }

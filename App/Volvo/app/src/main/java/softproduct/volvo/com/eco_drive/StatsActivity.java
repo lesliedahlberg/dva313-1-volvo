@@ -8,9 +8,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-
 import com.github.mikephil.charting.data.Entry;
-
 import java.util.ArrayList;
 
 public class StatsActivity extends Activity {

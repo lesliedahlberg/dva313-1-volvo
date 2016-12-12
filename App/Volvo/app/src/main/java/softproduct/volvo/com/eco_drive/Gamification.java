@@ -39,18 +39,7 @@ public class Gamification {
     }
 
     private void liveNotification() {
-
         long duration = stopThresholdTime - startThresholdTime;
-
         Toast.makeText(context, (float)duration/1000.0f + "s of great gameplay!", Toast.LENGTH_LONG).show();
-
-        /*Notification.Builder mBuilder =
-                new Notification.Builder(context)
-                        .setContentTitle("Doing good!")
-                        .setContentText(duration/1000 + " s of great scores!");
-        int mNotificationId = 001;
-        NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(mNotificationId,mBuilder.getNotification());*/
-
     }
 }

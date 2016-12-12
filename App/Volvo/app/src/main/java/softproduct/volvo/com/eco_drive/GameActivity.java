@@ -138,7 +138,6 @@ public class GameActivity extends Activity {
                 Easing.EasingOption.EaseInOutQuad);
 
         XAxis xAxis = generalRadialChart.getXAxis();
-        //xAxis.setTypeface(mTfLight);
         xAxis.setTextSize(24f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
@@ -154,7 +153,6 @@ public class GameActivity extends Activity {
         xAxis.setTextColor(Color.WHITE);
 
         YAxis yAxis = generalRadialChart.getYAxis();
-        //yAxis.setTypeface(mTfLight);
         yAxis.setLabelCount(5, false);
         yAxis.setTextSize(12f);
         yAxis.setAxisMinimum(0f);
@@ -165,7 +163,6 @@ public class GameActivity extends Activity {
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
-        //l.setTypeface(mTfLight);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
         l.setTextColor(Color.WHITE);
@@ -176,15 +173,6 @@ public class GameActivity extends Activity {
     public void setRadarData() {
         if (radarData != null) {
             if (radarData.size() > 0) {
-                /*RadarDataSet set1 = new RadarDataSet(entries1, "Average");
-                set1.setColor(Color.rgb(103, 110, 129));
-                set1.setFillColor(radialGraphColor);
-                set1.setDrawFilled(true);
-                set1.setFillAlpha(200);
-                set1.setLineWidth(4f);
-                set1.setDrawHighlightCircleEnabled(true);
-                set1.setDrawHighlightIndicators(false);*/
-
                 RadarDataSet set2 = new RadarDataSet(radarData, "You");
                 set2.setColor(Color.rgb(121, 162, 175));
                 set2.setFillColor(radialAverageGraphColor);
@@ -193,18 +181,12 @@ public class GameActivity extends Activity {
                 set2.setLineWidth(4f);
                 set2.setDrawHighlightCircleEnabled(true);
                 set2.setDrawHighlightIndicators(false);
-
                 ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
-
                 sets.add(set2);
-                //sets.add(set1);
-
                 RadarData data = new RadarData(sets);
-                //data.setValueTypeface(mTfLight);
                 data.setValueTextSize(18f);
                 data.setDrawValues(false);
                 data.setValueTextColor(Color.WHITE);
-
                 generalRadialChart.setData(data);
                 generalRadialChart.invalidate();
             }
@@ -215,21 +197,15 @@ public class GameActivity extends Activity {
     //Line graph
     private void lineGraph() {
         detailedLineChart = (LineChart) findViewById(R.id.lineChart);
-
         detailedLineChart.getAxisRight().setEnabled(false);
         detailedLineChart.getAxisLeft().setEnabled(false);
         detailedLineChart.getXAxis().setEnabled(false);
-
         Description desc = new Description();
         desc.setText("");
         detailedLineChart.setDescription(desc);
-
         Legend legend = detailedLineChart.getLegend();
         legend.setEnabled(false);
-
         detailedLineChart.setPadding(0, 0, 0, 0);
-
-
         setLineDataToCurrent();
     }
 
@@ -408,38 +384,12 @@ public class GameActivity extends Activity {
         addEntryToDataSource(rpmData, xPos, liveValues[3]);
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
-
-
-//
-
-        /*float u = 100.0f;
-        float u = 100.0f;
-
-        float v = 0.5f;
-        float k = 2;
-        float l = 0.01f;
-        float m = 1;
-
-        float fuelConsumption = can.getFuelConsumption();
-        float rpm = can.getRPM();
-        float acceleration = can.getAcceleration();
-        float distance = can.getDistance();
-        float load = can.getLoad();
-
-
-        String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
-
-        */
-//
-
-        //xPos++;
         clearLineData();
         setLineDataToCurrent();
         detailedLineChart.notifyDataSetChanged();
 
 
         float[] liveNormalizedValues = canData.getNormalizedLiveValues();
-        //Log.d("APP", "updateLiveData: " + liveNormalizedValues[0] + ", " + liveNormalizedValues[1] + ", " + liveNormalizedValues[2] + ", " + liveNormalizedValues[3] + ", " + liveNormalizedValues[4]);
 
         radarData.clear();
         radarData.add(new RadarEntry(liveNormalizedValues[0]));
@@ -448,7 +398,6 @@ public class GameActivity extends Activity {
         radarData.add(new RadarEntry(liveNormalizedValues[3]));
         radarData.add(new RadarEntry(liveNormalizedValues[4]));
         setRadarData();
-
 
         gamification.updateScore(canData.getCurrentScore());
 
@@ -459,7 +408,6 @@ public class GameActivity extends Activity {
         }
 
         finalScore = canData.getOverallScore();
-
 
         avgScore.setText(overallScore);
         score.setText(newScore);
@@ -518,13 +466,6 @@ public class GameActivity extends Activity {
         new UploadData(this).execute(sendObject);
     }
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -567,11 +508,6 @@ public class GameActivity extends Activity {
         lineGraph();
         radarGraph();
 
-        //Insert average values
-        //TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
-        //ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
-        //averageValuesView.setText("Average Score: " + averageValues.toString());
-
         //Setup progress bar
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //progressBar.setScaleY(18f);
@@ -587,15 +523,7 @@ public class GameActivity extends Activity {
 
         //Set Fuel as start graph
         setFuel(null);
-
-
     }
-
-    //@Override
-    /*public void onBackPressed() {
-        Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
-
-    }*/
 
     private float getAverage(ArrayList<Entry> a){
         float avg = 0;
@@ -606,5 +534,4 @@ public class GameActivity extends Activity {
         avg /= a.size();
         return avg;
     }
-
 }
