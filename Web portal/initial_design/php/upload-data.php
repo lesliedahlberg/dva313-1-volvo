@@ -45,29 +45,27 @@ $session_id = $connection->insert_id;
 
 
 $timeList = $jsonData["timeList"];
-$type = ["LOAD", "Fuel", "DISTANCE","SPEED","RPM", "ALTITUDE"];
+$type = ["LOAD", "Fuel", "DISTANCE","SPEED","RPM"];
 
 $load=$jsonData["load"];
 $fuel=$jsonData["fuel"];
 $distance=$jsonData["distance"];
 $speed=$jsonData["speed"];
 $rpm=$jsonData["rpm"];
-$altitude=$jsonData["altitude"];
 
 $values[]=$load;
 $values[]=$fuel;
 $values[]=$distance;
 $values[]=$speed;
 $values[]=$rpm;
-$values[]=$altitude;
 
 
 for ($i=0; $i <count($timeList) ; $i++) { 
-	for ($j=0; $j <6; $j++) { 
+	for ($j=0; $j <5; $j++) { 
 
 $stmt = $connection->prepare("INSERT INTO ValueTime ( Type,  Value, Time,  IdSession) 
 		   VALUES ( ?, ?, ?, ?)");
-$stmt->bind_param("sisi", $type[$i], $values[$i][$j], $timeList[$j], $session_id);
+$stmt->bind_param("sdsi", $type[$i], $values[$i][$j], $timeList[$j], $session_id);
 
 $stmt->execute();
 }

@@ -43,12 +43,12 @@ var RadialChartController = function(){
 
 		function getLabels(item){
 
-			return ["Speed","RPM","Fuel","Load","Altitude","Distance"];
+			return ["Speed","RPM","Fuel","Load","Distance"];
 		}
 
 		function getData(item){
 
-			return [item.averageSpeed,item.averageRpm, item.averageFuel, item.averageLoad, item.averageAltitude, item.averageDistance];
+			return [item.averageSpeed,item.averageRpm, item.averageFuel, item.averageLoad, item.averageDistance];
 		}
 	}();
 
