@@ -52,6 +52,8 @@ public class GameActivity extends Activity {
 
     Context context;
 
+    boolean uploaded = false;
+
     //Notification
     Gamification gamification;
 
@@ -92,9 +94,9 @@ public class GameActivity extends Activity {
     boolean live = true;
     int xPos = 0;
     int updateInterval = 1000;
-    int finalScore;
+    int finalScore = 0;
 
-    finalScore
+
     //Radar graph
     private void radarGraph(){
 
@@ -306,6 +308,11 @@ public class GameActivity extends Activity {
         startActivity(intent);
     }
 
+    public void statistics(View view) {
+        Intent intent = new Intent(context, StatsActivity.class);
+        startActivity(intent);
+    }
+
     //Stop game
     public void stop(View view){
         timer.onFinish();
@@ -323,7 +330,9 @@ public class GameActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
-        ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
+        if(!uploaded)
+            ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
+        uploaded = true;
     }
 
     //Timer for countdown
@@ -370,7 +379,7 @@ public class GameActivity extends Activity {
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
-
+//
         /*float u = 100.0f;
         float v = 0.5f;
         float k = 2;
@@ -386,7 +395,7 @@ public class GameActivity extends Activity {
 
         String newScore = String.valueOf((int) Math.floor((distance * u * load * v)/(fuelConsumption * k *rpm * l *acceleration * m)));
         */
-
+//
 
         //xPos++;
         clearLineData();
@@ -413,7 +422,7 @@ public class GameActivity extends Activity {
         }else{
             score.setTextColor(Color.parseColor(this.getString(R.color.text)));
         }
-        finalScore = overallScore;
+        finalScore = canData.getOverallScore();
         avgScore.setText(overallScore);
         score.setText(newScore);
     }
@@ -461,13 +470,13 @@ public class GameActivity extends Activity {
         radarGraph();
 
         //Insert average values
-        TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
-        ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
-        averageValuesView.setText("Average Score: " + averageValues.toString());
+        //TextView averageValuesView = (TextView) findViewById(R.id.averageValuesView);
+        //ScoreItem averageValues = ScoreDbHelper.getInstance(this).getAverageScoreItem();
+        //averageValuesView.setText("Average Score: " + averageValues.toString());
 
         //Setup progress bar
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setScaleY(18f);
+        //progressBar.setScaleY(18f);
         progressBar.setMax(minutes*60);
 
         //Score
@@ -482,10 +491,6 @@ public class GameActivity extends Activity {
         setFuel(null);
 
 
-    }
-    public void statistics(View view){
-        Intent intent = new Intent(this, StatsActivity.class);
-        startActivity(intent);
     }
     //@Override
     /*public void onBackPressed() {

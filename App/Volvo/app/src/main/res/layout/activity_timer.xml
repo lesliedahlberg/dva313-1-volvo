@@ -27,7 +27,9 @@
         android:layout_gravity="center"
         android:measureWithLargestChild="false"
         android:orientation="vertical"
-        android:layout_margin="64dp" />
+
+        android:layout_margin="64dp"
+        android:background="#aaaaaa" />
 
     <!--<TimePicker
         android:layout_width="wrap_content"

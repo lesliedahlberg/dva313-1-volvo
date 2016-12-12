@@ -38,27 +38,7 @@
         android:layout_height="120dp"
         android:gravity="center">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
 
-            <Button
-                android:layout_width="256dp"
-                android:layout_height="96dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:background="@color/button"
-                android:text="Confirm"
-                android:textSize="28sp"
-                android:id="@+id/aliasConfirmButton"
-                android:onClick="confirmAlias"
-                android:layout_below="@+id/editAlias"
-                android:layout_alignLeft="@+id/editAlias"
-                android:layout_gravity="center|right"
-                android:layout_margin="6dp"
-                android:textColor="#ffffff" />
-        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -76,7 +56,29 @@
                 android:textSize="28sp"
                 android:background="@color/button"
                 android:layout_below="@+id/editAlias"
-                android:layout_gravity="left|center"
+                android:layout_gravity="right|center"
+                android:layout_margin="6dp"
+                android:textColor="#ffffff" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="256dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@color/button"
+                android:text="Confirm"
+                android:textSize="28sp"
+                android:id="@+id/aliasConfirmButton"
+                android:onClick="confirmAlias"
+                android:layout_below="@+id/editAlias"
+                android:layout_alignLeft="@+id/editAlias"
+                android:layout_gravity="center|left"
                 android:layout_margin="6dp"
                 android:textColor="#ffffff" />
         </FrameLayout>

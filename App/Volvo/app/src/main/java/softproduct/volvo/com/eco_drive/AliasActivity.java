@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 public class AliasActivity extends Activity {
 
+    String preset_value = "key_is_preset";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +35,6 @@ public class AliasActivity extends Activity {
 
     public void clearPreferences(View view){
         Intent intent = new Intent(this, VehicleActivity.class);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sharedPref.edit();
-        edit.clear();
-        edit.commit();
         startActivity(intent);
     }
 }

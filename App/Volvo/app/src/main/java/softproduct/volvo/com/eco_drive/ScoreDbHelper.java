@@ -16,7 +16,7 @@ import android.util.Log;
 public class ScoreDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Database";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_SCORES = "scores";
 

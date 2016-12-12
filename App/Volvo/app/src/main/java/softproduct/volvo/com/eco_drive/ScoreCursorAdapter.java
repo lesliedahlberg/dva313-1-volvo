@@ -67,7 +67,7 @@ public class ScoreCursorAdapter extends CursorAdapter {
         final LinearLayout expandedScoreView = (LinearLayout) view.findViewById(R.id.expandedScoreView);
         final LinearLayout titleScoreLayout = (LinearLayout) view.findViewById(R.id.titleScoreLayout);
         final LinearLayout topTitleLayout = (LinearLayout) view.findViewById(R.id.topTitleLayout);
-        final Button backButton = (Button) view.findViewById(R.id.backButton);
+        //final Button backButton = (Button) view.findViewById(R.id.backButton);
 
         //Get references to expanded objects in list
         TextView rpmTextView = (TextView) view.findViewById(R.id.rpmTextView);
