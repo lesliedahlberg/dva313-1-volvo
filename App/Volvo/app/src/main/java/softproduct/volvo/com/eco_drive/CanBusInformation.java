@@ -7,19 +7,19 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 
-/*
+
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.art_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.exc_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.gnss_data;
 import com.volvo.softproduct.sensorextensionlibrary.db_enum.wlo_data;
 import com.volvo.softproduct.sensorextensionlibrary.managers.*;
 import com.volvo.softproduct.sensorextensionlibrary.db_value.*;
-*/
+
 
 /**
  * Created by lesliedahlberg on 2016-11-30.
  */
-/*
+
 public class CanBusInformation {
 
     Context context;
@@ -132,4 +132,4 @@ public class CanBusInformation {
     }
 
 
-} */
+}

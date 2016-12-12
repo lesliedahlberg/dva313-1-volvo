@@ -3,6 +3,7 @@ package softproduct.volvo.com.eco_drive;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -39,7 +40,8 @@ import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-<<<<<<< HEAD
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,11 +52,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-=======
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
->>>>>>> origin/master
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -72,7 +74,7 @@ public class GameActivity extends Activity {
     Gamification gamification;
 
     //CAN
-    //CanBusInformation can;
+    CanBusInformation can;
     RecordedData canData;
 
     //Charts
@@ -102,7 +104,6 @@ public class GameActivity extends Activity {
     //Timer
     CountDownTimer timer;
     int minutes;
-    String alias;
 
     //Alias and machine
     public String alias;
@@ -348,19 +349,15 @@ public class GameActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         Button stopButton = (Button) findViewById(R.id.stopButton);
         stopButton.setVisibility(View.GONE);
-<<<<<<< HEAD
-        if(!uploaded)
+
+        if(!uploaded) {
             ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
+            sendData();
+        }
         uploaded = true;
-=======
-<<<<<<< HEAD
-        //fix dialog prompt to ask if send data or not / need to set published to 0 or 1 for no / yes
-        // THIS IS UPLOAD FUNCTION CALL
-        //sendData();
-=======
-        ScoreDbHelper.getInstance(this).addListItem(new ScoreItem(0, alias, finalScore, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getAverage(rpmData), getAverage(accelerationData), getAverage(distanceData), getAverage(loadData), getAverage(fuelConsumptionData), 0.0));
->>>>>>> origin/master
->>>>>>> origin/master
+
+
+
     }
 
     //Timer for countdown
@@ -396,7 +393,7 @@ public class GameActivity extends Activity {
     //Get new live data
     private void updateLiveData() {
 
-        //canData.updateDataFromSource();
+        canData.updateDataFromSource();
         String newScore = String.valueOf(canData.getCurrentScore());
         String overallScore = String.valueOf(canData.getOverallScore());
         float[] liveValues = canData.getLiveValues();
@@ -407,10 +404,8 @@ public class GameActivity extends Activity {
         addEntryToDataSource(loadData, xPos, liveValues[4]);
         xPos = canData.getX();
 
-<<<<<<< HEAD
 //
-=======
->>>>>>> origin/master
+
         /*float u = 100.0f;
         float v = 0.5f;
         float k = 2;
@@ -476,18 +471,30 @@ public class GameActivity extends Activity {
 
         String localTime = date.format(currentLocalTime);
 
-        int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
+        int [] timeList = new int[]{};
+        for(int i = 0; i < fuelArray.size(); i ++) {
+            timeList[i] = i;
+        }
+
+
+
+
+        //int[] timeList = {1, 2, 3, 4, 5}; // fix later to actually take time
+
+        Toast.makeText(context, loadArray.toString(), Toast.LENGTH_SHORT).show();
+
 
         JSONObject sendObject = new JSONObject();
         try{
+
             sendObject.put("time", localTime);
             sendObject.put("alias", alias);
             sendObject.put("currentScore", currentScore);
             sendObject.put("duration", minutes);
             sendObject.put("published", 1); // change the 1 to result from dialog (yes/no) upload data
             sendObject.put("machine", machine);
-            sendObject.put("timeList", timeList);
-            sendObject.put("load", loadArray);
+            //sendObject.put("timeList", timeList);
+            sendObject.put("load", new JSONArray(loadArray));
             sendObject.put("fuel", fuelArray);
             sendObject.put("distance", distanceArray);
             sendObject.put("speed", accelerationArray);
@@ -499,7 +506,10 @@ public class GameActivity extends Activity {
             e.printStackTrace();
         }
 
-        new UploadData().execute(sendObject);
+        Toast.makeText(context, sendObject.toString(), Toast.LENGTH_LONG).show();
+
+        //new UploadData(this).execute(sendObject);
+        new UploadData(this).execute(sendObject);
     }
 
 
@@ -512,12 +522,12 @@ public class GameActivity extends Activity {
 
         //Gamification
         gamification = new Gamification(this, 10);
-        /*
-        //CAN
+
+
         can = new CanBusInformation(this);
         canData = new RecordedData();
         canData.setDataSource(can);
-        */
+
         //Timer
         Intent intent = getIntent();
         minutes = intent.getIntExtra("time", 5);
@@ -568,14 +578,7 @@ public class GameActivity extends Activity {
 
 
     }
-<<<<<<< HEAD
-=======
 
-    public void statistics(View view){
-        Intent intent = new Intent(this, StatsActivity.class);
-        startActivity(intent);
-    }
->>>>>>> origin/master
     //@Override
     /*public void onBackPressed() {
         Toast.makeText(context, "You cannot go back while playing the game!", Toast.LENGTH_SHORT).show();
