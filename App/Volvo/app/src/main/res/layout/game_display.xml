@@ -90,35 +90,61 @@
 
             </LinearLayout>
 
-
-
-
-
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/score"
-                    android:gravity="center"
-                    android:textSize="64dp"
-                    android:layout_weight="1"
-                    android:textColor="#ffffff" />
+                    android:layout_height="wrap_content">
 
-                <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/score"
+                        android:gravity="center"
+                        android:textSize="64dp"
+                        android:layout_weight="1"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/avgScore"
+                        android:gravity="center"
+                        android:textSize="64dp"
+                        android:layout_weight="1"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/avgScore"
-                    android:gravity="center"
-                    android:textSize="64dp"
-                    android:layout_weight="1"
-                    android:textColor="#ffffff" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Overall Score"
+                        android:id="@+id/textView"
+                        android:layout_weight="1"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Instant Score"
+                        android:id="@+id/textView2"
+                        android:layout_weight="1"
+                        android:gravity="center" />
+                </LinearLayout>
+
             </LinearLayout>
+
 
             <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/GameActivity_radarChart"
