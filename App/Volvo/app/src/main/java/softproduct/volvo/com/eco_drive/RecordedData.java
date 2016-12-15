@@ -12,18 +12,18 @@ public class RecordedData {
     CanBusInformation src;
     Context context;
     int x = 0;
-    ArrayList<Float> fuelConsumption;
-    ArrayList<Float> acceleration;
-    ArrayList<Float> distance;
-    ArrayList<Float> rpm;
-    ArrayList<Float> load;
+    ArrayList<Float> fuelConsumption; // l/h
+    ArrayList<Float> acceleration; // m/s/s
+    ArrayList<Float> distance; //km
+    ArrayList<Float> rpm; //rpm
+    ArrayList<Float> load; //% of capacity
     ArrayList<Integer> scores;
 
-    Interval interval_rpm = new Interval(500, 3000);
-    Interval interval_distance = new Interval(0, 10);
-    Interval interval_fuel = new Interval(0.1f, 10);
-    Interval interval_acceleration = new Interval(0.001f, 1.0f);
-    Interval interval_load = new Interval(0, 1000);
+    Interval interval_rpm = new Interval(0, 5000);
+    Interval interval_distance = new Interval(0, 50);
+    Interval interval_fuel = new Interval(0, 25);
+    Interval interval_acceleration = new Interval(0, 3);
+    Interval interval_load = new Interval(0, 100);
 
     public float coef_rpm = 1.0f;
     public float coef_distance = 2.0f;

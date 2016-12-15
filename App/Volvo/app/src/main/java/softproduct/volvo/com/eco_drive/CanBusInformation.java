@@ -27,16 +27,16 @@ public class CanBusInformation {
     private Handler handlerMachineData;
     private machine_manager _mdm;
 
-    float rpm = 0;
+    float rpm = 0; //RPM
     float distance = 0;
-    float fuel = 0;
+    float fuel = 0; //l/h
     float acceleration = 0;
-    float load = 0;
+    float load = 0; //% of capacity
     long startTime;
     long endTime;
     long lastCheck;
     int lastCheckIndex;
-    ArrayList<Float> speeds;
+    ArrayList<Float> speeds; //km/h
 
     public CanBusInformation(Context context){
         this.context = context;
@@ -119,7 +119,7 @@ public class CanBusInformation {
     private float calculateAcceleration(){
         long interval = endTime - lastCheck;
         float acc = speeds.get(speeds.size()-1) - speeds.get(speeds.size()-2);
-        return acc / (interval/1000.0f/60.0f/60.0f);
+        return (acc / (interval/1000.0f))*0.2778f;
     }
 
 
