@@ -92,7 +92,7 @@ success: done
 
 var init = function (){
 
-	getData("All");
+	getData("Excavator");
 }
 
 function update(){
