@@ -57,27 +57,27 @@ public class CanBusInformation {
 
 
     public float getRPM(){
-        //float v = (float) (Math.random() * 3000) + 500;
+        //float v = (float) (Math.random() * 1000) + 750;
         //return v;
         return rpm;
     }
     public float getDistance(){
-        //float v = (float) (Math.random() * 10) + 0;
+        //float v = (float) (Math.random() * 7) + 5;
         //return v;
         return calculateDistance();
     }
     public float getFuelConsumption(){
-        //float v = (float) (Math.random() * 10) + 0.1f;
+        //float v = (float) (Math.random() * 1.5) + 0.1f;
         //return v;
         return fuel;
     }
     public float getAcceleration(){
-        //float v = (float) (Math.random() * 1.0f) + 0.001f;
+        //float v = (float) (Math.random() * 1.0f) + 0.1f;
         //return v;
         return calculateAcceleration();
     }
     public float getLoad(){
-        //float v = (float) (Math.random() * 1000) + 0;
+        //float v = (float) (Math.random() * 80) + 40;
         //return v;
         return load;
     }

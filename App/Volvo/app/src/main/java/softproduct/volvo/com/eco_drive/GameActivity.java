@@ -461,7 +461,7 @@ public class GameActivity extends Activity {
             e.printStackTrace();
         }
 
-        Toast.makeText(context, sendObject.toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, sendObject.toString(), Toast.LENGTH_LONG).show();
 
         new UploadData(this).execute(sendObject);
     }
