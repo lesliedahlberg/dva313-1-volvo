@@ -6,7 +6,7 @@ The mobile app can be found in the directory /app. It can be installed on any Vo
 
 ### Installation instructions
 - Download CPAC for Android API 15
-- Create a resource file names secret.xml and add a string definition <string name="token">INSERT YOUR TOKEN HERE</string>
+- Create a resource file names secret.xml and add a string definition ```<string name="token">INSERT YOUR TOKEN HERE</string>```
 - Add the "theKey.jks" to "app" folder
 - Connect to Co-Pilot adb connect IP_ADDRESS
 - Build and push to CPAC tablet in Android Studio
