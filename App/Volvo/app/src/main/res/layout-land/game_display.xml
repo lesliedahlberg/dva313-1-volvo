@@ -9,23 +9,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Score"
-            android:id="@+id/score"
-            android:gravity="center"
-            android:textSize="64dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                android:id="@+id/score"
+                android:gravity="center"
+                android:textSize="64dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Overall Score"
+                android:id="@+id/textView3"
+                android:textColor="#ffffff"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AvgScore"
-            android:id="@+id/avgScore"
-            android:gravity="center"
-            android:textSize="64dp"
-            android:layout_weight="1" />
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AvgScore"
+                android:id="@+id/avgScore"
+                android:gravity="center"
+                android:textSize="64dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Instant Score"
+                android:id="@+id/textView4"
+                android:textColor="#ffffff"
+                android:gravity="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

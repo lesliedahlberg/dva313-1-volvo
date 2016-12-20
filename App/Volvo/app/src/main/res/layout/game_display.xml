@@ -132,7 +132,8 @@
                         android:text="Overall Score"
                         android:id="@+id/textView"
                         android:layout_weight="1"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:textColor="#ffffff" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -140,7 +141,8 @@
                         android:text="Instant Score"
                         android:id="@+id/textView2"
                         android:layout_weight="1"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:textColor="#ffffff" />
                 </LinearLayout>
 
             </LinearLayout>
