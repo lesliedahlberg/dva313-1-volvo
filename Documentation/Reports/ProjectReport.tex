@@ -1,0 +1,345 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{hmargin=2.5cm,vmargin=1.5cm}
+\usepackage[dvipsnames]{xcolor}
+
+\author{Project Report}
+\title{Project 1 : CoPilot drive statistics}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Background}
+
+The project has been carried out by students in the course DVA313 - Software Engineering 2: Project Teamwork at M\"alardalen University in cooperation with Volvo Construction Equipment in Eskilstuna.
+
+The students involved in the project are listed below:
+\begin{itemize}
+\item Leslie Dahlberg (\textit{ldg14001@student.mdh.se}), bachelors 3rd year, Computer Science
+\item Eric Engtorp (\textit{eep13001@student.mdh.se}), bachelors 3rd year, Computer Science
+\item Fredrik Frenning (\textit{ffg12002@student.mdh.se}), bachelors 3rd year, Computer Science
+\item Pooria Ghavamian (\textit{pgn16007@student.mdh.se}), masters 1st year, Software Engineering
+\item L\'ea Brunschwig (\textit{lbg16006@student.mdh.se}), masters 1st year,  Software Engineering
+\item Vladimir Djukanovic (\textit{vdc16001@student.mdh.se}), bachelors 3rd year, Computer Science
+\item Hamza Sabljakovic (\textit{hsc16001@student.mdh.se}), masters 1st year,  Software Engineering
+\end{itemize}
+The purpose of the project was to design and implement an Android application for Volvo’s customized tablet called the Volvo Co-Pilot. The Co-Pilot is an Android tablet which can be mounted in Volvo’s construction machines and connected to their CAN-buses in order to extract information about the machine and help the operator with diffucult tasks. Our application was supposed to help the operator drive in an eco-friendly manner by providing live-feedback and a sense of gamification to the driving experience. See our design document and our requirements document for more information about specific requirements and design choices.
+
+\section{Project Results}
+
+??? PORYA
+
+\subsection{Deliverables}
+
+The deliverables can be divided to “steering group” deliverables and “customer” deliverables. 
+
+\begin{center}
+\begin{tabular}{|l|l|p{8.5cm}|}
+\hline
+\textbf{Date finished} & \textbf{Name} & \textbf{Description} \\ \hline
+17/11/2016 & Requirements specification & Should include requirements specification, deadline tables, team structure, activities, deliverables, etc. \\ \hline
+01/12/2016 & Design specification & Should capture important design decisions we have made in the project, and should provide a good basis for understanding the implementation. \\ \hline
+12/01/2017 & Implementation & Should include complete functionality covered by design and requirements specification. \\ \hline
+12/01/2017 & Project report & Should summarize the outcomes of the project, both in terms of results produced and experiences from the project work. \\ \hline
+\end{tabular}
+\end{center}
+\begin{center}
+\caption{Table 1: Steering Group Deliverables}
+\end{center}
+
+Table 2 refers to deliverables that were specifically asked by Volvo CE which rely mostly on reports and early proofs of concept. 
+
+\begin{center}
+\begin{tabular}{|l|p{4.25cm}|p{8.5cm}|}
+\hline
+\textbf{Date finished} & \textbf{Name} & \textbf{Description} \\ \hline
+16/11/2016 & 3 concepts for Co Pilot application and web portal
+ & Should include 3 sketches for both Co Pilot application and web portal \\ \hline
+16/11/2016 & Concepts presentation (report) & Description of presented concepts and covered functionality \\ \hline
+12/01/2017 & Implementation & Should include complete functionality covered by design and requirements specification. \\ \hline
+12/01/2017 & Final product & Must include eco driving algorithm, APK, web portal \\ \hline
+12/01/2017 & Final Report & Should include product description (implemented features and possible improvements for application that may not be implemented) \\ \hline
+\end{tabular}
+\end{center}
+\begin{center}
+\caption{Table 2: Volvo CE required deliverables}
+\end{center}
+
+\subsection{Key features of product}
+
+All key requirements proposed are implemented in the final product. The product has a web portal side and an Android app side. The Android app has 5 main pages, the user starts by selecting a machine, writing their name and picking the duration of their driving. After the preliminary phase is over, the main game screen is provided where the sensory input from the machine is presented both in  radial and line charts. The user has the ability to upload their performance after they are finished driving. The data are sent to the web portal where the user can compare their performance with other drivers using the same radial and line charts. 
+
+\subsection{Acceptance testing}
+
+Acceptance testing was carried out on in the Volvo simulation labs at Mälardalen University by the whole development team. Nine test cases were used to verify that the app and web-portal functioned in accordance with the requirements. After final bugfixes were applied 8 test cases passed. The product was then demonstrated to the client and the client was supplied with an executable version of the app and access to the source code to enable them to evaluate the product for themselves. The final test case did not pass, but this was due to a bug in the hardware which we could not do anything about.
+
+\subsection{Missing functionality \& future improvements}
+
+The app demonstrates a proof of concept for eco-driving in the Co-Pilot but the algorithm used to calculate the score is rudimentary at best and would greatly benefit from further customization and use-cases studies specific to the different types of machines that will be used with the Co-Pilot.
+
+Currently the user selects an alias and machine type everytime the game is played. This could be improved by automatically reading the machine type from the machine and letting the user log-in with a user account.
+
+The alias selection does not filter out profanity and inappropriate content and it would be preferable if at least the web portal would hide or reject such aliases.
+
+The game screen provides live feedback in the form of line graphs, a radial graph and two score values. Good scores during a longer period of time result in notifications which tell the player that he/she is doing a good job. Good scores also change the color of the score to green. In order to improve the feeling of the game one could add more gamification features and more interactive responsivness.
+
+\section{Project Work}
+
+PORYA
+
+\subsection{Changes to organization and routines}
+
+In an overall vision, the work realised and the product delivered correspond to the predictions issued in the document Project Plan. The objectives fixed have been efficiently achieved, indeed, the project has been finished earlier than planned, that is implying an amount of planned-hour-work which is not respected because it was overestimated.
+
+We can note that there is a tiny modification in the requirements: the achievements feedback, that were optionnal, have not been implemented and the Android application is available only in portrait format.
+
+Other changes have occurred regarding the organization of the work, in particularly concerning the responsibles of the different tasks : Pooria was the responsible of testing instead of Fredrik, L\'ea was dedicated for all the documentation (Project Plan, Design Description and Project Report) and Leslie for the product.
+
+Finally, we could not test the application as we wished at Volvo's lab, and simulators of Mälardalens were not providing the expected values to do real simulation with our application.
+
+\newpage
+
+\subsection{Total Project effort}
+
+This table table sum up the hours spend on different parts of the project. The project meetings includes those done with the steering group, Volvo or between the team members. The documentation includes the preparation for the project meetings or the project presentation.
+
+\begin{center}
+\begin{tabular}{|p{5cm}|c|}
+\hline
+\textbf{Activity} & \textbf{Actual effort (person days)} \\ \hline
+Project Meetings & $\simeq$ 12.8 \\ \hline
+Project Presentation & $\simeq$ 2.8 \\ \hline
+Testing & $\simeq$ 1.4 \\ \hline
+Documentation & $\simeq$ 7.3 \\ \hline 
+Web Portal & $\simeq$ 5.1 \\ \hline 
+Android App & $\simeq$ 6.8 \\ \hline
+\textbf{Total} & $\simeq$ 36,2 \\ \hline
+\end{tabular}
+\end{center}
+\begin{center}
+\caption{Table 3: Project effort}
+\end{center}
+
+\subsection{Worked hours}
+
+We can note that we are for from the 150 hours per person fixed at the beggining but we can also see that most of the work has been done during the 6 first weeks, then it was some refactoring, tests and documentation work.
+
+\begin{center}
+\begin{tabular}{|l|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|p{0.75cm}|l|}
+\hline
+\textbf{Member / Week} & \textbf{W1} & \textbf{W2} & \textbf{W3} & \textbf{W4} & \textbf{W5} & \textbf{W6} & \textbf{W7} & \textbf{W8} & \textbf{W9} & \textbf{W10} & \textbf{Total} \\ \hline
+\textit{Leslie Dahlberg} & 15 & 20 & 20 & 22 (+2) & 17 (-3) & 18 (-2) & 6 (-9) & 0 & 0 (-10) & 3,5 (-6,5) & 121,5 (-28.5) \\ \hline
+\textit{Pooria Ghavamian} & 15 & 20 & 20 & 20 & 15 (-5) & 12.5 (-7.5) & 0(L) (-15) & 0 & 2 (-8) & 3,5 (-6,5) & 108 (-42) \\ \hline
+\textit{L\'ea Brunschwig} & 15 & 15 & 0(L) & 20 (-5) & 21.5 (-3.5) & 15.5 (-9.5) & 6 (-4) & 2 (-8) & 6 (-9) & 8 (-2) & 109 (-41) \\ \hline
+\textit{Hamza Sabljakovic} & 15 & 15 & 27 (+7) & 21.5 (+1.5) & 15 (-10) & 14 (-6) & 6 (-9) & 0 & 0 (-10) & 4,5 (-5,5) & 118 (-32) \\ \hline
+\textit{Frederik Frenning} & 15 & 20 & 20 & 19 (-1) & 18 (-2) & 14 (-6) & 6 (-9) & 0 & 0 (-10) & 3,5 (-6,5) & 115,5 (-34.5) \\ \hline
+\textit{Vladimir Djukanovic} & 15 & 15 & 27 (+7) & 21 (+1) & 16 (-9) & 14.5 (-5.5) & 6 (-9) & 0 & 0 (-10) & 3,5 (-6,5) & 118 (-32) \\ \hline
+\textit{Eric Engtorp} & 15 & 20 & 20 & 18 (-2) & 10 (-10) & 12.5 (-7.5) & 6 (-9) & 0 & 0 (-10) & 3,5 (-6,5) & 105 (-45) \\ \hline
+\textbf{Total} & 105 & 125 & 134 (+14) & 141.5 (-3.5) & 112.5 (-42.5) & 101 (-44) & 36 (-64) & 2 (-8) & 8 (-67) & 30 (-40) & 795 (-255) \\ \hline
+\end{tabular}
+\end{center}
+\begin{center}
+\caption{Table 4: Worked hours}
+\end{center}
+
+\newpage
+
+\subsection{Distribution of work and responsibilities}
+
+With this table, we can see that the work has often been devided in two groups to provide the most efficient result we could do. The two main area was the Web Application and then the Android Application.
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textit{Sketch Android App} & Hamza, \textbf{Fredrik}, Eric, Pooria \\ \hline
+\textit{Sketch Web Portal} & Leslie, \textbf{Vladimir}, L\'ea \\ \hline
+\textit{Concepts presentation (report to Volvo)} & \textbf{Pooria} \\ \hline
+\textit{Android App} & \textbf{Leslie}, Eric, Fredrik, Pooria, L\'ea \\ \hline
+\textit{Web Portal} & \textbf{Hamza}, Vladimir \\ \hline
+\textit{Project Plan} & Vladimir, Fredrik, Pooria, \textbf{L\'ea} \\ \hline
+\textit{Design Description} & Hamza, Vladimir, Pooria, Leslie, Fredrik, \textbf{L\'ea} \\ \hline
+\textit{Project Report} & Pooria, Leslie, \textbf{L\'ea} \\ \hline
+\end{tabular}
+
+\end{center}
+\begin{center}
+\caption{Table 5: Distribution of work}
+\end{center}
+Legend : \textbf{Responsible}
+
+\subsection{Positive experiences}
+
+The accomplishment of this project allows to experiment several positive points. In a first time, we can cite a hebdomadaire routine which was team meeting before and after the project meetings with the steering group. This routine implied a good repartition of the tasks and to assure that everybody would be busy during the week and we kept on track with the schedule. 
+
+The organization was also managed in really good way by forming smaller group within the project thus to be efficient and also allowed to do independent job but by being coherent with the overall project, and, building the product iteratively, starting with a design, then progressing to a working GUI, then connecting it to the backend and finally hooking it up to the simulator, simplified the development process markedly by letting us develop without the co-pilot hardware.
+
+Then, using modern tools for software development teams (i.e. Github, Trello, Slack, etc.) have shown to enhance communication, collaboration and other aspects of software development process, between team members. Slack was probably the single most important platform for the project as communication would not be possible in such an efficient manner without it. About Trello, it helped us to track task to do and to know who was involved for what and it showed us a clear vision of the project state. Also, using google docs and google draw has helped us to work together on reports and sketches at the same time.
+
+Finally, the best experience was the teamwork and the collaboration between each members, indeed, by helping each others to solve problems or by exchanging knowledges this allows to make a better product. Moreover, by getting to know the members in the group first and keeping the communication up even outside of meetings and regular working hours, the quality provided has been even greater.
+
+\subsection{Improvement possibilities}
+
+On the whole, the project has been finished successfully and the objectives has been reached, there is nothing to review about the methods we used , indeed our work of communication and organization is approaching a professional level. Nevertheless, we could reduce more the number of group of work and instead of one group on web portal and the other one on the android app, we could create two group for the android app: App GUI and App Backend. However this is the consequence of a too big team for this project and it explains why sometimes it was hard to devide the work but it was easy to achieve it.
+
+\section{Test Cases: Appendix}
+
+\subsubsection*{Test Case 1 - Select machine type}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Start App
+\item Touch button representing desired machine
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item App switches to alias selection view
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 2 - Select alias}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 1
+\item Enter desired alias in text field
+\item Touch button "Next"
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item App switches to time selection view
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 3 - Select time}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 2
+\item Select desired time
+\item Touch button "Play"
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item App switches to game screen and game starts
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 4 - Toggle between line graphs}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 3
+\item Touch button "Fuel", "RPM", "Acceleration", "Load" or "Distance"
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item Line graph at the top of the app swiches to selected data and the color changes to the same color as the button that was pressed
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 5 - Store score locally}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 3
+\item Let app read bus data for a while
+\item Wait for timeout or press stop button
+\item Touch button "Stats"
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item The app switches to the Statistics screen
+\item An entry at the top of the statistics tables is added with the choosen alias and the overall score from the game screen
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 6 - Upload score to cloud}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 5
+\item Open web portal
+\item Select appropriate machine in left sidebar
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item Web portal will list an entry with your score if the score is higher than the 20 highest on the portal
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 7 - Different machine types on web portal}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Open web portal
+\item Select a machine in left sidebar
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item The highscore list if filtered to only show score from the select machine type
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 8 - Timeout}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 3
+\item Wait
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item The app will stop the game after the time selected in the time selection screen
+\item The progress bar at the bottom of the screen will indicate how much time is left
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Test Case 9 - CAN}
+
+\begin{itemize}
+\item Steps
+\begin{itemize}
+\item Perform test case 3
+\item Wait
+\end{itemize}
+\item Outcomes
+\begin{itemize}
+\item The will show real CAN data from the simulators in the line and radial charts
+\end{itemize}
+\end{itemize}
+
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Date} & \textbf{Test Case} & \textbf{Result} \\ \hline
+12-12-2016 & 1 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 2 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 3 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 4 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 5 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 6 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 7 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 8 & \textcolor{ForestGreen}{\textbf{Pass}} \\ \hline
+12-12-2016 & 9 & \textcolor{Red}{\textbf{Fail}} \\ \hline
+\end{tabular}
+\end{center}
+\begin{center}
+\caption{Table 6: Performed tests}
+\end{center}
+
+\end{document}
